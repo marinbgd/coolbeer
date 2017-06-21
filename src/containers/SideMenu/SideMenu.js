@@ -8,13 +8,13 @@ class SideMenu extends React.Component {
 			<aside className="mainSideMenu">
 				<ul>
 					<li>
-						<IndexLink to="/">Home</IndexLink>
+						<IndexLink to="/" activeClassName={'active'}>Home</IndexLink>
 					</li>
 					<li>
-						<Link to="/fuel-savings">Demo App</Link>
+						<Link to="/fuel-savings" activeClassName={'active'}>Demo App</Link>
 					</li>
 					<li>
-						<Link to="/about">About</Link>
+						<Link to="/about" activeClassName={'active'}>About</Link>
 					</li>
 				</ul>
 			</aside>

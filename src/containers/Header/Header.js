@@ -9,11 +9,11 @@ class Header extends React.Component {
 		return (
 			<header className="mainHeader">
 				<nav>
-					<IndexLink to="/">Home</IndexLink>
+					<IndexLink to="/" activeClassName={'active'}>Home</IndexLink>
 					{' | '}
-					<Link to="/fuel-savings">Demo App</Link>
+					<Link to="/fuel-savings" activeClassName={'active'}>Demo App</Link>
 					{' | '}
-					<Link to="/about">About</Link>
+					<Link to="/about" activeClassName={'active'}>About</Link>
 					<br/>
 					{this.props.children}
 				</nav>
