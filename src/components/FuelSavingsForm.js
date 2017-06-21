@@ -34,26 +34,22 @@ class FuelSavingsForm extends React.Component {
 					<tbody>
 					<tr>
 						<td><label htmlFor="newMpg">New Vehicle MPG</label></td>
-						<td><FuelSavingsTextInput onChange={this.fuelSavingsKeypress} name="newMpg"
-						                          value={fuelSavings.newMpg}/>
+						<td><FuelSavingsTextInput onChange={this.fuelSavingsKeypress} name="newMpg" value={fuelSavings.newMpg}/>
 						</td>
 					</tr>
 					<tr>
 						<td><label htmlFor="tradeMpg">Trade-in MPG</label></td>
-						<td><FuelSavingsTextInput onChange={this.fuelSavingsKeypress} name="tradeMpg"
-						                          value={fuelSavings.tradeMpg}/>
+						<td><FuelSavingsTextInput onChange={this.fuelSavingsKeypress} name="tradeMpg" value={fuelSavings.tradeMpg}/>
 						</td>
 					</tr>
 					<tr>
 						<td><label htmlFor="newPpg">New Vehicle price per gallon</label></td>
-						<td><FuelSavingsTextInput onChange={this.fuelSavingsKeypress} name="newPpg"
-						                          value={fuelSavings.newPpg}/>
+						<td><FuelSavingsTextInput onChange={this.fuelSavingsKeypress} name="newPpg" value={fuelSavings.newPpg}/>
 						</td>
 					</tr>
 					<tr>
 						<td><label htmlFor="tradePpg">Trade-in price per gallon</label></td>
-						<td><FuelSavingsTextInput onChange={this.fuelSavingsKeypress} name="tradePpg"
-						                          value={fuelSavings.tradePpg}/>
+						<td><FuelSavingsTextInput onChange={this.fuelSavingsKeypress} name="tradePpg" value={fuelSavings.tradePpg}/>
 						</td>
 					</tr>
 					<tr>
