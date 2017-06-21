@@ -8,6 +8,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Setting the global style (.editorconfig) to use tabs with 4 spaces and reformatting code
 - Added versioning.txt and CHANGELOG.md to track changes and versions appropriately
 - Added container components - Header, SideMenu and MainWrapper
+- Added Material-UI -> material design components for React (material-ui.com)
+- Added Roboto font
+- Added new material header (AppBar)
 
 
 ## TODO
