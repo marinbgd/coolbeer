@@ -5,14 +5,18 @@ import Header from './Header/Header';
 import SideMenu from './SideMenu/SideMenu';
 import MainWrapper from './MainWrapper/MainWrapper';
 
+import { connect } from 'react-redux';
+//import { fuelSavings } from '../reducers/index';
+
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
 // component at the top-level.
 class App extends React.Component {
 	render() {
+		const { fuelSavings } = this.props;
 		return (
 			<main>
-				<Header />
+				<Header store={fuelSavings} />
 				<SideMenu />
 				<MainWrapper>{this.props.children}</MainWrapper>
 			</main>
@@ -21,7 +25,16 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-	children: PropTypes.element
+	children: PropTypes.element,
 };
 
-export default App;
+const mapStateToProps = (state) => {
+	return {
+		fuelSavings: state.fuelSavings
+	};
+};
+
+
+
+
+export default connect(mapStateToProps)(App);

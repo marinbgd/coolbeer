@@ -14,5 +14,15 @@ export default {
 			annual: 0,
 			threeYear: 0
 		}
-	}
+	},
+	cities: [
+		{
+			id: 1,
+			name: 'Belgrade'
+		},
+		{
+			id: 2,
+			name: 'Novi Sad'
+		}
+	]
 };

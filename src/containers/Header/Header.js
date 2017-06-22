@@ -11,7 +11,7 @@ import './Header.scss';
 
 class Header extends React.Component {
 	render () {
-
+		const {store} = this.props;
 		const buttonStyle = {
 			backgroundColor: 'transparent',
 			color: 'white'
@@ -21,9 +21,9 @@ class Header extends React.Component {
 		const demoLink = <Link to="/fuel-savings" activeClassName={'active'} />;
 		const rightButtons = (
 			<nav>
-				<FlatButton style={buttonStyle} containerElement={homeLink} linkButton={true} label="Home" />
-				<FlatButton style={buttonStyle} containerElement={aboutLink} linkButton={true} label="About" />
-				<FlatButton style={buttonStyle} containerElement={demoLink} linkButton={true} label="Demo" />
+				<FlatButton style={buttonStyle} containerElement={homeLink} label="Home" />
+				<FlatButton style={buttonStyle} containerElement={aboutLink} label="About" />
+				<FlatButton style={buttonStyle} containerElement={demoLink} label="Demo" />
 			</nav>
 		);
 
@@ -32,7 +32,6 @@ class Header extends React.Component {
 				<AppBar
 					title="Cool Beer"
 					showMenuIconButton={false}
-					iconClassNameRight="muidocs-icon-navigation-expand-more"
 					iconElementRight={rightButtons}
 				/>
 
@@ -44,7 +43,8 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-	children: PropTypes.element
+	children: PropTypes.element,
+	store: PropTypes.object.isRequired,
 };
 
 export default Header;
