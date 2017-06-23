@@ -15,11 +15,22 @@ class App extends React.Component {
 	render() {
 		const { fuelSavings } = this.props;
 		return (
-			<main>
+		<div className="wrapper table">
+			<div className="layout-header">
 				<Header store={fuelSavings} />
-				<SideMenu />
-				<MainWrapper>{this.props.children}</MainWrapper>
-			</main>
+			</div>
+			<div className="layout-main">
+				<div className="layout-box layout-sidebar">
+					<SideMenu />
+				</div>
+				<div className="layout-box layout-content">
+					<MainWrapper>{this.props.children}</MainWrapper>
+				</div>
+			</div>
+			<div className="layout-footer">
+				<p className="footer-text">© Cool Beer {new Date().getFullYear()} -  All rights reserved.</p>
+			</div>
+		</div>
 		);
 	}
 }

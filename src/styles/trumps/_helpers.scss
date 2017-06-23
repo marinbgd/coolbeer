@@ -1,0 +1,1252 @@
+$base-spacing: 30px;
+
+.border-none {
+	border: none !important;
+}
+
+.border-right-none {
+	border-right: none !important;
+}
+
+.cursor-default {
+	cursor: default !important;
+}
+
+.cursor-pointer {
+	cursor: pointer !important;
+}
+
+/*------------------------------------*    #SPACING
+\*------------------------------------*/
+/**
+ * Margin and padding helper classes. Use these to tweak layout on a micro
+ * level.
+ *
+ * `.(m|p)(t|r|b|l|h|v)(-|+|0) {}` = margin/padding top/right/bottom/left/horizontal/vertical less/more/none
+ */
+/**
+     * Margin helper classes.
+     *
+     * Add margins.
+     */
+.m {
+	margin: $base-spacing !important;
+}
+
+.mt {
+	margin-top: $base-spacing !important;
+}
+
+.mr {
+	margin-right: $base-spacing !important;
+}
+
+.mb {
+	margin-bottom: $base-spacing !important;
+}
+
+.ml {
+	margin-left: $base-spacing !important;
+}
+
+.mh {
+	margin-right: $base-spacing !important;
+	margin-left: $base-spacing !important;
+}
+
+.mv {
+	margin-top: $base-spacing !important;
+	margin-bottom: $base-spacing !important;
+}
+
+/**
+     * Add tiny margins.
+     */
+.m-- {
+	margin: $base-spacing/4 !important;
+}
+
+.m--- {
+	margin: $base-spacing/6 !important;
+}
+
+.mt-- {
+	margin-top: $base-spacing/4 !important;
+}
+
+.mt--- {
+	margin-top: $base-spacing/6 !important;
+}
+
+.mr-- {
+	margin-right: $base-spacing/4 !important;
+}
+
+.mr--- {
+	margin-right: $base-spacing/6 !important;
+}
+
+.mb-- {
+	margin-bottom: $base-spacing/4 !important;
+}
+
+.mb--- {
+	margin-bottom: $base-spacing/6 !important;
+}
+
+.ml-- {
+	margin-left: $base-spacing/4 !important;
+}
+
+.ml--- {
+	margin-left: $base-spacing/6 !important;
+}
+
+.mh-- {
+	margin-right: $base-spacing/4 !important;
+	margin-left: $base-spacing/4 !important;
+}
+
+.mh--- {
+	margin-right: $base-spacing/6 !important;
+	margin-left: $base-spacing/6 !important;
+}
+
+.mv-- {
+	margin-top: $base-spacing/4 !important;
+	margin-bottom: $base-spacing/4 !important;
+}
+
+.mv--- {
+	margin-top: $base-spacing/6 !important;
+	margin-bottom: $base-spacing/6 !important;
+}
+
+.mr20 {
+	margin-right: 20px !important;
+}
+
+.mb20 {
+	margin-bottom: 20px !important;
+}
+
+.mt20 {
+	margin-top: 20px !important;
+}
+
+.ml20 {
+	margin-left: 20px !important;
+}
+
+.mh20 {
+	margin-left: 20px !important;
+	margin-right: 20px !important;
+}
+
+/**
+     * Add small margins.
+     */
+.m- {
+	margin: $base-spacing/2 !important;
+}
+
+.mt- {
+	margin-top: $base-spacing/2 !important;
+}
+
+.mr- {
+	margin-right: $base-spacing/2 !important;
+}
+
+.mb- {
+	margin-bottom: $base-spacing/2 !important;
+}
+
+.ml- {
+	margin-left: $base-spacing/2 !important;
+}
+
+.mh- {
+	margin-right: $base-spacing/2 !important;
+	margin-left: $base-spacing/2 !important;
+}
+
+.mv- {
+	margin-top: $base-spacing/2 !important;
+	margin-bottom: $base-spacing/2 !important;
+}
+
+/**
+     * Add large margins.
+     */
+.m\+ {
+	margin: $base-spacing*2 !important;
+}
+
+.mt\+ {
+	margin-top: $base-spacing*2 !important;
+}
+
+.mr\+ {
+	margin-right: $base-spacing*2 !important;
+}
+
+.mb\+ {
+	margin-bottom: $base-spacing*2 !important;
+}
+
+.ml\+ {
+	margin-left: $base-spacing*2 !important;
+}
+
+.mh\+ {
+	margin-right: $base-spacing*2 !important;
+	margin-left: $base-spacing*2 !important;
+}
+
+.mv\+ {
+	margin-top: $base-spacing*2 !important;
+	margin-bottom: $base-spacing*2 !important;
+}
+
+/**
+     * Add huge margins.
+     */
+.m\+\+ {
+	margin: $base-spacing*4 !important;
+}
+
+.mt\+\+ {
+	margin-top: $base-spacing*4 !important;
+}
+
+.mr\+\+ {
+	margin-right: $base-spacing*4 !important;
+}
+
+.mb\+\+ {
+	margin-bottom: $base-spacing*4 !important;
+}
+
+.ml\+\+ {
+	margin-left: $base-spacing*4 !important;
+}
+
+.mh\+\+ {
+	margin-right: $base-spacing*4 !important;
+	margin-left: $base-spacing*4 !important;
+}
+
+.mv\+\+ {
+	margin-top: $base-spacing*4 !important;
+	margin-bottom: $base-spacing*4 !important;
+}
+
+/**
+     * Remove margins.
+     */
+.m0 {
+	margin: 0 !important;
+}
+
+.mt0 {
+	margin-top: 0 !important;
+}
+
+.mr0 {
+	margin-right: 0 !important;
+}
+
+.mb0 {
+	margin-bottom: 0 !important;
+}
+
+.ml0 {
+	margin-left: 0 !important;
+}
+
+.mh0 {
+	margin-right: 0 !important;
+	margin-left: 0 !important;
+}
+
+.mv0 {
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+}
+
+/**
+     * Negative margins.
+     */
+.-m {
+	margin: -$base-spacing !important;
+}
+
+.-mt {
+	margin-top: -$base-spacing !important;
+}
+
+.-mr {
+	margin-right: -$base-spacing !important;
+}
+
+.-mb {
+	margin-bottom: -$base-spacing !important;
+}
+
+.-ml {
+	margin-left: -$base-spacing !important;
+}
+
+.-mh {
+	margin-right: -$base-spacing !important;
+	margin-left: -$base-spacing !important;
+}
+
+.-mv {
+	margin-top: -$base-spacing !important;
+	margin-bottom: -$base-spacing !important;
+}
+
+/**
+     * Tiny negative margins.
+     */
+.-m\-- {
+	margin: -($base-spacing/4) !important;
+}
+
+.-mt\-- {
+	margin-top: -($base-spacing/4) !important;
+}
+
+.-mr\-- {
+	margin-right: -($base-spacing/4) !important;
+}
+
+.-mb\-- {
+	margin-bottom: -($base-spacing/4) !important;
+}
+
+.-ml\-- {
+	margin-left: -($base-spacing/4) !important;
+}
+
+.-mh\-- {
+	margin-right: -($base-spacing/4) !important;
+	margin-left: -($base-spacing/4) !important;
+}
+
+.-mv\-- {
+	margin-top: -($base-spacing/4) !important;
+	margin-bottom: -($base-spacing/4) !important;
+}
+
+/**
+     * Small negative margins.
+     */
+.-m\- {
+	margin: -($base-spacing/2) !important;
+}
+
+.-mt\- {
+	margin-top: -($base-spacing/2) !important;
+}
+
+.-mr\- {
+	margin-right: -($base-spacing/2) !important;
+}
+
+.-mb\- {
+	margin-bottom: -($base-spacing/2) !important;
+}
+
+.-ml\- {
+	margin-left: -($base-spacing/2) !important;
+}
+
+.-mh\- {
+	margin-right: -($base-spacing/2) !important;
+	margin-left: -($base-spacing/2) !important;
+}
+
+.-mv\- {
+	margin-top: -($base-spacing/2) !important;
+	margin-bottom: -($base-spacing/2) !important;
+}
+
+/**
+     * Large negative margins.
+     */
+.-m\+ {
+	margin: -($base-spacing*2) !important;
+}
+
+.-mt\+ {
+	margin-top: -($base-spacing*2) !important;
+}
+
+.-mr\+ {
+	margin-right: -($base-spacing*2) !important;
+}
+
+.-mb\+ {
+	margin-bottom: -($base-spacing*2) !important;
+}
+
+.-ml\+ {
+	margin-left: -($base-spacing*2) !important;
+}
+
+.-mh\+ {
+	margin-right: -($base-spacing*2) !important;
+	margin-left: -($base-spacing*2) !important;
+}
+
+.-mv\+ {
+	margin-top: -($base-spacing*2) !important;
+	margin-bottom: -($base-spacing*2) !important;
+}
+
+/**
+     * Padding helper classes.
+     *
+     * Add paddings.
+     */
+.p {
+	padding: $base-spacing !important;
+}
+
+.pt {
+	padding-top: $base-spacing !important;
+}
+
+.pt20 {
+	padding-top: 20px !important;
+}
+
+.pt80 {
+	padding-top: 80px !important;
+}
+
+.pb20 {
+	padding-bottom: 20px !important;
+}
+
+.pr20 {
+	padding-right: 20px !important;
+}
+
+.pr {
+	padding-right: $base-spacing !important;
+}
+
+.pb {
+	padding-bottom: $base-spacing !important;
+}
+
+.pl {
+	padding-left: $base-spacing !important;
+}
+
+.ph {
+	padding-right: $base-spacing !important;
+	padding-left: $base-spacing !important;
+}
+
+.pv {
+	padding-top: $base-spacing !important;
+	padding-bottom: $base-spacing !important;
+}
+
+/**
+     * Add tiny paddings.
+     */
+.p-- {
+	padding: $base-spacing/4 !important;
+}
+
+.pt-- {
+	padding-top: $base-spacing/4 !important;
+}
+
+.pr-- {
+	padding-right: $base-spacing/4 !important;
+}
+
+.pb-- {
+	padding-bottom: $base-spacing/4 !important;
+}
+
+.pl-- {
+	padding-left: $base-spacing/4 !important;
+}
+
+.ph-- {
+	padding-right: $base-spacing/4 !important;
+	padding-left: $base-spacing/4 !important;
+}
+
+.pv-- {
+	padding-top: $base-spacing/4 !important;
+	padding-bottom: $base-spacing/4 !important;
+}
+
+/**
+     * Add small paddings.
+     */
+.p- {
+	padding: $base-spacing/2 !important;
+}
+
+.pt- {
+	padding-top: $base-spacing/2 !important;
+}
+
+.pr- {
+	padding-right: $base-spacing/2 !important;
+}
+
+.pb- {
+	padding-bottom: $base-spacing/2 !important;
+}
+
+.pl- {
+	padding-left: $base-spacing/2 !important;
+}
+
+.ph- {
+	padding-right: $base-spacing/2 !important;
+	padding-left: $base-spacing/2 !important;
+}
+
+.pv- {
+	padding-top: $base-spacing/2 !important;
+	padding-bottom: $base-spacing/2 !important;
+}
+
+/**
+     * Add large paddings.
+     */
+.p\+ {
+	padding: $base-spacing*2 !important;
+}
+
+.pt\+ {
+	padding-top: $base-spacing*2 !important;
+}
+
+.pr\+ {
+	padding-right: $base-spacing*2 !important;
+}
+
+.pb\+ {
+	padding-bottom: $base-spacing*2 !important;
+}
+
+.pl\+ {
+	padding-left: $base-spacing*2 !important;
+}
+
+.ph\+ {
+	padding-right: $base-spacing*2 !important;
+	padding-left: $base-spacing*2 !important;
+}
+
+.ph\@md {
+
+	@media screen and (max-width: 1500px) {
+		padding-right: $base-spacing !important;
+		padding-left: $base-spacing !important;
+	}
+}
+
+.pv\+ {
+	padding-top: $base-spacing*2 !important;
+	padding-bottom: $base-spacing*2 !important;
+}
+
+/**
+     * Add huge paddings.
+     */
+.p\+\+ {
+	padding: $base-spacing*4 !important;
+}
+
+.pt\+\+ {
+	padding-top: $base-spacing*4 !important;
+}
+
+.pr\+\+ {
+	padding-right: $base-spacing*4 !important;
+}
+
+.pb\+\+ {
+	padding-bottom: $base-spacing*4 !important;
+}
+
+.pl\+\+ {
+	padding-left: $base-spacing*4 !important;
+}
+
+.ph\+\+ {
+	padding-right: $base-spacing*4 !important;
+	padding-left: $base-spacing*4 !important;
+}
+
+.pv\+\+ {
+	padding-top: $base-spacing*4 !important;
+	padding-bottom: $base-spacing*4 !important;
+}
+
+/**
+     * Remove paddings.
+     */
+.p0 {
+	padding: 0 !important;
+}
+
+.pt0 {
+	padding-top: 0 !important;
+}
+
+.pr0 {
+	padding-right: 0 !important;
+}
+
+.pb0 {
+	padding-bottom: 0 !important;
+}
+
+.pl0 {
+	padding-left: 0 !important;
+}
+
+.ph0 {
+	padding-right: 0 !important;
+	padding-left: 0 !important;
+}
+
+.pv0 {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+/*------------------------------------*    #TABLEIZE
+\*------------------------------------*/
+/**
+ * The `.tableize__content` serves as container for cell content. If you need
+ * width or padding set on a cell, make sure you set it to `.tableize__content`
+ * instead since that is what makes the whole thing work. That being said
+ * `.tableize__content` is optional.
+
+   <div class="tableize">
+     <div class="tableize__cell">
+       <div>
+         cell content
+       </div>
+     </div>
+     <div class="tableize__cell">
+       <div>
+         cell content
+       </div>
+     </div>
+   </div>
+ */
+.tableize {
+	display: table;
+	width: 100%;
+}
+
+/**
+     * Tableize cell.
+     */
+.tableize__cell {
+	display: table-cell;
+	vertical-align: top;
+}
+
+/**
+     * Filler cell. There is no need for using this class if parent `.tableize`
+     * has `.tableize--fixed` modifier.
+     *
+     * 1. Fills the rest of the row when one or more cells have fixed width.
+     */
+.tableize__cell--fill {
+	width: 100%;
+	/* [1] */
+}
+
+/**
+     * Middle tableize aligns tableize cell to their middles.
+     */
+.tableize--middle > .tableize__cell {
+	vertical-align: middle;
+}
+
+/**
+     * Bottom tableize aligns tableize cell to their bottom.
+     */
+.tableize--bottom > .tableize__cell {
+	vertical-align: bottom;
+}
+
+/**
+     * Fixed tableize makes:
+     * - all cells occupy equal width or
+     * - if one (or more) cells are fixed (or percentage base) width
+     *   the remaining columns will occupy rest of the available space.
+     *
+     * More info about `table-layout: fixed;` at
+     * http://css-tricks.com/fixing-tables-long-strings/
+     */
+.tableize--fixed {
+	table-layout: fixed;
+}
+
+/**
+     * Full height tableize.
+     */
+.tableize--full {
+	height: 100%;
+}
+
+.tableize--full > .tableize__cell,
+.tableize--full > .tableize__cell > .tableize__content {
+	height: inherit;
+}
+
+/* --------------------------------------------------------------------------------------
++
++ JUSTIFIZE
++
+-------------------------------------------------------------------------------------- */
+/*
+    http://www.css-101.org/articles/responsive-boxes/magic-boxes.php
+
+    <div class="justifize">
+      <div class="justifize__box">
+        justifize box content
+      </div>
+      <div class="justifize__box">
+        justifize box content
+      </div>
+      <div class="justifize__box">
+        justifize box content
+      </div>
+    </div>
+*/
+.justifize {
+	font-size: 1px;
+	/* IE 9, 10, 11 FIX */
+	text-align: justify;
+}
+
+.justifize:after {
+	content: "";
+	display: inline-block;
+	width: 100%;
+}
+
+.justifize__box {
+	font-size: 14px;
+	font-size: 1rem;
+	/* font size for html element MUST be set to 10px for this to work */
+	display: inline-block;
+	text-align: left;
+	vertical-align: middle;
+	float: none !important;
+}
+
+.justifize--top .justifize__box {
+	vertical-align: top;
+}
+
+.justifize--bottom .justifize__box {
+	vertical-align: bottom;
+}
+
+/*------------------------------------*    #FLAG
+\*------------------------------------*/
+/**
+ * The flag object is a design pattern similar to the media object, however it
+ * utilises `display: table[-cell];` to give us control over the vertical
+ * alignments of the text and image. csswizardry.com/2013/05/the-flag-object
+ */
+/**
+ * 1. Allows us to control vertical alignments
+ * 2. Force the object to be the full width of its parent. Combined with [1],
+ *    this makes the object behave in a quasi-`display: block;` manner.
+ */
+.flag {
+	display: table;
+	/* [1] */
+	width: 100%;
+	/* [2] */
+}
+
+/**
+     * Items within a flag object. There should only ever be one of each.
+     *
+     * 1. Default to aligning content to their middles.
+     */
+.flag__img,
+.flag__body {
+	display: table-cell;
+	vertical-align: middle;
+	/* [1] */
+}
+
+/**
+     * Flag images have a space between them and the body of the object.
+     */
+.flag__img {
+	padding-right: $base-spacing;
+}
+
+.flag__img > img {
+	display: block;
+	max-width: none;
+}
+
+/**
+     * The container for the main content of the flag object.
+     *
+     * 1. Forces the `.flag__body` to take up all remaining space.
+     */
+.flag__body {
+	width: 100%;
+	/* [1] */
+}
+
+.flag__body,
+.flag__body > :last-child {
+	margin-bottom: 0;
+}
+
+/**
+     * Tiny flags.
+     */
+.flag--tiny {
+	/**
+			   * Tiny reversed flags.
+			   */
+}
+
+.flag--tiny > .flag__img {
+	padding-right: $base-spacing/4;
+}
+
+.flag--tiny.flag--rev > .flag__img {
+	padding-right: 0;
+	padding-left: $base-spacing/4;
+}
+
+/**
+     * Small flags.
+     */
+.flag--small {
+	/**
+			   * Small reversed flags.
+			   */
+}
+
+.flag--small > .flag__img {
+	padding-right: $base-spacing/2;
+}
+
+.flag--small.flag--rev > .flag__img {
+	padding-right: 0;
+	padding-left: $base-spacing/2;
+}
+
+/**
+     * Large flags.
+     */
+.flag--large {
+	/**
+			   * Large reversed flags.
+			   */
+}
+
+.flag--large > .flag__img {
+	padding-right: $base-spacing*2;
+}
+
+.flag--large.flag--rev > .flag__img {
+	padding-right: 0;
+	padding-left: $base-spacing*2;
+}
+
+/**
+     * Huge flags.
+     */
+.flag--huge {
+	/**
+			   * Huge reversed flags.
+			   */
+}
+
+.flag--huge > .flag__img {
+	padding-right: $base-spacing*4;
+}
+
+.flag--huge.flag--rev > .flag__img {
+	padding-right: 0;
+	padding-left: $base-spacing*4;
+}
+
+/**
+     * Reversed flag objects have their image-content to the right, and text-content
+     * to the left.
+     *
+     * 1. Swap the rendered direction of the object…
+     * 2. …and reset it.
+     * 3. Reassign margins to the correct sides.
+     */
+.flag--rev {
+	direction: rtl;
+	/* [1] */
+}
+
+.flag--rev > .flag__img,
+.flag--rev > .flag__body {
+	direction: ltr;
+	/* [2] */
+}
+
+.flag--rev > .flag__img {
+	padding-right: 0;
+	/* [3] */
+	padding-left: $base-spacing;
+	/* [3] */
+}
+
+/**
+     * Flush flag objects have no space between the image- and text-content.
+     */
+.flag--flush > .flag__img {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+/**
+     * Vertically top aligned flag objects.
+     */
+.flag--top > .flag__img,
+.flag--top > .flag__body {
+	vertical-align: top;
+}
+
+/**
+     * Vertically bottom aligned flag objects.
+     */
+.flag--bottom > .flag__img,
+.flag--bottom > .flag__body {
+	vertical-align: bottom;
+}
+
+/**
+     * Responsive flag objects.
+     *
+     * There is a very pragmatic, simple implementation of a responsive flag
+     * object, which simply places the text-content beneath the image-content.
+     *
+     * We use a `max-width` media query because:
+     *
+     * a) it is the least verbose method in terms of amount of code required.
+     * b) the flag object’s default state is image-next-to-text, so its stacked
+     *    state is the exception, rather than the rule.
+     */
+@media screen and (max-width: 720px) {
+	.flag--responsive {
+		/**
+					 * Disable reversal of content because there is no concept of
+					 * ‘reversed’ in a stacked layout.
+					 */
+		direction: ltr;
+		/**
+				 * Rework the spacings on regular flag objects.
+				 */
+		/**
+					 * Tiny responsive flags.
+					 *
+					 * Take a little more heavy-handed approach to reworking
+					 * spacings on flags that are also tiny flags in their regular
+					 * state.
+					 */
+		/**
+					 * Small responsive flags.
+					 *
+					 * Take a little more heavy-handed approach to reworking
+					 * spacings on flags that are also small flags in their regular
+					 * state.
+					 */
+		/**
+					 * Large responsive flags.
+					 *
+					 * Take a little more heavy-handed approach to reworking
+					 * spacings on flags that are also large flags in their regular
+					 * state.
+					 */
+		/**
+					 * Huge responsive flags.
+					 *
+					 * Take a little more heavy-handed approach to reworking
+					 * spacings on flags that are also huge flags in their regular
+					 * state.
+					 */
+	}
+	.flag--responsive,
+	.flag--responsive > .flag__img,
+	.flag--responsive > .flag__body {
+		display: block;
+	}
+	.flag--responsive > .flag__img {
+		padding-right: 0;
+		padding-left: 0;
+		margin-bottom: $base-spacing;
+	}
+	.flag--responsive.flag--tiny > .flag__img {
+		padding-right: 0;
+		padding-left: 0;
+		margin-bottom: $base-spacing/4;
+	}
+	.flag--responsive.flag--small > .flag__img {
+		padding-right: 0;
+		padding-left: 0;
+		margin-bottom: $base-spacing/2;
+	}
+	.flag--responsive.flag--large > .flag__img {
+		padding-right: 0;
+		padding-left: 0;
+		margin-bottom: $base-spacing*2;
+	}
+	.flag--responsive.flag--huge > .flag__img {
+		padding-right: 0;
+		padding-left: 0;
+		margin-bottom: $base-spacing*4;
+	}
+}
+
+/*------------------------------------*    #MEDIA
+\*------------------------------------*/
+/**
+ * Place any image- and text-like content side-by-side, as per:
+ * stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code
+ */
+.media {
+	display: block;
+}
+
+.media__img {
+	float: left;
+	margin-right: $base-spacing;
+}
+
+.media__img > img {
+	display: block;
+}
+
+.media__body {
+	overflow: hidden;
+	display: block;
+}
+
+.media__body,
+.media__body > :last-child {
+	margin-bottom: 0;
+}
+
+/**
+     * Reversed image location (right instead of left). Extends `.media`.
+     */
+.media--rev > .media__img {
+	float: right;
+	margin-right: 0;
+	margin-left: $base-spacing;
+}
+
+/**
+     * Flush media objects have no space between the image- and text-content.
+     */
+.media--flush > .media__img {
+	margin-right: 0;
+	margin-left: 0;
+}
+
+/**
+     * Responsive media objects.
+     *
+     * There is a very pragmatic, simple implementation of a responsive media
+     * object, which simply places the text-content beneath the image-content.
+     *
+     * We use a `max-width` media query because:
+     *
+     * a) it is the least verbose method in terms of amount of code required.
+     * b) the media object’s default state is image-next-to-text, so its stacked
+     *    state is the exception, rather than the rule.
+     */
+@media screen and (max-width: 720px) {
+	.media--responsive {
+		/**
+				 * Rework the spacings on regular media objects.
+				 */
+	}
+	.media--responsive > .media__img {
+		float: none;
+		margin-right: 0;
+		margin-bottom: $base-spacing;
+		margin-left: 0;
+	}
+}
+
+.display-block {
+	display: block !important;
+}
+
+.block-center {
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+.inline-block {
+	display: inline-block !important;
+}
+
+.width-auto {
+	width: auto !important;
+}
+
+[hidden] {
+	display: none !important;
+}
+
+.no-text-transformation {
+	text-transform: none !important;
+}
+
+.full-width {
+	width: 100% !important;
+}
+
+.full-height {
+	height: 100% !important;
+}
+
+.float-none {
+	float: none !important;
+}
+
+.text-lowercase {
+	text-transform: lowercase !important;
+}
+
+.relative {
+	position: relative !important;
+}
+
+.static {
+	position: static !important;
+}
+
+.absolute {
+	position: absolute !important;
+}
+
+.overflow-hidden {
+	overflow: hidden !important;
+}
+
+.rotate180 {
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.align-middle {
+	vertical-align: middle !important;
+}
+
+.align-top {
+	vertical-align: top !important;
+}
+
+.transform-none {
+	text-transform: none !important;
+}
+
+.text-underline {
+	text-decoration: underline !important;
+}
+
+.hr--dashed {
+	display: block;
+	width: 100%;
+	height: 0;
+	border-top: 1px dashed #ccc;
+}
+
+
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after {
+	content: " "; /* 1 */
+	display: table; /* 2 */
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+.pull-right {
+	float: right;
+}
+.pull-left {
+	float: left;
+}
+.text-right {
+	text-align: right !important;
+}
+.text-left {
+	text-align: left !important;
+}
+.text-center {
+	text-align: center !important;
+}
+.text-uppercase {
+	text-transform: uppercase;
+}
+.text-capitalize {
+	text-transform: capitalize;
+}
+.text-decor-default {
+	text-transform: none !important;
+}
+
+.text-ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.position-relative {
+	position: relative;
+}
+
+.hidden {
+	display: none !important;
+}

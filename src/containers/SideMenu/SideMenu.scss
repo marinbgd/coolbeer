@@ -1,9 +1,5 @@
-.mainSideMenu {
-	position: fixed;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	width: 10em;
+@import '../../styles/settings/all';
 
-	background-color: #fff;
+.mainSideMenu {
+	text-align: left;
 }
