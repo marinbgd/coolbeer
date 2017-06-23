@@ -26,6 +26,7 @@ class App extends React.Component {
 
 App.propTypes = {
 	children: PropTypes.element,
+	fuelSavings: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => {

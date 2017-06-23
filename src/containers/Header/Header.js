@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link, IndexLink} from 'react-router';
+import { Link } from 'react-router';
 import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import FlatButton from 'material-ui/FlatButton';
 
 import './Header.scss';
@@ -11,7 +9,7 @@ import './Header.scss';
 
 class Header extends React.Component {
 	render () {
-		const {store} = this.props;
+		//const {store} = this.props;
 		const buttonStyle = {
 			backgroundColor: 'transparent',
 			color: 'white'
@@ -44,7 +42,7 @@ class Header extends React.Component {
 
 Header.propTypes = {
 	children: PropTypes.element,
-	store: PropTypes.object.isRequired,
+	/*store: PropTypes.object.isRequired,*/
 };
 
 export default Header;

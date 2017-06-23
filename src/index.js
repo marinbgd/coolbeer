@@ -10,9 +10,14 @@ import configureStore from './store/configureStore';
 require('./favicon.ico'); // Tell webpack to load favicon.ico
 import './styles/styles.scss'; // Yep, that's right. You can import SASS/CSS files too! Webpack will run the associated loader and plug this into the page.
 import {syncHistoryWithStore} from 'react-router-redux';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
+//important for Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+try {
+	injectTapEventPlugin();
+} catch (error) {}
+
 
 const store = configureStore();
 
@@ -20,11 +25,6 @@ const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 
-try {
-	injectTapEventPlugin();
-} catch(error) {
-	console.log(error);
-}
 
 render(
 	<AppContainer>
