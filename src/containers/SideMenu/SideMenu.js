@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './SideMenu.scss';
 
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+import SideDropDown from '../../components/SideDropDown/SideDropDown';
 
-import { find, cloneDeep } from 'lodash';
+import { find } from 'lodash';
 import {
 	SIDEMENU_SET_SELECTED_COUNTRY_ID,
 	SIDEMENU_SET_SELECTED_REGION_ID,
@@ -31,59 +30,33 @@ class SideMenu extends React.Component {
 	}
 
 	render () {
-		const selectCountryDropDownElement = {
-			id: undefined,
-			name: 'Select Country ...'
-		};
-		const selectRegionDropDownElement = {
-			id: undefined,
-			name: 'Select Region ...'
-		};
-		const selectCityDropDownElement = {
-			id: undefined,
-			name: 'Select City ...'
-		};
 
-		let countryDropDown = null;
-		if (this.props.sideMenu.countries) {
-			let countries = cloneDeep(this.props.sideMenu.countries);
-			countries.unshift(selectCountryDropDownElement);
-			countryDropDown = (<DropDownMenu
-				value={(this.props.selectedCountry && this.props.selectedCountry.id)}
-				onChange={this.onCountryChange.bind(this)}
-				maxHeight={300}>
-				{countries.map((country, index) => {
-					return <MenuItem key={index} value={country.id} primaryText={country.name} />;
-				})}
-			</DropDownMenu>);
-		}
+		let countryDropDown = (
+			<SideDropDown
+				unselectedText="Select Country..."
+				items={this.props.sideMenu.countries}
+				selectedItemId={(this.props.selectedCountry && this.props.selectedCountry.id)}
+				onSelectionChange={this.onCountryChange.bind(this)}
+			/>);
 
 		let regionDropDown = null;
 		if (this.props.selectedCountry && this.props.selectedCountry.regions) {
-			let regions = cloneDeep(this.props.selectedCountry.regions);
-			regions.unshift(selectRegionDropDownElement);
-			regionDropDown = (<DropDownMenu
-				value={(this.props.selectedRegion && this.props.selectedRegion.id)}
-				onChange={this.onRegionChange.bind(this)}
-				maxHeight={300}>
-				{regions.map((region, index) => {
-					return <MenuItem key={index} value={region.id} primaryText={region.name} />;
-				})}
-			</DropDownMenu>);
+			regionDropDown = (<SideDropDown
+				unselectedText="Select Region..."
+				items={this.props.selectedCountry.regions}
+				selectedItemId={(this.props.selectedRegion && this.props.selectedRegion.id)}
+				onSelectionChange={this.onRegionChange.bind(this)}
+			/>);
 		}
 
 		let cityDropDown = null;
 		if (this.props.selectedRegion && this.props.selectedRegion.cities) {
-			let cities = cloneDeep(this.props.selectedRegion.cities);
-			cities.unshift(selectCityDropDownElement);
-			cityDropDown = (<DropDownMenu
-				value={(this.props.selectedCity && this.props.selectedCity.id)}
-				onChange={this.onCityChange.bind(this)}
-				maxHeight={300}>
-				{cities.map( (city, index) => {
-					return <MenuItem key={index} value={city.id} primaryText={city.name} />;
-				})}
-			</DropDownMenu>);
+			cityDropDown = (<SideDropDown
+				unselectedText="Select City..."
+				items={this.props.selectedRegion.cities}
+				selectedItemId={(this.props.selectedCity && this.props.selectedCity.id)}
+				onSelectionChange={this.onCityChange.bind(this)}
+			/>);
 		}
 
 		return (
