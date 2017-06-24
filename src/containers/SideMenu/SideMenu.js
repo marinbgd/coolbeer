@@ -44,48 +44,46 @@ class SideMenu extends React.Component {
 			name: 'Select City ...'
 		};
 
-		console.log(this.props);
-
 		let countryDropDown = null;
 		if (this.props.sideMenu.countries) {
 			let countries = cloneDeep(this.props.sideMenu.countries);
 			countries.unshift(selectCountryDropDownElement);
-			countryDropDown = <DropDownMenu
+			countryDropDown = (<DropDownMenu
 				value={(this.props.selectedCountry && this.props.selectedCountry.id)}
 				onChange={this.onCountryChange.bind(this)}
 				maxHeight={300}>
 				{countries.map((country, index) => {
-					return <MenuItem key={index} value={country.id} primaryText={country.name}></MenuItem>;
+					return <MenuItem key={index} value={country.id} primaryText={country.name} />;
 				})}
-			</DropDownMenu>;
+			</DropDownMenu>);
 		}
 
 		let regionDropDown = null;
 		if (this.props.selectedCountry && this.props.selectedCountry.regions) {
 			let regions = cloneDeep(this.props.selectedCountry.regions);
 			regions.unshift(selectRegionDropDownElement);
-			regionDropDown = <DropDownMenu
+			regionDropDown = (<DropDownMenu
 				value={(this.props.selectedRegion && this.props.selectedRegion.id)}
 				onChange={this.onRegionChange.bind(this)}
 				maxHeight={300}>
 				{regions.map((region, index) => {
-					return <MenuItem key={index} value={region.id} primaryText={region.name}></MenuItem>;
+					return <MenuItem key={index} value={region.id} primaryText={region.name} />;
 				})}
-			</DropDownMenu>;
+			</DropDownMenu>);
 		}
 
 		let cityDropDown = null;
 		if (this.props.selectedRegion && this.props.selectedRegion.cities) {
 			let cities = cloneDeep(this.props.selectedRegion.cities);
 			cities.unshift(selectCityDropDownElement);
-			cityDropDown = <DropDownMenu
+			cityDropDown = (<DropDownMenu
 				value={(this.props.selectedCity && this.props.selectedCity.id)}
 				onChange={this.onCityChange.bind(this)}
 				maxHeight={300}>
 				{cities.map( (city, index) => {
-					return <MenuItem key={index} value={city.id} primaryText={city.name}></MenuItem>;
+					return <MenuItem key={index} value={city.id} primaryText={city.name} />;
 				})}
-			</DropDownMenu>;
+			</DropDownMenu>);
 		}
 
 		return (
