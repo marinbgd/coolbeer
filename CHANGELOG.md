@@ -11,6 +11,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added Material-UI -> material design components for React (material-ui.com)
 - Added Roboto font
 - Added new material header (AppBar)
+- Added lodash lib
+- Added typography
+- Added SideDropDown component (used in SideMenu)
+- Added PURE css framework into header via CDN
+- Added chart.js and react-chartjs2 libs for chart components
+- Added PieChart and DoughnutChart dumb components/wrappers around react-chartjs2
 
 
 ## TODO
