@@ -9,7 +9,6 @@ import './Header.scss';
 
 class Header extends React.Component {
 	render () {
-		//const {store} = this.props;
 		const buttonStyle = {
 			backgroundColor: 'transparent',
 			color: 'white'
@@ -42,7 +41,6 @@ class Header extends React.Component {
 
 Header.propTypes = {
 	children: PropTypes.element,
-	/*store: PropTypes.object.isRequired,*/
 };
 
 export default Header;
