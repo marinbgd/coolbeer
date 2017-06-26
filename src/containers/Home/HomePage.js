@@ -7,79 +7,15 @@ import { HOMEPAGE_SET_NEW_DATA } from './HomePage.actions';
 
 import Paper from 'material-ui/Paper';
 
+import BarChart from '../../components/Charts/BarChart/BarChart';
 import PieChart from '../../components/Charts/PieChart/PieChart';
 import DoughnutChart from '../../components/Charts/DoughnutChart/DoughnutChart';
-import BarChart from '../../components/Charts/BarChart/BarChart';
 import PolarAreaChart from '../../components/Charts/PolarAreaChart/PolarAreaChart';
-import RealTimePolarArea from '../../components/Charts/RealTimePolarArea/RealTimePolarArea';
+import LineChart from '../../components/Charts/LineChart/LineChart';
+
 import UpdateDataButton from '../../components/UpdateDataButton/UpdateDataButton';
 
-import RealTime from '../../components/Charts/RealTime/RealTime';
 
-
-//mock chart data
-const chartData = {
-	labels: [
-		'Red',
-		'Blue',
-		'Yellow'
-	],
-	datasets: [{
-		data: [300, 50, 100],
-		backgroundColor: [
-			'#FF6384',
-			'#36A2EB',
-			'#FFCE56'
-		],
-		hoverBackgroundColor: [
-			'#Ff1384',
-			'#3662EB',
-			'#FF9E56'
-		]
-	}]
-};
-
-const barChartData = {
-	labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-	datasets: [
-		{
-			label: 'Bar chart',
-			backgroundColor: 'rgba(255,99,132,0.2)',
-			borderColor: 'rgba(255,99,132,1)',
-			borderWidth: 1,
-			hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-			hoverBorderColor: 'rgba(255,99,132,1)',
-			data: [65, 59, 80, 81, 56, 55, 40],
-		}
-	]
-};
-
-const polarChartData = {
-	datasets: [{
-		data: [
-			11,
-			16,
-			7,
-			3,
-			14
-		],
-		backgroundColor: [
-			'#FF6384',
-			'#4BC0C0',
-			'#FFCE56',
-			'#E7E9ED',
-			'#36A2EB'
-		],
-		label: 'My dataset' // for legend
-	}],
-	labels: [
-		'Red',
-		'Green',
-		'Yellow',
-		'Grey',
-		'Blue'
-	]
-};
 
 const paperStyle = {
 	height: '100%',
@@ -107,28 +43,18 @@ class HomePage extends React.Component {
 				</ol>
 
 				<div>
-					<UpdateDataButton onClickFunc={() => this.onRandomizeDataClick()} />
-				</div>
-
-				<div className="pure-g">
-					<div className="pure-u-1-1 p-">
-						<Paper style={paperStyle} zDepth={2}>
-							{/*<RealTime data={this.props.polarAreaData} />*/}
-							{/*<RealTimePolarArea />*/}
-							<p>{JSON.stringify(this.props.polarAreaData)}</p>
-						</Paper>
-					</div>
+					<UpdateDataButton onClickFunc={this.onRandomizeDataClick.bind(this)} />
 				</div>
 
 				<div className="pure-g">
 					<div className="pure-u-1-2 p-">
 						<Paper style={paperStyle} zDepth={2}>
-							<PieChart data={chartData} />
+							<PieChart chartData={this.props.pieChartData} />
 						</Paper>
 					</div>
 					<div className="pure-u-1-2 p-">
 						<Paper style={paperStyle} zDepth={2}>
-							<DoughnutChart data={chartData} />
+							<BarChart chartData={this.props.barChartData} />
 						</Paper>
 					</div>
 				</div>
@@ -136,14 +62,20 @@ class HomePage extends React.Component {
 				<div className="pure-g">
 					<div className="pure-u-1-2 p-">
 						<Paper style={paperStyle} zDepth={2}>
-							<BarChart data={this.props.barChartData} />
+							<DoughnutChart chartData={this.props.pieChartData} />
 						</Paper>
 					</div>
 					<div className="pure-u-1-2 p-">
 						<Paper style={paperStyle} zDepth={2}>
-							<PolarAreaChart data={polarChartData} />
+							<PolarAreaChart chartData={this.props.pieChartData} />
 						</Paper>
 					</div>
+				</div>
+
+				<div className="pure-g">
+					<Paper style={paperStyle} zDepth={2}>
+						<LineChart chartData={this.props.barChartData} />
+					</Paper>
 				</div>
 
 			</section>
@@ -154,6 +86,7 @@ class HomePage extends React.Component {
 HomePage.propTypes = {
 	polarAreaData: PropTypes.object,
 	barChartData: PropTypes.object,
+	pieChartData: PropTypes.object,
 	setNewData: PropTypes.func,
 };
 
@@ -161,6 +94,7 @@ const mapStateToProps = (state) => {
 	return {
 		polarAreaData: state.homePage.polarAreaData,
 		barChartData: state.homePage.barChartData,
+		pieChartData: state.homePage.pieChartData,
 	};
 };
 

@@ -1,13 +1,14 @@
-import React from 'react';
-import RC2 from 'react-chartjs2';
-import PropTypes from 'prop-types';
+import ParentChart from '../ChartParent';
+import { cloneDeep } from 'lodash';
 
-const BarChart = props => {
-	return <RC2 data={props.data} type="bar" />;
-};
+class BarChart extends ParentChart {
 
-BarChart.propTypes = {
-	data: PropTypes.object.isRequired
-};
+	componentDidMount() {
+		let chartElement = this.refs.chart;
+		let chartData = cloneDeep(this.props.chartData);
+		chartData.type = 'bar';
+		this.chart = new Chart(chartElement, chartData);
+	}
+}
 
 export default BarChart;
