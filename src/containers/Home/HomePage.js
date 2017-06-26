@@ -107,7 +107,7 @@ class HomePage extends React.Component {
 				</ol>
 
 				<div>
-					<UpdateDataButton onClickFunc={this.onRandomizeDataClick.bind(this)} />
+					<UpdateDataButton onClickFunc={() => this.onRandomizeDataClick()} />
 				</div>
 
 				<div className="pure-g">
@@ -115,6 +115,7 @@ class HomePage extends React.Component {
 						<Paper style={paperStyle} zDepth={2}>
 							{/*<RealTime data={this.props.polarAreaData} />*/}
 							{/*<RealTimePolarArea />*/}
+							<p>{JSON.stringify(this.props.polarAreaData)}</p>
 						</Paper>
 					</div>
 				</div>
@@ -135,7 +136,7 @@ class HomePage extends React.Component {
 				<div className="pure-g">
 					<div className="pure-u-1-2 p-">
 						<Paper style={paperStyle} zDepth={2}>
-							<BarChart data={barChartData} />
+							<BarChart data={this.props.barChartData} />
 						</Paper>
 					</div>
 					<div className="pure-u-1-2 p-">
@@ -152,12 +153,14 @@ class HomePage extends React.Component {
 
 HomePage.propTypes = {
 	polarAreaData: PropTypes.object,
+	barChartData: PropTypes.object,
 	setNewData: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
 	return {
 		polarAreaData: state.homePage.polarAreaData,
+		barChartData: state.homePage.barChartData,
 	};
 };
 
