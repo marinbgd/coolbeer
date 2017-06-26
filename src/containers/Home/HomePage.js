@@ -84,7 +84,6 @@ class HomePage extends React.Component {
 }
 
 HomePage.propTypes = {
-	polarAreaData: PropTypes.object,
 	barChartData: PropTypes.object,
 	pieChartData: PropTypes.object,
 	setNewData: PropTypes.func,
@@ -92,7 +91,6 @@ HomePage.propTypes = {
 
 const mapStateToProps = (state) => {
 	return {
-		polarAreaData: state.homePage.polarAreaData,
 		barChartData: state.homePage.barChartData,
 		pieChartData: state.homePage.pieChartData,
 	};
