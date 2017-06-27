@@ -14,9 +14,7 @@ import {syncHistoryWithStore} from 'react-router-redux';
 //important for Material UI
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-try {
-	injectTapEventPlugin();
-} catch (error) {}
+injectTapEventPlugin();
 
 
 const store = configureStore();

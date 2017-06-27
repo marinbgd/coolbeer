@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, cloneDeep } from 'lodash';
-import Chart from 'chart.js';
+import { isEqual } from 'lodash';
 
 class ChartParent extends React.Component {
 
@@ -28,7 +27,7 @@ class ChartParent extends React.Component {
 
 	render() {
 		return (
-			<canvas ref="chart"></canvas>
+			<canvas ref="chart" />
 		);
 	}
 }

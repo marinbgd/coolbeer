@@ -1,5 +1,6 @@
 import ParentChart from '../ChartParent';
 import { cloneDeep } from 'lodash';
+import Chart from 'chart.js';
 
 class PolarAreaChart extends ParentChart {
 

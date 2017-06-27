@@ -31,7 +31,6 @@
 	"license": "MIT",
 	"dependencies": {
 		"chart.js": "^2.6.0",
-		"jest-cli": "^20.0.4",
 		"lodash": "^4.17.4",
 		"material-ui": "0.18.3",
 		"object-assign": "4.1.0",
@@ -74,6 +73,7 @@
 		"html-webpack-plugin": "2.24.1",
 		"identity-obj-proxy": "3.0.0",
 		"jest": "18.1.0",
+		"jest-cli": "^20.0.4",
 		"json-loader": "0.5.4",
 		"mockdate": "2.0.1",
 		"node-sass": "4.5.3",
@@ -85,6 +85,7 @@
 		"react-hot-loader": "3.0.0-beta.6",
 		"react-test-renderer": "15.4.1",
 		"redux-immutable-state-invariant": "1.2.4",
+		"react-addons-test-utils": "^15.6.0",
 		"replace": "0.3.0",
 		"rimraf": "2.5.4",
 		"sass-loader": "6.0.2",

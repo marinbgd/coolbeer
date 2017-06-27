@@ -1,5 +1,6 @@
 import ParentChart from '../ChartParent';
 import { cloneDeep } from 'lodash';
+import Chart from 'chart.js';
 
 class BarChart extends ParentChart {
 
