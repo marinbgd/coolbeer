@@ -9,10 +9,18 @@ import { find } from 'lodash';
 import {
 	SIDEMENU_SET_SELECTED_COUNTRY_ID,
 	SIDEMENU_SET_SELECTED_REGION_ID,
-	SIDEMENU_SET_SELECTED_CITY_ID
+	SIDEMENU_SET_SELECTED_CITY_ID,
+	FETCH_ALL_COUNTRIES,
+	fetchAllCountries,
 } from './SideMenu.actions';
 
 class SideMenu extends React.Component {
+
+	constructor(props) {
+		super(props);
+
+		this.props.fetchAllCountries();
+	}
 
 	onCountryChange(event, index, value) {
 		this.props.setSelectedCountry(value);
@@ -78,6 +86,7 @@ SideMenu.propTypes = {
 	setSelectedCountry: PropTypes.func.isRequired,
 	setSelectedRegion: PropTypes.func.isRequired,
 	setSelectedCity: PropTypes.func.isRequired,
+	fetchAllCountries: PropTypes.func.isRequired,
 
 	selectedCountry: PropTypes.object,
 	selectedRegion: PropTypes.object,
@@ -140,6 +149,9 @@ const mapDispatchToProps = (dispatch) => {
 					cityId,
 				}
 			});
+		},
+		fetchAllCountries: () => {
+			dispatch(fetchAllCountries());
 		}
 	};
 };

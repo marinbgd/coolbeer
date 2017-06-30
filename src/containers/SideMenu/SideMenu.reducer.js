@@ -2,6 +2,8 @@ import {
 	SIDEMENU_SET_SELECTED_COUNTRY_ID,
 	SIDEMENU_SET_SELECTED_REGION_ID,
 	SIDEMENU_SET_SELECTED_CITY_ID,
+
+	FETCH_ALL_COUNTRIES_SUCCESS,
 } from './SideMenu.actions';
 
 import { find, cloneDeep } from 'lodash';
@@ -124,6 +126,13 @@ const setSelectedCity = (state, {countryId, regionId, cityId}) => {
 	return newState;
 };
 
+const setCountries = (state, countries) => {
+	return {
+		...state,
+		countries
+	};
+};
+
 export default function sideMenu (state = initialState, action) {
 	switch (action.type) {
 		case SIDEMENU_SET_SELECTED_COUNTRY_ID:
@@ -132,6 +141,8 @@ export default function sideMenu (state = initialState, action) {
 			return setSelectedRegion(state, action.payload);
 		case SIDEMENU_SET_SELECTED_CITY_ID:
 			return setSelectedCity(state, action.payload);
+		case FETCH_ALL_COUNTRIES_SUCCESS:
+			return setCountries(state, action.payload);
 		default:
 			return state;
 	}

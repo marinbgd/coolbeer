@@ -20,7 +20,7 @@ if(!$result = $connect->query($sql)){
 
 while($row = $result->fetch_assoc()){
 	$temp = [
-        "id" => $row['id'],
+        "id" => (int) $row['id'],
         "name" => $row['name']
     ];
     $countries[] = $temp;
