@@ -8,7 +8,11 @@ cors();
 
 
 $connect = connect();
-$sql = "SELECT * FROM " . DB_TBL_CITIES;
+$sql = "SELECT * FROM " . DB_TBL_REGIONS;
+
+if( isset($_REQUEST['countryId']) && (strlen($_REQUEST['countryId']) > 0)  ){
+	$sql .= ' WHERE countryId = ' . $_REQUEST['countryId'];
+}
 
 if(!$result = $connect->query($sql)){
 	die('There was an error running the query [' . $db->error . ']');
@@ -19,10 +23,10 @@ while($row = $result->fetch_assoc()){
         "id" => (int) $row['id'],
         "name" => $row['name']
     ];
-    $cities[] = $temp;
+    $regions[] = $temp;
 }
 $response = [
-    "data" => $cities
+    "data" => $regions
 ];
 $number_of_rows = $result->num_rows;
 

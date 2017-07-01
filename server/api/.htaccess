@@ -1,11 +1,12 @@
 RewriteEngine On
 
 # catch the longer URL first -- with /countryId/
-RewriteRule ^getCountries/([A-Za-z0-9-]+)/?$ getCountries.php?id=$1 [NC,L]
-RewriteRule ^getCountries.php/([A-Za-z0-9-]+)/?$ getCountries.php?id=$1 [NC,L]
+RewriteRule ^countries/([A-Za-z0-9-]+)/?$ countries.php?id=$1 [NC,L]
 # No /countryId/
-RewriteRule ^getCountries?$ getCountries.php [NC,L]
+RewriteRule ^countries?$ countries.php [NC,L]
 
+RewriteRule ^regions/([A-Za-z0-9-]+)/?$ regions.php?countryId=$1 [NC,L]
+RewriteRule ^regions?$ regions.php [NC,L]
 
-RewriteRule ^getRegions/([A-Za-z0-9-]+)/?$ getRegions.php?countryId=$1 [NC,L]
-RewriteRule ^getRegions?$ getRegions.php [NC,L]
+RewriteRule ^cities/([A-Za-z0-9-]+)/?$ cities.php?regionId=$1 [NC,L]
+RewriteRule ^cities?$ cities.php [NC,L]
