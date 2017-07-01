@@ -23,8 +23,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Integrated SideMenu drop downs with data from the API 
 - Added DateHelper
 - Added DatePickers to the HomePage and integrated with the reducers
+- Added API /home endpoint that receives startDate and endDate for data filtering 
+- Integrated DatePicker with data fetching
 
 
 ## TODO
 - Figure appropriate LICENSE and change it
-- Rearrange components

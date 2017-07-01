@@ -1,6 +1,5 @@
 <?php
 
-//set CORS
 /**
  *  An example CORS-compliant method.  It will allow any GET, POST, or OPTIONS requests from any
  *  origin.
@@ -12,10 +11,12 @@
  *  - http://www.w3.org/TR/cors/
  *
  */
-function cors() {
-	header('content-type: application/json; charset=utf-8');
-	header("access-control-allow-origin: *");
-	header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-}
+
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Max-Age: 1000");
+header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding");
+header("Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, DELETE");
 
 ?>

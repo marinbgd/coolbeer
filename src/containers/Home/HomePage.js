@@ -6,10 +6,12 @@ import {
 	HOMEPAGE_SET_NEW_DATA,
 	HOMEPAGE_SET_START_DATE,
 	HOMEPAGE_SET_END_DATE,
+	fetchHomeData,
 } from './HomePage.actions';
 
 import Paper from 'material-ui/Paper';
 import DatePicker from 'material-ui/DatePicker';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import BarChart from '../../components/Charts/BarChart/BarChart';
 import PieChart from '../../components/Charts/PieChart/PieChart';
@@ -18,6 +20,7 @@ import PolarAreaChart from '../../components/Charts/PolarAreaChart/PolarAreaChar
 import LineChart from '../../components/Charts/LineChart/LineChart';
 
 import UpdateDataButton from '../../components/UpdateDataButton/UpdateDataButton';
+import CBTable from '../../components/CBTable/CBTable';
 
 const paperStyle = {
 	height: '100%',
@@ -28,6 +31,10 @@ const paperStyle = {
 };
 
 class HomePage extends React.Component {
+
+	constructor(props) {
+		super(props);
+	}
 
 	onRandomizeDataClick () {
 		this.props.setNewData();
@@ -41,7 +48,28 @@ class HomePage extends React.Component {
 		this.props.setEndDate(date);
 	}
 
+	handleGetData () {
+		let params = {
+			startDate: this.props.datePickerData.startDate,
+			endDate: this.props.datePickerData.endDate,
+		};
+		this.props.fetchHomeData(params);
+	}
+
 	render() {
+
+		let dataTable;
+		if (this.props.homeData && this.props.homeData.length) {
+			dataTable = (
+				<section className="p-">
+					<h3 className="text-left color-blue pb-">Data visualization:</h3>
+					<Paper style={paperStyle} zDepth={2}>
+						<CBTable data={this.props.homeData} />
+					</Paper>
+				</section>
+			);
+		}
+
 		return (
 			<section className="relative">
 				<h1>CoolBeer Dashboard</h1>
@@ -75,6 +103,17 @@ class HomePage extends React.Component {
 						</div>
 					</Paper>
 				</section>
+
+				<section className="p-">
+					<RaisedButton
+						label="Get data"
+						secondary={true}
+						fullWidth={true}
+						onTouchTap={this.handleGetData.bind(this)}
+					/>
+				</section>
+
+				{dataTable}
 
 				<section style={{overflow:'hidden', position:'relative'}}>
 					<h3 className="text-left color-blue p- pb0">Data visualization:</h3>
@@ -123,10 +162,12 @@ HomePage.propTypes = {
 	barChartData: PropTypes.object,
 	pieChartData: PropTypes.object,
 	datePickerData: PropTypes.object.isRequired,
+	homeData: PropTypes.array,
 
 	setNewData: PropTypes.func,
 	setStartDate: PropTypes.func,
 	setEndDate: PropTypes.func,
+	fetchHomeData: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
@@ -135,6 +176,7 @@ const mapStateToProps = (state) => {
 		pieChartData: state.homePage.pieChartData,
 
 		datePickerData: state.homePage.datePicker,
+		homeData: state.homePage.homeData,
 	};
 };
 
@@ -156,6 +198,9 @@ const mapDispatchToProps = (dispatch) => {
 				type: HOMEPAGE_SET_END_DATE,
 				payload: date,
 			});
+		},
+		fetchHomeData: (params) => {
+			dispatch(fetchHomeData(params));
 		},
 	};
 };

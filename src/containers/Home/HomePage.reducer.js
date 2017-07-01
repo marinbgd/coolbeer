@@ -2,6 +2,7 @@ import {
 	HOMEPAGE_SET_NEW_DATA,
 	HOMEPAGE_SET_START_DATE,
 	HOMEPAGE_SET_END_DATE,
+	FETCH_HOME_DATA_SUCCESS,
 } from './HomePage.actions';
 
 import DateHelper from '../../common/DateHelper';
@@ -74,6 +75,8 @@ const initialState = {
 		endDate: DateHelper.getNextMonth( DateHelper.getEndOfDay( new Date() ) ),
 	},
 
+	homeData: [],
+
 };
 
 const getRandomData = () => {
@@ -103,6 +106,12 @@ const setEndDate = (state, date) => {
 	return newState;
 };
 
+const setHomeData = (state, data) => {
+	let newState = cloneDeep(state);
+	newState.homeData = data;
+	return newState;
+};
+
 export default function homePage (state = initialState, action) {
 	switch (action.type) {
 		case HOMEPAGE_SET_NEW_DATA:
@@ -111,6 +120,8 @@ export default function homePage (state = initialState, action) {
 			return setStartDate(state, action.payload);
 		case HOMEPAGE_SET_END_DATE:
 			return setEndDate(state, action.payload);
+		case FETCH_HOME_DATA_SUCCESS:
+			return setHomeData(state, action.payload);
 		default:
 			return state;
 	}

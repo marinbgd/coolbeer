@@ -9,6 +9,7 @@ define("DB_NAME", "CoolBeer");
 define("DB_TBL_COUNTRIES", "countries");
 define("DB_TBL_REGIONS", "regions");
 define("DB_TBL_CITIES", "cities");
+define("DB_TBL_HOME", "podaci");
 
 function connect(){
 	$db = new mysqli();

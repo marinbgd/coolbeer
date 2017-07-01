@@ -5,6 +5,7 @@ const DateHelper = {
 		processedDate.setHours(0);
 		processedDate.setMinutes(0);
 		processedDate.setSeconds(0);
+		processedDate.setMilliseconds(0);
 		return processedDate;
 	},
 
@@ -13,6 +14,7 @@ const DateHelper = {
 		processedDate.setHours(23);
 		processedDate.setMinutes(59);
 		processedDate.setSeconds(59);
+		processedDate.setMilliseconds(999);
 		return processedDate;
 	},
 
