@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router';
 import PropTypes from 'prop-types';
 
 import { HOMEPAGE_SET_NEW_DATA } from './HomePage.actions';
@@ -15,8 +14,6 @@ import PolarAreaChart from '../../components/Charts/PolarAreaChart/PolarAreaChar
 import LineChart from '../../components/Charts/LineChart/LineChart';
 
 import UpdateDataButton from '../../components/UpdateDataButton/UpdateDataButton';
-
-
 
 const paperStyle = {
 	height: '100%',
