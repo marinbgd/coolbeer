@@ -10,8 +10,9 @@ import {
 	SIDEMENU_SET_SELECTED_COUNTRY_ID,
 	SIDEMENU_SET_SELECTED_REGION_ID,
 	SIDEMENU_SET_SELECTED_CITY_ID,
-	FETCH_ALL_COUNTRIES,
 	fetchAllCountries,
+	fetchRegionsForCountryId,
+	fetchCitiesForRegionId,
 } from './SideMenu.actions';
 
 class SideMenu extends React.Component {
@@ -27,14 +28,11 @@ class SideMenu extends React.Component {
 	}
 
 	onRegionChange(event, index, value) {
-		let selectedCountryId = this.props.selectedCountry.id;
-		this.props.setSelectedRegion(selectedCountryId, value);
+		this.props.setSelectedRegion(value);
 	}
 
 	onCityChange(event, index, value) {
-		let selectedCountryId = this.props.selectedCountry.id;
-		let selectedRegionId = this.props.selectedRegion.id;
-		this.props.setSelectedCity(selectedCountryId, selectedRegionId, value);
+		this.props.setSelectedCity(value);
 	}
 
 	render () {
@@ -48,20 +46,20 @@ class SideMenu extends React.Component {
 			/>);
 
 		let regionDropDown = null;
-		if (this.props.selectedCountry && this.props.selectedCountry.regions) {
+		if (this.props.sideMenu.regions && this.props.sideMenu.regions.length) {
 			regionDropDown = (<SideDropDown
 				unselectedText="Select Region..."
-				items={this.props.selectedCountry.regions}
+				items={this.props.sideMenu.regions}
 				selectedItemId={(this.props.selectedRegion && this.props.selectedRegion.id)}
 				onSelectionChange={this.onRegionChange.bind(this)}
 			/>);
 		}
 
 		let cityDropDown = null;
-		if (this.props.selectedRegion && this.props.selectedRegion.cities) {
+		if (this.props.sideMenu.cities && this.props.sideMenu.cities.length) {
 			cityDropDown = (<SideDropDown
 				unselectedText="Select City..."
-				items={this.props.selectedRegion.cities}
+				items={this.props.sideMenu.cities}
 				selectedItemId={(this.props.selectedCity && this.props.selectedCity.id)}
 				onSelectionChange={this.onCityChange.bind(this)}
 			/>);
@@ -93,31 +91,17 @@ SideMenu.propTypes = {
 	selectedCity: PropTypes.object,
 };
 
-const _getSelectedCountry = (countries) => {
-	return find(countries, {'_selected': true});
-};
-
-const _getSelectedRegion = (countries) => {
-	let selectedCountry = _getSelectedCountry(countries);
-	if (selectedCountry && selectedCountry.regions) {
-		return find(selectedCountry.regions, {'_selected': true});
-	}
-};
-
-const _getSelectedCity = (countries) => {
-	let selectedRegion = _getSelectedRegion(countries);
-	if (selectedRegion && selectedRegion.cities) {
-		return find(selectedRegion.cities, {'_selected': true});
-	}
+const _getSelectedItem = (items) => {
+	return find(items, {'_selected': true});
 };
 
 const mapStateToProps = (state) => {
 	return {
 		sideMenu: state.sideMenu,
 
-		selectedCountry: _getSelectedCountry(state.sideMenu.countries),
-		selectedRegion: _getSelectedRegion(state.sideMenu.countries),
-		selectedCity: _getSelectedCity(state.sideMenu.countries),
+		selectedCountry: _getSelectedItem(state.sideMenu.countries),
+		selectedRegion: _getSelectedItem(state.sideMenu.regions),
+		selectedCity: _getSelectedItem(state.sideMenu.cities),
 	};
 };
 
@@ -130,22 +114,21 @@ const mapDispatchToProps = (dispatch) => {
 					countryId,
 				}
 			});
+			dispatch(fetchRegionsForCountryId(countryId));
 		},
-		setSelectedRegion: (countryId, regionId) => {
+		setSelectedRegion: (regionId) => {
 			dispatch({
 				type: SIDEMENU_SET_SELECTED_REGION_ID,
 				payload: {
-					countryId,
 					regionId,
 				}
 			});
+			dispatch(fetchCitiesForRegionId(regionId));
 		},
-		setSelectedCity: (countryId, regionId, cityId) => {
+		setSelectedCity: (cityId) => {
 			dispatch({
 				type: SIDEMENU_SET_SELECTED_CITY_ID,
 				payload: {
-					countryId,
-					regionId,
 					cityId,
 				}
 			});

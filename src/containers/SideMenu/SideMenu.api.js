@@ -3,16 +3,21 @@ import { API_URL } from '../../constants/config';
 
 const SideMenuApi = {
 	fetchAllCountries: () => {
-		console.log('sidemenu api fetch all countries');
-
-		return fetch(API_URL + '/getCountries').then(
+		return fetch(API_URL + '/countries').then(
 			response => response.json()
 		);
+	},
 
-		/*return new Promise(
-			() => {console.log(11)},
-			() => {console.log(22)},
-		);*/
+	fetchRegionsForCountryId: (countryId) => {
+		return fetch(API_URL + '/regions/' + countryId).then(
+			response => response.json()
+		);
+	},
+
+	fetchCitiesForRegionId: (regionId) => {
+		return fetch(API_URL + '/cities/' + regionId).then(
+			response => response.json()
+		);
 	}
 };
 
