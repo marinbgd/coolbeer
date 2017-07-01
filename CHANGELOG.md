@@ -15,8 +15,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added typography
 - Added SideDropDown component (used in SideMenu)
 - Added PURE css framework into header via CDN
-- Added chart.js and react-chartjs2 libs for chart components
-- Added PieChart and DoughnutChart dumb components/wrappers around react-chartjs2
+- Added chart.js lib for chart components
+- Added PieChart, BarChart, LineChart, PolarAreaChart and DoughnutChart dumb components/wrappers around chart.js
+
+- Added config.js with API_URL constant
+- Added isomorphic-fetch and es6-promise libs for handling async network requests
 
 
 ## TODO

@@ -8,9 +8,10 @@ cors();
 
 
 $connect = connect();
-$sql = "SELECT * FROM " . DB_TBL_REGIONS;
-if( isset($_REQUEST['countryId']) && (strlen($_REQUEST['countryId']) > 0)  ){
-	$sql .= ' WHERE countryId = ' . $_REQUEST['countryId'];
+$sql = "SELECT * FROM " . DB_TBL_COUNTRIES;
+
+if( isset($_REQUEST['id']) && (strlen($_REQUEST['id']) > 0)  ){
+	$sql .= ' WHERE id = ' . $_REQUEST['id'];
 }
 
 if(!$result = $connect->query($sql)){
@@ -19,13 +20,13 @@ if(!$result = $connect->query($sql)){
 
 while($row = $result->fetch_assoc()){
 	$temp = [
-        "id" => $row['id'],
+        "id" => (int) $row['id'],
         "name" => $row['name']
     ];
-    $regions[] = $temp;
+    $countries[] = $temp;
 }
 $response = [
-    "data" => $regions
+    "data" => $countries
 ];
 $number_of_rows = $result->num_rows;
 

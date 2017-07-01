@@ -2,126 +2,60 @@ import {
 	SIDEMENU_SET_SELECTED_COUNTRY_ID,
 	SIDEMENU_SET_SELECTED_REGION_ID,
 	SIDEMENU_SET_SELECTED_CITY_ID,
+
+	FETCH_ALL_COUNTRIES_SUCCESS,
+	FETCH_REGIONS_FOR_COUNTRYID_SUCCESS,
+	FETCH_CITIES_FOR_REGIONID_SUCCESS,
 } from './SideMenu.actions';
 
-import { find, cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash';
 
 const initialState = {
-	countries: [
-		{
-			id: 1,
-			name: 'Serbia',
-			regions: [
-				{
-					id: 1,
-					name: 'Grad Beograd',
-					cities: [
-						{
-							id: 1,
-							name: 'Beograd',
-						},
-						{
-							id: 2,
-							name: 'Grocka',
-						},
-						{
-							id: 3,
-							name: 'Barajevo',
-						},
-						{
-							id: 4,
-							name: 'Obrenovac',
-						},
-						{
-							id: 5,
-							name: 'Surcin',
-						},
-					]
-				},
-				{
-					id: 2,
-					name: 'Nisavski okrug',
-					cities: [
-						{
-							id: 1,
-							name: 'Nis',
-						},
-						{
-							id: 2,
-							name: 'Aleksinac',
-						},
-						{
-							id: 3,
-							name: 'Svrljig',
-						},
-					]
-				}
-			]
-		},
-		{
-			id: 2,
-			name: 'Bulgaria'
-		}
-	]
+	countries: [],
+	regions: [],
+	cities: []
 };
 
 const setSelectedCountry = (state, {countryId}) => {
-	let newState = _resetAllSelectedCountries(state);
-	//newState = _resetAllSelectedRegions(newState);
-
-	let foundCountry = find(newState.countries, {id: countryId});
-	if (foundCountry) {
-		foundCountry._selected = true;
-	}
-
-	return newState;
-};
-
-const _resetAllSelectedCountries = (state) => {
 	let newState = cloneDeep(state);
-	newState.countries.forEach(country => country._selected = false);
+	newState.countries.forEach( country => country._selected = (country.id === countryId));
+	newState.regions = [];
+	newState.cities = [];
 	return newState;
 };
 
-const setSelectedRegion = (state, {countryId, regionId}) => {
-	let newState = _resetAllSelectedRegions(state);
-
-	let foundCountry = find(newState.countries, {id: countryId});
-	if (foundCountry) {
-		foundCountry._selected = true;
-		if ((foundCountry.regions && foundCountry.regions.length)) {
-			foundCountry.regions.forEach( region => region._selected = (region.id === regionId));
-		}
-	}
-
-	return newState;
-};
-
-const _resetAllSelectedRegions = (state) => {
+const setSelectedRegion = (state, {regionId}) => {
 	let newState = cloneDeep(state);
-	newState.countries.forEach(country => {
-		if (country.regions) {
-			country.regions.forEach( region => region._selected = false);
-		}
-	});
+	newState.regions.forEach( region => region._selected = (region.id === regionId));
+	newState.cities = [];
 	return newState;
 };
 
-const setSelectedCity = (state, {countryId, regionId, cityId}) => {
+const setSelectedCity = (state, {cityId}) => {
 	let newState = cloneDeep(state);
-
-	let foundCountry = find(newState.countries, {id: countryId});
-	if (foundCountry) {
-		foundCountry._selected = true;
-		if ((foundCountry.regions && foundCountry.regions.length)) {
-			let foundRegion = find(foundCountry.regions, {id: regionId});
-			if (foundRegion && foundRegion.cities) {
-				foundRegion.cities.forEach(city => city._selected = (city.id === cityId));
-			}
-		}
-	}
-
+	newState.cities.forEach( city => city._selected = (city.id === cityId));
 	return newState;
+};
+
+const setCountries = (state, countries) => {
+	return {
+		...state,
+		countries
+	};
+};
+
+const setRegions = (state, regions) => {
+	return {
+		...state,
+		regions
+	};
+};
+
+const setCities = (state, cities) => {
+	return {
+		...state,
+		cities
+	};
 };
 
 export default function sideMenu (state = initialState, action) {
@@ -132,6 +66,12 @@ export default function sideMenu (state = initialState, action) {
 			return setSelectedRegion(state, action.payload);
 		case SIDEMENU_SET_SELECTED_CITY_ID:
 			return setSelectedCity(state, action.payload);
+		case FETCH_ALL_COUNTRIES_SUCCESS:
+			return setCountries(state, action.payload);
+		case FETCH_REGIONS_FOR_COUNTRYID_SUCCESS:
+			return setRegions(state, action.payload);
+		case FETCH_CITIES_FOR_REGIONID_SUCCESS:
+			return setCities(state, action.payload);
 		default:
 			return state;
 	}
