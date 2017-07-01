@@ -2,7 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { HOMEPAGE_SET_NEW_DATA } from './HomePage.actions';
+import {
+	HOMEPAGE_SET_NEW_DATA,
+	HOMEPAGE_SET_START_DATE,
+	HOMEPAGE_SET_END_DATE,
+} from './HomePage.actions';
 
 import Paper from 'material-ui/Paper';
 import DatePicker from 'material-ui/DatePicker';
@@ -29,12 +33,12 @@ class HomePage extends React.Component {
 		this.props.setNewData();
 	}
 
-	handleChangeMinDate (event, date) {
-		console.log(date);
+	handleChangeStartDate (event, date) {
+		this.props.setStartDate(date);
 	}
 
-	handleChangeMaxDate (event, date) {
-		console.log(date);
+	handleChangeEndDate (event, date) {
+		this.props.setEndDate(date);
 	}
 
 	render() {
@@ -54,16 +58,18 @@ class HomePage extends React.Component {
 						<div className="pure-g">
 							<div className="pure-u-1-2">
 								<DatePicker
-									onChange={this.handleChangeMinDate}
+									onChange={this.handleChangeStartDate.bind(this)}
 									autoOk={true}
 									floatingLabelText="Start Date"
+									value={this.props.datePickerData.startDate}
 								/>
 							</div>
 							<div className="pure-u-1-2">
 								<DatePicker
-									onChange={this.handleChangeMaxDate}
+									onChange={this.handleChangeEndDate.bind(this)}
 									autoOk={true}
 									floatingLabelText="End Date"
+									value={this.props.datePickerData.endDate}
 								/>
 							</div>
 						</div>
@@ -116,13 +122,19 @@ class HomePage extends React.Component {
 HomePage.propTypes = {
 	barChartData: PropTypes.object,
 	pieChartData: PropTypes.object,
+	datePickerData: PropTypes.object.isRequired,
+
 	setNewData: PropTypes.func,
+	setStartDate: PropTypes.func,
+	setEndDate: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
 	return {
 		barChartData: state.homePage.barChartData,
 		pieChartData: state.homePage.pieChartData,
+
+		datePickerData: state.homePage.datePicker,
 	};
 };
 
@@ -132,7 +144,19 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch({
 				type: HOMEPAGE_SET_NEW_DATA,
 			});
-		}
+		},
+		setStartDate: (date) => {
+			dispatch({
+				type: HOMEPAGE_SET_START_DATE,
+				payload: date,
+			});
+		},
+		setEndDate: (date) => {
+			dispatch({
+				type: HOMEPAGE_SET_END_DATE,
+				payload: date,
+			});
+		},
 	};
 };
 

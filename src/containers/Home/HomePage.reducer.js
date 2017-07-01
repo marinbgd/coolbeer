@@ -1,6 +1,10 @@
 import {
 	HOMEPAGE_SET_NEW_DATA,
+	HOMEPAGE_SET_START_DATE,
+	HOMEPAGE_SET_END_DATE,
 } from './HomePage.actions';
+
+import DateHelper from '../../common/DateHelper';
 
 import { cloneDeep } from 'lodash';
 
@@ -39,6 +43,7 @@ const initialState = {
 			}
 		}
 	},
+
 	pieChartData: {
 		type: 'pie',
 		data: {
@@ -62,7 +67,13 @@ const initialState = {
 				borderWidth: 1
 			}]
 		}
-	}
+	},
+
+	datePicker: {
+		startDate: DateHelper.getStartOfDay( new Date() ),
+		endDate: DateHelper.getNextMonth( DateHelper.getEndOfDay( new Date() ) ),
+	},
+
 };
 
 const getRandomData = () => {
@@ -80,10 +91,26 @@ const randomDataChange = (state) => {
 	return newState;
 };
 
+const setStartDate = (state, date) => {
+	let newState = cloneDeep(state);
+	newState.datePicker.startDate = DateHelper.getStartOfDay(date);
+	return newState;
+};
+
+const setEndDate = (state, date) => {
+	let newState = cloneDeep(state);
+	newState.datePicker.endDate = DateHelper.getEndOfDay(date);
+	return newState;
+};
+
 export default function homePage (state = initialState, action) {
 	switch (action.type) {
 		case HOMEPAGE_SET_NEW_DATA:
 			return randomDataChange(state);
+		case HOMEPAGE_SET_START_DATE:
+			return setStartDate(state, action.payload);
+		case HOMEPAGE_SET_END_DATE:
+			return setEndDate(state, action.payload);
 		default:
 			return state;
 	}

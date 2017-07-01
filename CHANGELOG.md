@@ -17,13 +17,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added PURE css framework into header via CDN
 - Added chart.js lib for chart components
 - Added PieChart, BarChart, LineChart, PolarAreaChart and DoughnutChart dumb components/wrappers around chart.js
-
 - Added config.js with API_URL constant
 - Added isomorphic-fetch and es6-promise libs for handling async network requests
+- Integrated SERVER API PHP code into the project (folder 'server')
+- Integrated SideMenu drop downs with data from the API 
+- Added DateHelper
+- Added DatePickers to the HomePage and integrated with the reducers
 
 
 ## TODO
 - Figure appropriate LICENSE and change it
 - Rearrange components
-- Make global Layout component/container
-
