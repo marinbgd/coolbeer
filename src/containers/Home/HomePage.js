@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { HOMEPAGE_SET_NEW_DATA } from './HomePage.actions';
 
 import Paper from 'material-ui/Paper';
+import DatePicker from 'material-ui/DatePicker';
 
 import BarChart from '../../components/Charts/BarChart/BarChart';
 import PieChart from '../../components/Charts/PieChart/PieChart';
@@ -31,21 +32,53 @@ class HomePage extends React.Component {
 		this.props.setNewData();
 	}
 
+	handleChangeMinDate (event, date) {
+		console.log(date);
+	}
+
+	handleChangeMaxDate (event, date) {
+		console.log(date);
+	}
+
 	render() {
 		return (
 			<section className="relative">
-				<h1>React Slingshot</h1>
+				<h1>CoolBeer Dashboard</h1>
 
 				<h2>Get Started</h2>
 				<ol>
-					<li>Review the <Link to="fuel-savings">demo app</Link></li>
-					<li>Remove the demo and start coding: npm run remove-demo</li>
+					<li>Please select country, region and city you are interested in.</li>
+					<li>You can select data range to narrow your data</li>
 				</ol>
 
-				<div>
-					<UpdateDataButton onClickFunc={this.onRandomizeDataClick.bind(this)} />
-				</div>
+				<section className="p-">
+					<h3 className="text-left color-blue pb-">Please select data range:</h3>
+					<Paper style={paperStyle} zDepth={2}>
+						<div className="pure-g">
+							<div className="pure-u-1-2">
+								<DatePicker
+									onChange={this.handleChangeMinDate}
+									autoOk={true}
+									floatingLabelText="Start Date"
+								/>
+							</div>
+							<div className="pure-u-1-2">
+								<DatePicker
+									onChange={this.handleChangeMaxDate}
+									autoOk={true}
+									floatingLabelText="End Date"
+								/>
+							</div>
+						</div>
+					</Paper>
+				</section>
 
+				<section style={{overflow:'hidden', position:'relative'}}>
+					<h3 className="text-left color-blue p- pb0">Data visualization:</h3>
+					<div style={{position:'absolute', bottom: 0, right: '1em'}}>
+						<UpdateDataButton onClickFunc={this.onRandomizeDataClick.bind(this)} />
+					</div>
+				</section>
 				<div className="pure-g">
 					<div className="pure-u-1-2 p-">
 						<Paper style={paperStyle} zDepth={2}>

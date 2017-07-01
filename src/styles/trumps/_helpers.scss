@@ -1,3 +1,4 @@
+@import '../settings/colorVariables';
 $base-spacing: 30px;
 
 .border-none {
@@ -1249,4 +1250,10 @@ $base-spacing: 30px;
 
 .hidden {
 	display: none !important;
+}
+
+
+/* colors */
+.color-blue {
+	color: $blue;
 }
