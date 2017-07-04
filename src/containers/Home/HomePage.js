@@ -17,7 +17,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import FontIcon from 'material-ui/FontIcon';
 import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
-import { blue500 } from 'material-ui/styles/colors';
+import { cyan500 } from 'material-ui/styles/colors';
 
 import BarChart from '../../components/Charts/BarChart/BarChart';
 import PieChart from '../../components/Charts/PieChart/PieChart';
@@ -27,6 +27,7 @@ import LineChart from '../../components/Charts/LineChart/LineChart';
 
 import UpdateDataButton from '../../components/UpdateDataButton/UpdateDataButton';
 import CBTable from '../../components/CBTable/CBTable';
+import SearchBox from '../../components/SearchBox/SearchBox';
 
 const paperStyle = {
 	height: '100%',
@@ -62,6 +63,10 @@ class HomePage extends React.Component {
 		this.props.fetchShops(params);
 	}
 
+	handleSearchBoxChange(event, text) {
+		console.log(text);
+	}
+
 	render() {
 
 		const progressLoader = (<aside className="homePageShopsProgressHolder">
@@ -72,7 +77,7 @@ class HomePage extends React.Component {
 			<aside className="homePageShopsEmptyWrapper">
 				<span className="homePageShopsEmptyHolder">
 					<Chip>
-						<Avatar icon={<FontIcon color={blue500} className="material-icons">warning</FontIcon>} />
+						<Avatar icon={<FontIcon color={cyan500} className="material-icons">warning</FontIcon>} />
 						No data for selected filters
 					</Chip>
 				</span>
@@ -103,6 +108,10 @@ class HomePage extends React.Component {
 					<li>Please select country, region and city you are interested in.</li>
 					<li>You can select data range to narrow your data</li>
 				</ol>
+
+				<aside className="searchShops">
+					<SearchBox onChangeCb={this.handleSearchBoxChange.bind(this)} />
+				</aside>
 
 				<section className="p-">
 					<h3 className="text-left color-blue pb-">Please select data range:</h3>
@@ -186,7 +195,6 @@ HomePage.propTypes = {
 	barChartData: PropTypes.object,
 	pieChartData: PropTypes.object,
 	datePickerData: PropTypes.object.isRequired,
-	homeData: PropTypes.array,
 
 	shops: PropTypes.object.isRequired,
 
@@ -203,7 +211,6 @@ const mapStateToProps = (state) => {
 		pieChartData: state.homePage.pieChartData,
 
 		datePickerData: state.homePage.datePicker,
-		homeData: state.homePage.homeData,
 		shops: state.homePage.shops,
 	};
 };

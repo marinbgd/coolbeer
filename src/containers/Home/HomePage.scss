@@ -12,3 +12,19 @@
 .homePageShopsEmptyHolder {
 	display: inline-block;
 }
+
+.searchShops {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+}
+.searchShop__icon {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+}
+.searchShop__title {
+	text-align: left;
+	color: $blue;
+	margin: 0;
+}
