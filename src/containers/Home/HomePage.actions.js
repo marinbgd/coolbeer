@@ -1,28 +1,33 @@
 export const HOMEPAGE_SET_NEW_DATA = 'HOMEPAGE_SET_NEW_DATA';
-
 export const HOMEPAGE_SET_START_DATE = 'HOMEPAGE_SET_START_DATE';
 export const HOMEPAGE_SET_END_DATE = 'HOMEPAGE_SET_END_DATE';
 
-export const FETCH_HOME_DATA_SUCCESS = 'FETCH_HOME_DATA_SUCCESS';
-
 import HomePageApi from './HomePage.api';
 
-export const fetchHomeData = (params) => {
-	return (dispatch) => {
-		return HomePageApi.fetchHomeData(params)
+export const REQUEST_SHOPS = 'REQUEST_SHOPS';
+export function requestShops() {
+	return {
+		type: REQUEST_SHOPS,
+	};
+}
+export const RECEIVE_SHOPS = 'RECEIVE_SHOPS';
+export function receiveShops(shops) {
+	return {
+		type: RECEIVE_SHOPS,
+		payload: shops,
+		receivedAt: Date.now(),
+	};
+}
+export function fetchShops(params) {
+	return function (dispatch) {
+		dispatch(requestShops());
+		return HomePageApi.fetchShops(params)
 			.then( response => {
-				let homeData = response.data;
-				dispatch(fetchHomeDataSuccess(homeData));
+				let shops = response.data;
+				dispatch(receiveShops(shops));
 			})
 			.catch( error => {
 				return error;
 			});
-	};
-};
-
-export function fetchHomeDataSuccess(data) {
-	return {
-		type: FETCH_HOME_DATA_SUCCESS,
-		payload: data
 	};
 }

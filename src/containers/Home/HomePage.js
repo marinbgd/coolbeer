@@ -1,17 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import './HomePage.scss';
 
 import {
 	HOMEPAGE_SET_NEW_DATA,
 	HOMEPAGE_SET_START_DATE,
 	HOMEPAGE_SET_END_DATE,
-	fetchHomeData,
+	fetchShops,
 } from './HomePage.actions';
 
 import Paper from 'material-ui/Paper';
 import DatePicker from 'material-ui/DatePicker';
 import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
+import FontIcon from 'material-ui/FontIcon';
+import Chip from 'material-ui/Chip';
+import Avatar from 'material-ui/Avatar';
+import { blue500 } from 'material-ui/styles/colors';
 
 import BarChart from '../../components/Charts/BarChart/BarChart';
 import PieChart from '../../components/Charts/PieChart/PieChart';
@@ -53,21 +59,39 @@ class HomePage extends React.Component {
 			startDate: this.props.datePickerData.startDate,
 			endDate: this.props.datePickerData.endDate,
 		};
-		this.props.fetchHomeData(params);
+		this.props.fetchShops(params);
 	}
 
 	render() {
 
+		const progressLoader = (<aside className="homePageShopsProgressHolder">
+			<CircularProgress mode="indeterminate" size={100} thickness={10}/>
+		</aside>);
+
+		const noTableData = (
+			<aside className="homePageShopsEmptyWrapper">
+				<span className="homePageShopsEmptyHolder">
+					<Chip>
+						<Avatar icon={<FontIcon color={blue500} className="material-icons">warning</FontIcon>} />
+						No data for selected filters
+					</Chip>
+				</span>
+			</aside>);
+
 		let dataTable;
-		if (this.props.homeData && this.props.homeData.length) {
+		if (this.props.shops.isFetching) {
+			dataTable = progressLoader;
+		} else if (this.props.shops.items.length) {
 			dataTable = (
 				<section className="p-">
 					<h3 className="text-left color-blue pb-">Data visualization:</h3>
 					<Paper style={paperStyle} zDepth={2}>
-						<CBTable data={this.props.homeData} />
+						<CBTable data={this.props.shops.items} />
 					</Paper>
 				</section>
 			);
+		} else if (!this.props.shops.items.length && this.props.shops.lastUpdated) {
+			dataTable = noTableData;
 		}
 
 		return (
@@ -164,10 +188,13 @@ HomePage.propTypes = {
 	datePickerData: PropTypes.object.isRequired,
 	homeData: PropTypes.array,
 
+	shops: PropTypes.object.isRequired,
+
 	setNewData: PropTypes.func,
 	setStartDate: PropTypes.func,
 	setEndDate: PropTypes.func,
-	fetchHomeData: PropTypes.func,
+
+	fetchShops: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
@@ -177,6 +204,7 @@ const mapStateToProps = (state) => {
 
 		datePickerData: state.homePage.datePicker,
 		homeData: state.homePage.homeData,
+		shops: state.homePage.shops,
 	};
 };
 
@@ -199,8 +227,8 @@ const mapDispatchToProps = (dispatch) => {
 				payload: date,
 			});
 		},
-		fetchHomeData: (params) => {
-			dispatch(fetchHomeData(params));
+		fetchShops: (params) => {
+			dispatch(fetchShops(params));
 		},
 	};
 };

@@ -42,7 +42,7 @@ const setCountriesFetching = (state, isFetching) => {
 };
 const setCountries = (state, action) => {
 	let newState = cloneDeep(state);
-	newState.countries.items = action.payload;
+	newState.countries.items = action.payload || [];
 	newState.countries.lastUpdated = action.receivedAt;
 	newState.countries.isFetching = false;
 	return newState;
@@ -69,7 +69,7 @@ const setSelectedRegion = (state, {regionId}) => {
 };
 const setRegions = (state, action) => {
 	let newState = cloneDeep(state);
-	newState.regions.items = action.payload;
+	newState.regions.items = action.payload || [];
 	newState.regions.lastUpdated = action.receivedAt;
 	newState.regions.isFetching = false;
 	return newState;
@@ -88,7 +88,7 @@ const setSelectedCity = (state, {cityId}) => {
 };
 const setCities = (state, action) => {
 	let newState = cloneDeep(state);
-	newState.cities.items = action.payload;
+	newState.cities.items = action.payload || [];
 	newState.cities.lastUpdated = action.receivedAt;
 	newState.cities.isFetching = false;
 	return newState;
