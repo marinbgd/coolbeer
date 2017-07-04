@@ -25,6 +25,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added DatePickers to the HomePage and integrated with the reducers
 - Added API /home endpoint that receives startDate and endDate for data filtering 
 - Integrated DatePicker with data fetching
+- Added progress loaders on side menu drop downs loading
 
 
 ## TODO

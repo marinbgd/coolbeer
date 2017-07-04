@@ -4,66 +4,88 @@ export const SIDEMENU_SET_SELECTED_COUNTRY_ID = 'SIDEMENU_SET_SELECTED_COUNTRY_I
 export const SIDEMENU_SET_SELECTED_REGION_ID = 'SIDEMENU_SET_SELECTED_REGION_ID';
 export const SIDEMENU_SET_SELECTED_CITY_ID = 'SIDEMENU_SET_SELECTED_CITY_ID';
 
-export const FETCH_ALL_COUNTRIES_SUCCESS = 'FETCH_ALL_COUNTRIES_SUCCESS';
-export const FETCH_REGIONS_FOR_COUNTRYID_SUCCESS = 'FETCH_REGIONS_FOR_COUNTRYID_SUCCESS';
-export const FETCH_CITIES_FOR_REGIONID_SUCCESS = 'FETCH_CITIES_FOR_REGIONID_SUCCESS';
-
-export const fetchAllCountries = () => {
-	return (dispatch) => {
+export const REQUEST_COUNTRIES = 'REQUEST_COUNTRIES';
+export function requestCountries() {
+	return {
+		type: REQUEST_COUNTRIES,
+	};
+}
+export const RECEIVE_COUNTRIES = 'RECEIVE_COUNTRIES';
+export function receiveCountries(countries) {
+	return {
+		type: RECEIVE_COUNTRIES,
+		payload: countries,
+		receivedAt: Date.now(),
+	};
+}
+export function fetchCountries() {
+	return function (dispatch) {
+		dispatch(requestCountries());
 		return SideMenuApi.fetchAllCountries()
-			.then( countryData => {
-				let countries = countryData.data;
-				dispatch(loadAllCountriesSuccess(countries));
+			.then( response => {
+				let countries = response.data;
+				dispatch(receiveCountries(countries));
 			})
 			.catch( error => {
 				return error;
 			});
 	};
-};
+}
 
-export const fetchRegionsForCountryId = (countryId) => {
-	return (dispatch) => {
+
+export const REQUEST_REGIONS = 'REQUEST_REGIONS';
+export function requestRegions() {
+	return {
+		type: REQUEST_REGIONS,
+	};
+}
+export const RECEIVE_REGIONS = 'RECEIVE_REGIONS';
+export function receiveRegions(regions) {
+	return {
+		type: RECEIVE_REGIONS,
+		payload: regions,
+		receivedAt: Date.now(),
+	};
+}
+export function fetchRegions(countryId) {
+	return function (dispatch) {
+		dispatch(requestRegions());
 		return SideMenuApi.fetchRegionsForCountryId(countryId)
 			.then( response => {
 				let regions = response.data;
-				dispatch(loadRegionsForCountryIdSuccess(regions));
+				dispatch(receiveRegions(regions));
 			})
 			.catch( error => {
 				return error;
 			});
 	};
-};
+}
 
-export const fetchCitiesForRegionId = (regionId) => {
-	return (dispatch) => {
+
+export const REQUEST_CITIES = 'REQUEST_CITIES';
+export function requestCities() {
+	return {
+		type: REQUEST_CITIES,
+	};
+}
+export const RECEIVE_CITIES = 'RECEIVE_CITIES';
+export function receiveCities(cities) {
+	return {
+		type: RECEIVE_CITIES,
+		payload: cities,
+		receivedAt: Date.now(),
+	};
+}
+export function fetchCities(regionId) {
+	return function (dispatch) {
+		dispatch(requestCities());
 		return SideMenuApi.fetchCitiesForRegionId(regionId)
 			.then( response => {
 				let cities = response.data;
-				dispatch(loadCitiesForRegionIdSuccess(cities));
+				dispatch(receiveCities(cities));
 			})
 			.catch( error => {
 				return error;
 			});
-	};
-};
-
-export function loadAllCountriesSuccess(countries) {
-	return {
-		type: FETCH_ALL_COUNTRIES_SUCCESS,
-		payload: countries
-	};
-}
-
-export function loadRegionsForCountryIdSuccess(regions) {
-	return {
-		type: FETCH_REGIONS_FOR_COUNTRYID_SUCCESS,
-		payload: regions
-	};
-}
-
-export function loadCitiesForRegionIdSuccess(cities) {
-	return {
-		type: FETCH_CITIES_FOR_REGIONID_SUCCESS,
-		payload: cities
 	};
 }
