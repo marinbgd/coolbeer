@@ -1,14 +1,17 @@
 import {
 	REQUEST_COUNTRIES,
 	RECEIVE_COUNTRIES,
+	RECEIVE_COUNTRIES_ERROR,
 	SIDEMENU_SET_SELECTED_COUNTRY_ID,
 
 	REQUEST_REGIONS,
 	RECEIVE_REGIONS,
+	RECEIVE_REGIONS_ERROR,
 	SIDEMENU_SET_SELECTED_REGION_ID,
 
 	REQUEST_CITIES,
 	RECEIVE_CITIES,
+	RECEIVE_CITIES_ERROR,
 	SIDEMENU_SET_SELECTED_CITY_ID,
 
 } from './SideMenu.actions';
@@ -47,6 +50,13 @@ const setCountries = (state, action) => {
 	newState.countries.isFetching = false;
 	return newState;
 };
+const setCountriesError = (state, action) => {
+	let newState = cloneDeep(state);
+	newState.countries.items = [];
+	newState.countries.lastUpdated = action.receivedAt;
+	newState.countries.isFetching = false;
+	return newState;
+};
 const setSelectedCountry = (state, {countryId}) => {
 	let newState = cloneDeep(state);
 	newState.countries.items.forEach( country => country._selected = (country.id === countryId));
@@ -74,6 +84,13 @@ const setRegions = (state, action) => {
 	newState.regions.isFetching = false;
 	return newState;
 };
+const setRegionsError = (state, action) => {
+	let newState = cloneDeep(state);
+	newState.regions.items = [];
+	newState.regions.lastUpdated = action.receivedAt;
+	newState.regions.isFetching = false;
+	return newState;
+};
 
 
 const setCitiesFetching = (state, isFetching) => {
@@ -93,6 +110,13 @@ const setCities = (state, action) => {
 	newState.cities.isFetching = false;
 	return newState;
 };
+const setCitiesError = (state, action) => {
+	let newState = cloneDeep(state);
+	newState.cities.items = [];
+	newState.cities.lastUpdated = action.receivedAt;
+	newState.cities.isFetching = false;
+	return newState;
+};
 
 
 export default function sideMenu (state = initialState, action) {
@@ -101,6 +125,8 @@ export default function sideMenu (state = initialState, action) {
 			return setCountriesFetching(state, true);
 		case RECEIVE_COUNTRIES:
 			return setCountries(state, action);
+		case RECEIVE_COUNTRIES_ERROR:
+			return setCountriesError(state, action);
 		case SIDEMENU_SET_SELECTED_COUNTRY_ID:
 			return setSelectedCountry(state, action.payload);
 
@@ -108,6 +134,8 @@ export default function sideMenu (state = initialState, action) {
 			return setSelectedRegion(state, action.payload);
 		case REQUEST_REGIONS:
 			return setRegionsFetching(state, true);
+		case RECEIVE_REGIONS_ERROR:
+			return setRegionsError(state, action);
 		case RECEIVE_REGIONS:
 			return setRegions(state, action);
 
@@ -115,6 +143,8 @@ export default function sideMenu (state = initialState, action) {
 			return setCitiesFetching(state, true);
 		case RECEIVE_CITIES:
 			return setCities(state, action);
+		case RECEIVE_CITIES_ERROR:
+			return setCitiesError(state, action);
 		case SIDEMENU_SET_SELECTED_CITY_ID:
 			return setSelectedCity(state, action.payload);
 

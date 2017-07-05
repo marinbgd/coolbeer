@@ -128,6 +128,7 @@ const mapDispatchToProps = (dispatch) => {
 					countryId,
 				}
 			});
+			if (!countryId) { return; }
 			dispatch(fetchRegions(countryId));
 		},
 		setSelectedRegion: (regionId) => {
@@ -137,6 +138,7 @@ const mapDispatchToProps = (dispatch) => {
 					regionId,
 				}
 			});
+			if (!regionId) { return; }
 			dispatch(fetchCities(regionId));
 		},
 		setSelectedCity: (cityId) => {
