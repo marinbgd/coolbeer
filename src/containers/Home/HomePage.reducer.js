@@ -5,6 +5,9 @@ import {
 
 	REQUEST_SHOPS,
 	RECEIVE_SHOPS,
+	RECEIVE_SHOPS_ERROR,
+
+	SET_SEARCH_VALUE,
 } from './HomePage.actions';
 
 import DateHelper from '../../common/DateHelper';
@@ -83,6 +86,10 @@ const initialState = {
 		items: [],
 	},
 
+	search: {
+		term: '',
+	},
+
 };
 
 const getRandomData = () => {
@@ -124,7 +131,19 @@ const setShops = (state, action) => {
 	newState.shops.isFetching = false;
 	return newState;
 };
+const setShopsError = (state, action) => {
+	let newState = cloneDeep(state);
+	newState.shops.items = [];
+	newState.shops.lastUpdated = action.receivedAt;
+	newState.shops.isFetching = false;
+	return newState;
+};
 
+const setSearchValue = (state, payload) => {
+	let newState = cloneDeep(state);
+	newState.search.term = payload;
+	return newState;
+};
 
 export default function homePage (state = initialState, action) {
 	switch (action.type) {
@@ -134,10 +153,16 @@ export default function homePage (state = initialState, action) {
 			return setStartDate(state, action.payload);
 		case HOMEPAGE_SET_END_DATE:
 			return setEndDate(state, action.payload);
+
 		case REQUEST_SHOPS:
 			return setShopsFetching(state, true);
 		case RECEIVE_SHOPS:
 			return setShops(state, action);
+		case RECEIVE_SHOPS_ERROR:
+			return setShopsError(state, action);
+
+		case SET_SEARCH_VALUE:
+			return setSearchValue(state, action.payload);
 		default:
 			return state;
 	}

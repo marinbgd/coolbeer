@@ -8,7 +8,10 @@ import {
 	HOMEPAGE_SET_START_DATE,
 	HOMEPAGE_SET_END_DATE,
 	fetchShops,
+	setSearchValue,
 } from './HomePage.actions';
+
+import { find } from 'lodash';
 
 import Paper from 'material-ui/Paper';
 import DatePicker from 'material-ui/DatePicker';
@@ -59,12 +62,16 @@ class HomePage extends React.Component {
 		let params = {
 			startDate: this.props.datePickerData.startDate,
 			endDate: this.props.datePickerData.endDate,
+			search: this.props.search.term,
+			countryId: this.props.selectedCountry && this.props.selectedCountry.id,
+			regionId: this.props.selectedRegion && this.props.selectedRegion.id,
+			cityId: this.props.selectedCity && this.props.selectedCity.id,
 		};
 		this.props.fetchShops(params);
 	}
 
 	handleSearchBoxChange(event, text) {
-		console.log(text);
+		this.props.setSearchValue(text);
 	}
 
 	render() {
@@ -110,7 +117,7 @@ class HomePage extends React.Component {
 				</ol>
 
 				<aside className="searchShops">
-					<SearchBox onChangeCb={this.handleSearchBoxChange.bind(this)} />
+					<SearchBox value={this.props.search.term} onChangeCb={this.handleSearchBoxChange.bind(this)} />
 				</aside>
 
 				<section className="p-">
@@ -197,14 +204,23 @@ HomePage.propTypes = {
 	datePickerData: PropTypes.object.isRequired,
 
 	shops: PropTypes.object.isRequired,
+	search: PropTypes.object,
+	setSearchValue: PropTypes.func,
 
 	setNewData: PropTypes.func,
 	setStartDate: PropTypes.func,
 	setEndDate: PropTypes.func,
 
 	fetchShops: PropTypes.func,
-};
 
+	sideMenu: PropTypes.object,
+	selectedCountry: PropTypes.object,
+	selectedRegion: PropTypes.object,
+	selectedCity: PropTypes.object,
+};
+const _getSelectedItem = (items) => {
+	return find(items, {'_selected': true});
+};
 const mapStateToProps = (state) => {
 	return {
 		barChartData: state.homePage.barChartData,
@@ -212,6 +228,12 @@ const mapStateToProps = (state) => {
 
 		datePickerData: state.homePage.datePicker,
 		shops: state.homePage.shops,
+		search: state.homePage.search,
+
+		sideMenu: state.sideMenu,
+		selectedCountry: _getSelectedItem(state.sideMenu.countries.items),
+		selectedRegion: _getSelectedItem(state.sideMenu.regions.items),
+		selectedCity: _getSelectedItem(state.sideMenu.cities.items),
 	};
 };
 
@@ -236,6 +258,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		fetchShops: (params) => {
 			dispatch(fetchShops(params));
+		},
+		setSearchValue: (value) => {
+			dispatch(setSearchValue(value));
 		},
 	};
 };

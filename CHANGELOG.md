@@ -28,7 +28,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added progress loaders on side menu drop downs loading
 - Added Google material icons
 - Added progress loader for home page table and no data info and icon
-- Added error handling for side menu fetching
+- Added error handling for side menu and home page fetching
+- Integrated SideMenu drop downs and search box term with getData function
 
 
 ## TODO

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import FontIcon from 'material-ui/FontIcon';
-import { cyan500 } from 'material-ui/styles/colors';
+import {cyan500} from 'material-ui/styles/colors';
 
 
 const paperStyleThin = {
@@ -21,13 +21,18 @@ const SearchBox = (props) => {
 						<span className="searchShop__icon">
 							<FontIcon color={cyan500} className="material-icons">search</FontIcon>
 						</span>
-			<TextField onChange={props.onChangeCb} hintText="Shop" floatingLabelText="Enter shop name..." />
+			<TextField onChange={props.onChangeCb}
+			           hintText="Shop"
+			           floatingLabelText="Enter shop name..."
+			           value={props.value}
+			/>
 		</Paper>
 	);
 };
 
 SearchBox.propTypes = {
 	onChangeCb: PropTypes.func,
+	value: PropTypes.string,
 };
 
 export default SearchBox;
