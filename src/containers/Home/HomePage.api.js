@@ -29,7 +29,7 @@ const HomePageApi = {
 			body: JSON.stringify(payload),
 		};
 
-		return fetch(API_URL + '/home', config).then(
+		return fetch(API_URL + '/shops', config).then(
 			response => response.json()
 		);
 	},

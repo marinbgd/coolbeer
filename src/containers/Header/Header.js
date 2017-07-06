@@ -27,7 +27,7 @@ class Header extends React.Component {
 		return (
 			<header className="mainHeader">
 				<AppBar
-					title="Cool Beer"
+					title="CoolBeer"
 					showMenuIconButton={false}
 					iconElementRight={rightButtons}
 				/>

@@ -30,6 +30,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added progress loader for home page table and no data info and icon
 - Added error handling for side menu and home page fetching
 - Integrated SideMenu drop downs and search box term with getData function
+- Removed title "CoolBeer" from Home page
+- Added moment.js lib for handling/formatting dates
+- Refactored DB table names - singularity; Added cityId to "podaci" to relate to city table;
+- Added "shops.php" "endpoint" for getting the shops data and added city, region and country properties; Filtering by cityId is added too
+- Improved HomePage table - displaying more data; fixed style glitches; added multiple selections; added scrollbars if needed
 
 
 ## TODO

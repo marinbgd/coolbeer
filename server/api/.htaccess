@@ -12,6 +12,8 @@ RewriteRule ^cities/([A-Za-z0-9-]+)/?$ cities.php?regionId=$1 [NC,L]
 RewriteRule ^cities?$ cities.php [NC,L]
 
 
-RewriteRule ^home/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$ home.php?startDate=$1&endDate=$2 [NC,L]
-RewriteRule ^home/([A-Za-z0-9-]+)/?$ home.php?startDate=$1 [NC,L]
-RewriteRule ^home?$ home.php [NC,L]
+#RewriteRule ^home/([A-Za-z0-9-]+)/([A-Za-z0-9-]+)/?$ home.php?startDate=$1&endDate=$2 [NC,L]
+#RewriteRule ^home/([A-Za-z0-9-]+)/?$ home.php?startDate=$1 [NC,L]
+#RewriteRule ^home?$ home.php [NC,L]
+
+RewriteRule ^shops?$ shops.php [NC,L]

@@ -6,9 +6,9 @@ define("DB_PASS", "coolmare223!");
 define("DB_NAME", "CoolBeer");
 
 
-define("DB_TBL_COUNTRIES", "countries");
-define("DB_TBL_REGIONS", "regions");
-define("DB_TBL_CITIES", "cities");
+define("DB_TBL_COUNTRIES", "country");
+define("DB_TBL_REGIONS", "region");
+define("DB_TBL_CITIES", "city");
 define("DB_TBL_HOME", "podaci");
 
 function connect(){

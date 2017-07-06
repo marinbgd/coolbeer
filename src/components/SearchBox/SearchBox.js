@@ -21,10 +21,11 @@ const SearchBox = (props) => {
 						<span className="searchShop__icon">
 							<FontIcon color={cyan500} className="material-icons">search</FontIcon>
 						</span>
-			<TextField onChange={props.onChangeCb}
-			           hintText="Shop"
-			           floatingLabelText="Enter shop name..."
-			           value={props.value}
+			<TextField
+				onChange={props.onChangeCb}
+				hintText="Shop"
+				floatingLabelText="Enter shop name..."
+				value={props.value}
 			/>
 		</Paper>
 	);

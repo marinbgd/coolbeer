@@ -85,7 +85,7 @@ class HomePage extends React.Component {
 				<span className="homePageShopsEmptyHolder">
 					<Chip>
 						<Avatar icon={<FontIcon color={cyan500} className="material-icons">warning</FontIcon>} />
-						No data for selected filters
+						No shops for selected filters
 					</Chip>
 				</span>
 			</aside>);
@@ -108,8 +108,6 @@ class HomePage extends React.Component {
 
 		return (
 			<section className="relative">
-				<h1>CoolBeer Dashboard</h1>
-
 				<h2>Get Started</h2>
 				<ol>
 					<li>Please select country, region and city you are interested in.</li>
@@ -146,7 +144,7 @@ class HomePage extends React.Component {
 
 				<section className="p-">
 					<RaisedButton
-						label="Get data"
+						label="Get shops"
 						secondary={true}
 						fullWidth={true}
 						onTouchTap={this.handleGetData.bind(this)}

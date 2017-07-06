@@ -1,9 +1,9 @@
+import moment from 'moment';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
 	Table,
 	TableBody,
-	/*TableFooter,*/
 	TableHeader,
 	TableHeaderColumn,
 	TableRow,
@@ -12,20 +12,26 @@ import {
 
 const tableConfig = {
 	height: '300px',
-	fixedHeader: true,
-	fixedFooter: true,
+	fixedHeader: false,
 	showRowHover: true,
 	stripedRows: true,
 
-	selectable: false,
-	multiSelectable: false,
-	enableSelectAll: false,
-	showCheckboxes: false,
+	selectable: true,
+	multiSelectable: true,
+	enableSelectAll: true,
+	showCheckboxes: true,
+};
+
+const tableStyle = {
+	tableLayout: 'auto',
+	overflow: 'auto',
 };
 
 const CBTable = (props) => {
 	return (
 		<Table
+			style={tableStyle}
+			bodyStyle={tableStyle}
 			height={tableConfig.height}
 			fixedHeader={tableConfig.fixedHeader}
 			fixedFooter={tableConfig.fixedFooter}
@@ -39,7 +45,9 @@ const CBTable = (props) => {
 			>
 				<TableRow>
 					<TableHeaderColumn tooltip="The ID">ID</TableHeaderColumn>
-					<TableHeaderColumn tooltip="The City">Grad</TableHeaderColumn>
+					<TableHeaderColumn tooltip="The City">City</TableHeaderColumn>
+					<TableHeaderColumn tooltip="The Region">Region</TableHeaderColumn>
+					<TableHeaderColumn tooltip="The Country">Country</TableHeaderColumn>
 					<TableHeaderColumn tooltip="Line 1">Linija1</TableHeaderColumn>
 					<TableHeaderColumn tooltip="Line 2">Linija2</TableHeaderColumn>
 					<TableHeaderColumn tooltip="Line 3">Linija3</TableHeaderColumn>
@@ -57,30 +65,19 @@ const CBTable = (props) => {
 				{props.data.map( (row, index) => (
 					<TableRow key={index}>
 						<TableRowColumn>{row.id}</TableRowColumn>
-						<TableRowColumn>{row.grad}</TableRowColumn>
+						<TableRowColumn>{row.city}</TableRowColumn>
+						<TableRowColumn>{row.region}</TableRowColumn>
+						<TableRowColumn>{row.country}</TableRowColumn>
 						<TableRowColumn>{row.Linija1}</TableRowColumn>
 						<TableRowColumn>{row.Linija2}</TableRowColumn>
 						<TableRowColumn>{row.Linija3}</TableRowColumn>
 						<TableRowColumn>{row.Linija4}</TableRowColumn>
 						<TableRowColumn>{row.Total}</TableRowColumn>
-						<TableRowColumn>{row.datum}</TableRowColumn>
+						<TableRowColumn>{moment(row.datum).format('D/M/YYYY H:mm:ss')}</TableRowColumn>
 						<TableRowColumn>{row.tip}</TableRowColumn>
 					</TableRow>
 				))}
 			</TableBody>
-			{/*<TableFooter>
-				<TableRow>
-					<TableRowColumn>ID</TableRowColumn>
-					<TableRowColumn>Grad</TableRowColumn>
-					<TableRowColumn>Linija1</TableRowColumn>
-					<TableRowColumn>Linija2</TableRowColumn>
-					<TableRowColumn>Linija3</TableRowColumn>
-					<TableRowColumn>Linija4</TableRowColumn>
-					<TableRowColumn>Total</TableRowColumn>
-					<TableRowColumn>Datum</TableRowColumn>
-					<TableRowColumn>Tip</TableRowColumn>
-				</TableRow>
-			</TableFooter>*/}
 		</Table>
 	);
 };
