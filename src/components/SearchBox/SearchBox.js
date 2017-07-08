@@ -18,9 +18,9 @@ const paperStyleThin = {
 const SearchBox = (props) => {
 	return (
 		<Paper style={paperStyleThin} zDepth={1}>
-						<span className="searchShop__icon">
-							<FontIcon color={cyan500} className="material-icons">search</FontIcon>
-						</span>
+			<span className="searchShop__icon">
+				<FontIcon color={cyan500} className="material-icons">search</FontIcon>
+			</span>
 			<TextField
 				onChange={props.onChangeCb}
 				hintText="Shop"

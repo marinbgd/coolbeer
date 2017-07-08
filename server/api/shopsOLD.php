@@ -6,13 +6,11 @@ require_once( API_PATH . '/inc/cors.php');
 
 $connect = connect();
 
-$sql = "SELECT p.id, p.sn, p.datum,
-c.name as city, r.name as region, cn.name as country FROM " . DB_TBL_PIVOFLOW .
+$sql = "SELECT p.id, p.grad, p.Linija1, p.Linija2, p.Linija3, p.Linija4, p.Total, p.datum, p.tip, p.cityId,
+c.name as city, r.name as region, cn.name as country FROM " . DB_TBL_HOME .
 " p INNER JOIN " . DB_TBL_CITIES . " c ON p.cityId=c.id" .
 " INNER JOIN " . DB_TBL_REGIONS . " r ON c.regionId = r.id" .
 " INNER JOIN " . DB_TBL_COUNTRIES . " cn ON r.countryId = cn.id";
-//simulating distinct only for p.sn to show rows-shops with different SN only
-$sql .= " WHERE p.id IN (SELECT MAX(p2.id) FROM " . DB_TBL_PIVOFLOW . " AS p2 GROUP BY p2.sn)";
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//get data from JSON POST
@@ -20,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if( isset($data['startDate']) && (strlen($data['startDate']) > 0)  ){
 		//remove last letter 'z' if exists
 		$startDate = rtrim($data['startDate'], 'zZ');
-		$sql .= ' AND datum >= \'' . $startDate . '\'';
+		$sql .= ' WHERE datum >= \'' . $startDate . '\'';
 	}
 	if( isset($data['endDate']) && (strlen($data['endDate']) > 0)  ){
 		//remove last letter 'z' if exists
@@ -29,14 +27,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	if( isset($data['cityId']) && (strlen($data['cityId']) > 0)  ){
 		$sql .= ' AND cityId = ' . $data['cityId'];
-	} else if ( isset($data['regionId']) && (strlen($data['regionId']) > 0) ) {
-		//handle when cityId is not set, but regionId is set
-	} else if ( isset($data['countryId']) && (strlen($data['countryId']) > 0) ) {
-		//handle when cityId and regionId are not set, but countryId is set
 	}
 }
-//sort from newest to oldest by last activity
-$sql .= ' ORDER BY datum DESC LIMIT 200';
+
+$sql .= ' LIMIT 100';
 
 //echo $sql;
 
@@ -47,11 +41,16 @@ if(!$result = $connect->query($sql)){
 while($row = $result->fetch_assoc()){
 	$temp = [
         "id" => (int) $row['id'],
-        "sn" => $row['sn'],
 		"city" => $row['city'],
 		"region" => $row['region'],
 		"country" => $row['country'],
+        "Linija1" => (float) $row['Linija1'],
+        "Linija2" => (float) $row['Linija2'],
+        "Linija3" => (float) $row['Linija3'],
+        "Linija4" => (float) $row['Linija4'],
+        "Total" => (float) $row['Total'],
         "datum" => $row['datum'],
+        "tip" => $row['tip'],
     ];
     $home[] = $temp;
 }

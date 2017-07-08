@@ -10,6 +10,7 @@ define("DB_TBL_COUNTRIES", "country");
 define("DB_TBL_REGIONS", "region");
 define("DB_TBL_CITIES", "city");
 define("DB_TBL_HOME", "podaci");
+define("DB_TBL_PIVOFLOW", "pivoflow");
 
 function connect(){
 	$db = new mysqli();

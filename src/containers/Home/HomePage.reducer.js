@@ -14,6 +14,8 @@ import DateHelper from '../../common/DateHelper';
 
 import { cloneDeep } from 'lodash';
 
+const date6MonthBeforeNow = new Date().setMonth(new Date().getMonth() - 6);
+
 const initialState = {
 	barChartData: {
 		type: 'bar',
@@ -76,7 +78,7 @@ const initialState = {
 	},
 
 	datePicker: {
-		startDate: DateHelper.getStartOfDay( new Date() ),
+		startDate: DateHelper.getStartOfDay( date6MonthBeforeNow ),
 		endDate: DateHelper.getNextMonth( DateHelper.getEndOfDay( new Date() ) ),
 	},
 
@@ -89,8 +91,8 @@ const initialState = {
 	search: {
 		term: '',
 	},
-
 };
+
 
 const getRandomData = () => {
 	let data = [];

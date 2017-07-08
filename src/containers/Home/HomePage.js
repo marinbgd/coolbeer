@@ -29,7 +29,7 @@ import PolarAreaChart from '../../components/Charts/PolarAreaChart/PolarAreaChar
 import LineChart from '../../components/Charts/LineChart/LineChart';
 
 import UpdateDataButton from '../../components/UpdateDataButton/UpdateDataButton';
-import CBTable from '../../components/CBTable/CBTable';
+import ShopsTable from '../../components/ShopsTable/ShopsTable';
 import SearchBox from '../../components/SearchBox/SearchBox';
 
 const paperStyle = {
@@ -98,7 +98,7 @@ class HomePage extends React.Component {
 				<section className="p-">
 					<h3 className="text-left color-blue pb-">Data visualization:</h3>
 					<Paper style={paperStyle} zDepth={2}>
-						<CBTable data={this.props.shops.items} />
+						<ShopsTable data={this.props.shops.items} />
 					</Paper>
 				</section>
 			);

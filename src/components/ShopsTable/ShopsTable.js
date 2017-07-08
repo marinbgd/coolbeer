@@ -27,7 +27,7 @@ const tableStyle = {
 	overflow: 'auto',
 };
 
-const CBTable = (props) => {
+const ShopsTable = (props) => {
 	return (
 		<Table
 			style={tableStyle}
@@ -44,17 +44,12 @@ const CBTable = (props) => {
 				enableSelectAll={tableConfig.enableSelectAll}
 			>
 				<TableRow>
-					<TableHeaderColumn tooltip="The ID">ID</TableHeaderColumn>
+					{/*<TableHeaderColumn tooltip="The ID">ID</TableHeaderColumn>*/}
+					<TableHeaderColumn tooltip="Serial Number">S/N</TableHeaderColumn>
 					<TableHeaderColumn tooltip="The City">City</TableHeaderColumn>
 					<TableHeaderColumn tooltip="The Region">Region</TableHeaderColumn>
 					<TableHeaderColumn tooltip="The Country">Country</TableHeaderColumn>
-					<TableHeaderColumn tooltip="Line 1">Linija1</TableHeaderColumn>
-					<TableHeaderColumn tooltip="Line 2">Linija2</TableHeaderColumn>
-					<TableHeaderColumn tooltip="Line 3">Linija3</TableHeaderColumn>
-					<TableHeaderColumn tooltip="Line 4">Linija4</TableHeaderColumn>
-					<TableHeaderColumn tooltip="Total">Total</TableHeaderColumn>
 					<TableHeaderColumn tooltip="Date">Datum</TableHeaderColumn>
-					<TableHeaderColumn tooltip="Type">Tip</TableHeaderColumn>
 				</TableRow>
 			</TableHeader>
 			<TableBody
@@ -64,17 +59,12 @@ const CBTable = (props) => {
 			>
 				{props.data.map( (row, index) => (
 					<TableRow key={index}>
-						<TableRowColumn>{row.id}</TableRowColumn>
+						{/*<TableRowColumn>{row.id}</TableRowColumn>*/}
+						<TableRowColumn>{row.sn}</TableRowColumn>
 						<TableRowColumn>{row.city}</TableRowColumn>
 						<TableRowColumn>{row.region}</TableRowColumn>
 						<TableRowColumn>{row.country}</TableRowColumn>
-						<TableRowColumn>{row.Linija1}</TableRowColumn>
-						<TableRowColumn>{row.Linija2}</TableRowColumn>
-						<TableRowColumn>{row.Linija3}</TableRowColumn>
-						<TableRowColumn>{row.Linija4}</TableRowColumn>
-						<TableRowColumn>{row.Total}</TableRowColumn>
 						<TableRowColumn>{moment(row.datum).format('D/M/YYYY H:mm:ss')}</TableRowColumn>
-						<TableRowColumn>{row.tip}</TableRowColumn>
 					</TableRow>
 				))}
 			</TableBody>
@@ -83,8 +73,8 @@ const CBTable = (props) => {
 };
 
 
-CBTable.propTypes = {
+ShopsTable.propTypes = {
 	data: PropTypes.array,
 };
 
-export default CBTable;
+export default ShopsTable;
