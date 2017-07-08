@@ -6,6 +6,11 @@ import {
 	REQUEST_SHOPS,
 	RECEIVE_SHOPS,
 	RECEIVE_SHOPS_ERROR,
+	SET_SELECTED_SHOPS,
+
+	REQUEST_SHOPS_DETAILS,
+	RECEIVE_SHOPS_DETAILS,
+	RECEIVE_SHOPS_DETAILS_ERROR,
 
 	SET_SEARCH_VALUE,
 } from './HomePage.actions';
@@ -88,6 +93,12 @@ const initialState = {
 		items: [],
 	},
 
+	shopsDetails: {
+		isFetching: false,
+		lastUpdated: null,
+		items: [],
+	},
+
 	search: {
 		term: '',
 	},
@@ -140,6 +151,33 @@ const setShopsError = (state, action) => {
 	newState.shops.isFetching = false;
 	return newState;
 };
+const setSelectedShops = (state, selectedShopIds) => {
+	let newState = cloneDeep(state);
+	newState.shops.items.forEach( shop => {
+		shop._selected = !!(~selectedShopIds.indexOf(shop.sn));
+	});
+	return newState;
+};
+
+const setShopsDetailsFetching = (state, isFetching) => {
+	let newState = cloneDeep(state);
+	newState.shopsDetails.isFetching = isFetching;
+	return newState;
+};
+const setShopsDetails = (state, action) => {
+	let newState = cloneDeep(state);
+	newState.shopsDetails.items = action.payload || [];
+	newState.shopsDetails.lastUpdated = action.receivedAt;
+	newState.shopsDetails.isFetching = false;
+	return newState;
+};
+const setShopsDetailsError = (state, action) => {
+	let newState = cloneDeep(state);
+	newState.shopsDetails.items = [];
+	newState.shopsDetails.lastUpdated = action.receivedAt;
+	newState.shopsDetails.isFetching = false;
+	return newState;
+};
 
 const setSearchValue = (state, payload) => {
 	let newState = cloneDeep(state);
@@ -162,6 +200,16 @@ export default function homePage (state = initialState, action) {
 			return setShops(state, action);
 		case RECEIVE_SHOPS_ERROR:
 			return setShopsError(state, action);
+		case SET_SELECTED_SHOPS:
+			return setSelectedShops(state, action.payload);
+
+
+		case REQUEST_SHOPS_DETAILS:
+			return setShopsDetailsFetching(state, true);
+		case RECEIVE_SHOPS_DETAILS:
+			return setShopsDetails(state, action);
+		case RECEIVE_SHOPS_DETAILS_ERROR:
+			return setShopsDetailsError(state, action);
 
 		case SET_SEARCH_VALUE:
 			return setSearchValue(state, action.payload);

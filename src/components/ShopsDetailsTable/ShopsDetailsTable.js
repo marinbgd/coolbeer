@@ -1,4 +1,3 @@
-import moment from 'moment';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -11,18 +10,14 @@ import {
 } from 'material-ui/Table';
 
 const tableConfig = {
-	height: '300px',
 	fixedHeader: false,
 	showRowHover: false,
 	stripedRows: true,
 
-	selectable: true,
-	multiSelectable: true,
+	selectable: false,
+	multiSelectable: false,
 	enableSelectAll: false,
-	showCheckboxes: true,
-
-	deselectOnClickaway: false,
-	preScanRows: false,
+	showCheckboxes: false,
 };
 
 const tableStyle = {
@@ -30,17 +25,7 @@ const tableStyle = {
 	overflow: 'auto',
 };
 
-import { filter } from 'lodash';
-
-const handleRowSelection = (rows, cb) => {
-	return selectedRowIndexes => {
-		if (typeof cb !== 'function') { return; }
-		let selectedRowIds = filter(rows, (row, index) => ~selectedRowIndexes.indexOf(index)).map( row => row.sn);
-		cb(selectedRowIds);
-	};
-};
-
-const ShopsTable = (props) => {
+const ShopsDetailsTable = (props) => {
 	return (
 		<Table
 			style={tableStyle}
@@ -50,35 +35,36 @@ const ShopsTable = (props) => {
 			fixedFooter={tableConfig.fixedFooter}
 			selectable={tableConfig.selectable}
 			multiSelectable={tableConfig.multiSelectable}
-			onRowSelection={handleRowSelection(props.data, props.onRowSelection)}
 		>
 			<TableHeader
-				displaySelectAll={tableConfig.enableSelectAll}
-				enableSelectAll={tableConfig.enableSelectAll}
+				displaySelectAll={tableConfig.showCheckboxes}
 				adjustForCheckbox={tableConfig.showCheckboxes}
+				enableSelectAll={tableConfig.enableSelectAll}
 			>
 				<TableRow>
 					<TableHeaderColumn tooltip="Serial Number">S/N</TableHeaderColumn>
 					<TableHeaderColumn tooltip="The City">City</TableHeaderColumn>
 					<TableHeaderColumn tooltip="The Region">Region</TableHeaderColumn>
 					<TableHeaderColumn tooltip="The Country">Country</TableHeaderColumn>
-					<TableHeaderColumn tooltip="Date">Datum</TableHeaderColumn>
+					<TableHeaderColumn tooltip="Average Temperature">Temp Avg</TableHeaderColumn>
+					<TableHeaderColumn tooltip="Maximum Temperature">Temp Max</TableHeaderColumn>
+					<TableHeaderColumn tooltip="Minimum Temperature">Temp Min</TableHeaderColumn>
 				</TableRow>
 			</TableHeader>
 			<TableBody
-				deselectOnClickaway={tableConfig.deselectOnClickaway}
-				preScanRows={tableConfig.preScanRows}
 				showRowHover={tableConfig.showRowHover}
 				stripedRows={tableConfig.stripedRows}
 				displayRowCheckbox={tableConfig.showCheckboxes}
 			>
 				{props.data.map( (row, index) => (
-					<TableRow key={index} selected={row._selected}>
+					<TableRow key={index}>
 						<TableRowColumn>{row.sn}</TableRowColumn>
 						<TableRowColumn>{row.city}</TableRowColumn>
 						<TableRowColumn>{row.region}</TableRowColumn>
 						<TableRowColumn>{row.country}</TableRowColumn>
-						<TableRowColumn>{moment(row.datum).format('D/M/YYYY H:mm:ss')}</TableRowColumn>
+						<TableRowColumn>{row.tempAvg}</TableRowColumn>
+						<TableRowColumn>{row.tempMax}</TableRowColumn>
+						<TableRowColumn>{row.tempMin}</TableRowColumn>
 					</TableRow>
 				))}
 			</TableBody>
@@ -87,9 +73,8 @@ const ShopsTable = (props) => {
 };
 
 
-ShopsTable.propTypes = {
+ShopsDetailsTable.propTypes = {
 	data: PropTypes.array,
-	onRowSelection: PropTypes.func,
 };
 
-export default ShopsTable;
+export default ShopsDetailsTable;

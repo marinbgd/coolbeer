@@ -21,6 +21,9 @@ class SideMenu extends React.Component {
 
 	constructor(props) {
 		super(props);
+	}
+
+	componentDidMount() {
 		this.props.fetchCountries();
 	}
 

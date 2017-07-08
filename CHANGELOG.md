@@ -37,5 +37,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Improved HomePage table - displaying more data; fixed style glitches; added multiple selections; added scrollbars if needed
 
 
+## 2017-07-09 -- version 0.2.0
+- Changed HomePage table to be just a list of unique shops matching filters on UI
+- Added new API endpoint - shopDetails
+- Added ShopsDetailsTable and fetching of selected shops details (avg/min/max temperature)
+- Integrated searchBox with the API - now search term is applied to filtering data (search term is used in 'sn' column)
+
+
 ## TODO
 - Figure appropriate LICENSE and change it
