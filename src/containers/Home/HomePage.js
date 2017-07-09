@@ -18,9 +18,8 @@ import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
 import { cyan500 } from 'material-ui/styles/colors';
 
-import LineChart from '../../components/Charts/LineChart/LineChart';
+import ShopsLineChart from '../../components/Charts/ShopsLineChart/ShopsLineChart';
 
-import UpdateDataButton from '../../components/UpdateDataButton/UpdateDataButton';
 import ShopsTable from '../../components/ShopsTable/ShopsTable';
 import ShopsDetailsTable from '../../components/ShopsDetailsTable/ShopsDetailsTable';
 import SearchBox from '../../components/SearchBox/SearchBox';
@@ -38,10 +37,6 @@ class HomePage extends React.Component {
 
 	constructor(props) {
 		super(props);
-	}
-
-	onRandomizeDataClick () {
-		this.props.setNewData();
 	}
 
 	handleChangeStartDate (event, date) {
@@ -128,6 +123,22 @@ class HomePage extends React.Component {
 		}
 
 
+		let selectedShopsDetailsChart;
+		if (this.props.shopsDetails.isFetching) {
+			selectedShopsDetailsChart = progressLoader;
+		} else if (this.props.shopsDetails.items.length) {
+			selectedShopsDetailsChart = (
+				<section style={{overflow:'hidden', position:'relative'}}>
+					<h3 className="text-left color-blue p- pb0">Data visualization:</h3>
+					<Paper style={paperStyle} zDepth={2}>
+						<ShopsLineChart shops={this.props.shopsDetails.items} />
+					</Paper>
+				</section>
+			);
+		}
+
+
+
 		let selectedShopsMap;
 		if (this.props.selectedShops && this.props.selectedShops.length) {
 			let markers = this.props.selectedShops.map( shop => ( shop.mapMarker ));
@@ -142,7 +153,6 @@ class HomePage extends React.Component {
 				</section>
 			);
 		}
-
 		return (
 			<section className="relative">
 				<h2>Get Started</h2>
@@ -192,25 +202,17 @@ class HomePage extends React.Component {
 
 				{selectedShopsDetailsTable}
 
+				{selectedShopsDetailsChart}
+
 				{selectedShopsMap}
-
-				<section style={{overflow:'hidden', position:'relative'}}>
-					<h3 className="text-left color-blue p- pb0">Data visualization:</h3>
-					<div style={{position:'absolute', bottom: 0, right: '1em'}}>
-						<UpdateDataButton onClickFunc={this.onRandomizeDataClick.bind(this)} />
-					</div>
-				</section>
-
-				<div className="pure-g">
-					<Paper style={paperStyle} zDepth={2}>
-						<LineChart chartData={this.props.barChartData} />
-					</Paper>
-				</div>
 
 			</section>
 		);
+
 	}
 }
+
+
 
 HomePage.propTypes = {
 	barChartData: PropTypes.object,
@@ -223,7 +225,6 @@ HomePage.propTypes = {
 	search: PropTypes.object,
 	setSearchValue: PropTypes.func,
 
-	setNewData: PropTypes.func,
 	setStartDate: PropTypes.func,
 	setEndDate: PropTypes.func,
 
@@ -265,11 +266,6 @@ const mapStateToProps = (state) => {
 function mapDispatchToProps(dispatch) {
 	return {
 		actions: bindActionCreators(actions, dispatch),
-		setNewData: () => {
-			dispatch({
-				type: actions.HOMEPAGE_SET_NEW_DATA,
-			});
-		},
 		setStartDate: date => {
 			dispatch({
 				type: actions.HOMEPAGE_SET_START_DATE,

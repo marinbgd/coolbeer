@@ -15,7 +15,7 @@ class Header extends React.Component {
 		};
 		const homeLink = <Link to="/" activeClassName={'active'} />;
 		const aboutLink = <Link to="/about" activeClassName={'active'} />;
-		const demoLink = <Link to="/fuel-savings" activeClassName={'active'} />;
+		const demoLink = <Link to="/demo" activeClassName={'active'} />;
 		const rightButtons = (
 			<nav>
 				<FlatButton style={buttonStyle} containerElement={homeLink} label="Home" />

@@ -82,28 +82,13 @@ class Demo extends React.Component {
 Demo.propTypes = {
 	barChartData: PropTypes.object,
 	pieChartData: PropTypes.object,
-
-	sideMenu: PropTypes.object,
-	selectedCountry: PropTypes.object,
-	selectedRegion: PropTypes.object,
-	selectedCity: PropTypes.object,
-
 	setNewData: PropTypes.func.isRequired,
-};
-
-const _getSelectedItem = (items) => {
-	return find(items, {'_selected': true});
 };
 
 const mapStateToProps = (state) => {
 	return {
 		barChartData: state.homePage.barChartData,
 		pieChartData: state.homePage.pieChartData,
-
-		sideMenu: state.sideMenu,
-		selectedCountry: _getSelectedItem(state.sideMenu.countries.items),
-		selectedRegion: _getSelectedItem(state.sideMenu.regions.items),
-		selectedCity: _getSelectedItem(state.sideMenu.cities.items),
 	};
 };
 

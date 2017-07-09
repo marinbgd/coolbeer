@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Map, Marker, InfoWindow } from 'google-maps-react';
+import { Map, Marker } from 'google-maps-react';
 
 const defaults = {
 	center: {
 		lat: 44.796437,
 		lng: 20.378094,
 	},
-	zoom: 11,
+	zoom: 10,
 };
 
 class CbMap extends React.Component {
@@ -22,7 +22,7 @@ class CbMap extends React.Component {
 		};
 	}
 
-	onMarkerClick (props, marker, e) {
+	onMarkerClick (props, marker) {
 		this.setState({
 			selectedPlace: props,
 			activeMarker: marker,
@@ -30,7 +30,7 @@ class CbMap extends React.Component {
 		});
 	}
 
-	onMapClicked (props) {
+	onMapClicked () {
 		if (this.state.showingInfoWindow) {
 			this.setState({
 				showingInfoWindow: false,
@@ -44,10 +44,7 @@ class CbMap extends React.Component {
 		if (this.props && this.props.markers && this.props.markers.length) {
 			this.props.markers.forEach((marker, index) => {
 				markerElements.push((
-					<Marker key={index}
-					        name={marker.name}
-					        position={{lat: marker.lat, lng: marker.lng}}
-					        onClick={this.onMarkerClick.bind(this)}
+					<Marker key={index} name={marker.name} position={{lat: marker.lat, lng: marker.lng}} onClick={this.onMarkerClick.bind(this)}
 					/>
 				));
 			});
@@ -72,10 +69,7 @@ class CbMap extends React.Component {
 		}*/
 
 		return (
-			<Map google={window.google} style={{width: '100%', height: '100%', position: 'relative'}}
-			     zoom={defaults.zoom}
-			     center={{lat: defaults.center.lat, lng: defaults.center.lng}}
-			     onClick={this.onMapClicked.bind(this)}
+			<Map google={window.google} style={{width: '100%', height: '100%', position: 'relative'}} zoom={defaults.zoom} center={{lat: defaults.center.lat, lng: defaults.center.lng}} onClick={this.onMapClicked.bind(this)}
 			>
 				{markerElements}
 

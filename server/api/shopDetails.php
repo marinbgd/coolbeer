@@ -4,6 +4,37 @@ require_once( 'inc/configConstants.php');
 require_once( API_PATH . '/inc/db.php');
 require_once( API_PATH . '/inc/cors.php');
 
+
+function getSnDailyHistoryData($connection, $startDate, $endDate, $sn) {
+	$sql2 = "SELECT AVG(lin1) AS lin1, AVG(lin2) AS lin2, AVG(lin3) AS lin3, AVG(lin4) AS lin4," .
+		" CONVERT(DATE(datum), CHAR(50)) AS dayString " .
+		" FROM " . DB_TBL_PIVOFLOW .
+		" WHERE sn = '" . $sn ."'" .
+		" AND datum >= '" . $startDate . "'" .
+		" AND datum <= '" . $endDate . "'" .
+		" GROUP BY dayString ";
+
+	if(!$result2 = $connection->query($sql2)){
+		die('There was an error running the query [' . $db->error . ']');
+	}
+	
+	while($row2 = $result2->fetch_assoc()){	
+		$temp2 = [
+			"lin1" => (double) $row2['lin1'],
+			"lin2" => (double) $row2['lin2'],
+			"lin3" => (double) $row2['lin3'],
+			"lin4" => (double) $row2['lin4'],
+			"day" => $row2['dayString'],
+		];
+		$data2[] = $temp2;
+	}
+	
+	$result2->free();
+	
+	return $data2;
+}
+
+
 $connect = connect();
 
 $sql = "SELECT p.sn, AVG(p.temp) as tempAvg, MAX(p.temp) as tempMax, MIN(p.temp) as tempMin, " .
@@ -43,6 +74,10 @@ if(!$result = $connect->query($sql)){
 }
 
 while($row = $result->fetch_assoc()){
+	
+	//fetch each sn details
+	$tempHistoryData = getSnDailyHistoryData($connect, $startDate, $endDate, $row['sn']);
+	
 	$temp = [
         "sn" => $row['sn'],
         "tempAvg" => $row['tempAvg'],
@@ -50,6 +85,7 @@ while($row = $result->fetch_assoc()){
         "tempMin" => $row['tempMin'],
         "co2aMin" => $row['co2aMin'],
         "co2aMax" => $row['co2aMax'],
+		"data" => $tempHistoryData,
     ];
     $details[] = $temp;
 }
