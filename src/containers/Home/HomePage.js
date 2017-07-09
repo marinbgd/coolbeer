@@ -3,15 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './HomePage.scss';
 
-import {
-	HOMEPAGE_SET_NEW_DATA,
-	HOMEPAGE_SET_START_DATE,
-	HOMEPAGE_SET_END_DATE,
-	fetchShops,
-	setSearchValue,
-	setSelectedShops,
-	fetchShopsDetails,
-} from './HomePage.actions';
+import { bindActionCreators } from 'redux';
+import * as actions from './HomePage.actions';
+
 
 import { find, filter } from 'lodash';
 
@@ -47,6 +41,7 @@ class HomePage extends React.Component {
 
 	constructor(props) {
 		super(props);
+		console.log(props)
 	}
 
 	onRandomizeDataClick () {
@@ -62,13 +57,13 @@ class HomePage extends React.Component {
 	}
 
 	handleRowSelection (selectedRowIds) {
-		this.props.setSelectedShops(selectedRowIds);
+		this.props.actions.setSelectedShops(selectedRowIds);
 		let params = {
 			startDate: this.props.datePickerData.startDate,
 			endDate: this.props.datePickerData.endDate,
 			shopIds: selectedRowIds,
 		};
-		this.props.fetchShopsDetails(params);
+		this.props.actions.fetchShopsDetails(params);
 	}
 
 	handleGetData () {
@@ -80,11 +75,11 @@ class HomePage extends React.Component {
 			regionId: this.props.selectedRegion && this.props.selectedRegion.id,
 			cityId: this.props.selectedCity && this.props.selectedCity.id,
 		};
-		this.props.fetchShops(params);
+		this.props.actions.fetchShops(params);
 	}
 
 	handleSearchBoxChange(event, text) {
-		this.props.setSearchValue(text);
+		this.props.actions.setSearchValue(text);
 	}
 
 	render() {
@@ -251,6 +246,8 @@ HomePage.propTypes = {
 	selectedCountry: PropTypes.object,
 	selectedRegion: PropTypes.object,
 	selectedCity: PropTypes.object,
+
+	actions: PropTypes.object.isRequired,
 };
 const _getSelectedItem = (items) => {
 	return find(items, {'_selected': true});
@@ -276,38 +273,27 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch) {
 	return {
+		actions: bindActionCreators(actions, dispatch),
 		setNewData: () => {
 			dispatch({
-				type: HOMEPAGE_SET_NEW_DATA,
+				type: actions.HOMEPAGE_SET_NEW_DATA,
 			});
 		},
 		setStartDate: date => {
 			dispatch({
-				type: HOMEPAGE_SET_START_DATE,
+				type: actions.HOMEPAGE_SET_START_DATE,
 				payload: date,
 			});
 		},
 		setEndDate: date => {
 			dispatch({
-				type: HOMEPAGE_SET_END_DATE,
+				type: actions.HOMEPAGE_SET_END_DATE,
 				payload: date,
 			});
 		},
-		fetchShops: params => {
-			dispatch(fetchShops(params));
-		},
-		setSelectedShops: shopIds => {
-			dispatch(setSelectedShops(shopIds));
-		},
-		fetchShopsDetails: params => {
-			dispatch(fetchShopsDetails(params));
-		},
-		setSearchValue: value => {
-			dispatch(setSearchValue(value));
-		},
 	};
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

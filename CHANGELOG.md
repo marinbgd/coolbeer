@@ -42,6 +42,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added new API endpoint - shopDetails
 - Added ShopsDetailsTable and fetching of selected shops details (avg/min/max temperature)
 - Integrated searchBox with the API - now search term is applied to filtering data (search term is used in 'sn' column)
+- Removed fuel calc demo
+- Added Demo page with charts
+- Refactored HomePage to use bindActionCreators redux method
 
 
 ## TODO
