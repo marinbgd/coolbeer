@@ -87,6 +87,8 @@ Demo.propTypes = {
 	selectedCountry: PropTypes.object,
 	selectedRegion: PropTypes.object,
 	selectedCity: PropTypes.object,
+
+	setNewData: PropTypes.func.isRequired,
 };
 
 const _getSelectedItem = (items) => {

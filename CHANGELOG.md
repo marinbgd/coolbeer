@@ -45,6 +45,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Removed fuel calc demo
 - Added Demo page with charts
 - Refactored HomePage to use bindActionCreators redux method
+- Removed trackJs unused code from index.ejs and webpack.config.prod
+- Added google-maps-react dependency
+- Added CbMap component to show selected shops locations
+- Changed ShopsDetailsTable component to show CO2a max and min instead redundant city, region and country 
 
 
 ## TODO

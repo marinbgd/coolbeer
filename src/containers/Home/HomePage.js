@@ -18,16 +18,13 @@ import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
 import { cyan500 } from 'material-ui/styles/colors';
 
-import BarChart from '../../components/Charts/BarChart/BarChart';
-import PieChart from '../../components/Charts/PieChart/PieChart';
-import DoughnutChart from '../../components/Charts/DoughnutChart/DoughnutChart';
-import PolarAreaChart from '../../components/Charts/PolarAreaChart/PolarAreaChart';
 import LineChart from '../../components/Charts/LineChart/LineChart';
 
 import UpdateDataButton from '../../components/UpdateDataButton/UpdateDataButton';
 import ShopsTable from '../../components/ShopsTable/ShopsTable';
 import ShopsDetailsTable from '../../components/ShopsDetailsTable/ShopsDetailsTable';
 import SearchBox from '../../components/SearchBox/SearchBox';
+import CbMap from '../../components/CbMap/CbMap';
 
 const paperStyle = {
 	height: '100%',
@@ -41,7 +38,6 @@ class HomePage extends React.Component {
 
 	constructor(props) {
 		super(props);
-		console.log(props)
 	}
 
 	onRandomizeDataClick () {
@@ -131,6 +127,22 @@ class HomePage extends React.Component {
 			selectedShopsDetailsTable = noTableData;
 		}
 
+
+		let selectedShopsMap;
+		if (this.props.selectedShops && this.props.selectedShops.length) {
+			let markers = this.props.selectedShops.map( shop => ( shop.mapMarker ));
+			selectedShopsMap = (
+				<section className="p-">
+					<h3 className="text-left color-blue pb-">Selected shops on maps:</h3>
+					<Paper style={paperStyle} zDepth={2}>
+						<div className="pure-u-1-1 position-relative" style={{height: '400px', width: '100%'}}>
+							<CbMap markers={markers} />
+						</div>
+					</Paper>
+				</section>
+			);
+		}
+
 		return (
 			<section className="relative">
 				<h2>Get Started</h2>
@@ -180,37 +192,14 @@ class HomePage extends React.Component {
 
 				{selectedShopsDetailsTable}
 
+				{selectedShopsMap}
+
 				<section style={{overflow:'hidden', position:'relative'}}>
 					<h3 className="text-left color-blue p- pb0">Data visualization:</h3>
 					<div style={{position:'absolute', bottom: 0, right: '1em'}}>
 						<UpdateDataButton onClickFunc={this.onRandomizeDataClick.bind(this)} />
 					</div>
 				</section>
-				<div className="pure-g">
-					<div className="pure-u-1-2 p-">
-						<Paper style={paperStyle} zDepth={2}>
-							<PieChart chartData={this.props.pieChartData} />
-						</Paper>
-					</div>
-					<div className="pure-u-1-2 p-">
-						<Paper style={paperStyle} zDepth={2}>
-							<BarChart chartData={this.props.barChartData} />
-						</Paper>
-					</div>
-				</div>
-
-				<div className="pure-g">
-					<div className="pure-u-1-2 p-">
-						<Paper style={paperStyle} zDepth={2}>
-							<DoughnutChart chartData={this.props.pieChartData} />
-						</Paper>
-					</div>
-					<div className="pure-u-1-2 p-">
-						<Paper style={paperStyle} zDepth={2}>
-							<PolarAreaChart chartData={this.props.pieChartData} />
-						</Paper>
-					</div>
-				</div>
 
 				<div className="pure-g">
 					<Paper style={paperStyle} zDepth={2}>

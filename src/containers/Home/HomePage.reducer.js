@@ -151,10 +151,29 @@ const setShopsError = (state, action) => {
 	newState.shops.isFetching = false;
 	return newState;
 };
+const bgLatLng = {
+	lat: 44.796417,
+	lng: 20.378024,
+};
+const _makeRandomLatLng = (coor) => {
+	let coorString = coor.toString();
+	//get first 3 digits
+	coorString = coorString.substr(0, 4);
+	//randomize next 5 digits
+	let random = Math.random().toString().substr(2, 5);
+	//concatenate and return number
+	return + coorString+random;
+};
 const setSelectedShops = (state, selectedShopIds) => {
 	let newState = cloneDeep(state);
 	newState.shops.items.forEach( shop => {
 		shop._selected = !!(~selectedShopIds.indexOf(shop.sn));
+		//fake marker positions
+		shop.mapMarker = {
+			name: shop.sn,
+			lat: _makeRandomLatLng(bgLatLng.lat),
+			lng: _makeRandomLatLng(bgLatLng.lng),
+		};
 	});
 	return newState;
 };

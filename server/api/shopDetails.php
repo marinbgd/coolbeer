@@ -6,11 +6,8 @@ require_once( API_PATH . '/inc/cors.php');
 
 $connect = connect();
 
-$sql = "SELECT p.sn, c.name as city, r.name as region, cn.name as country, " .
-" AVG(p.temp) as tempAvg, MAX(p.temp) as tempMax, MIN(p.temp) as tempMin FROM " . DB_TBL_PIVOFLOW .
-" p INNER JOIN " . DB_TBL_CITIES . " c ON p.cityId=c.id" .
-" INNER JOIN " . DB_TBL_REGIONS . " r ON c.regionId = r.id" .
-" INNER JOIN " . DB_TBL_COUNTRIES . " cn ON r.countryId = cn.id";
+$sql = "SELECT p.sn, AVG(p.temp) as tempAvg, MAX(p.temp) as tempMax, MIN(p.temp) as tempMin, " .
+" MAX(p.co2a) as co2aMax, MIN(p.co2a) as co2aMin FROM " . DB_TBL_PIVOFLOW . " as p";
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//get data from JSON POST
@@ -18,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if( isset($data['startDate']) && (strlen($data['startDate']) > 0)  ){
 		//remove last letter 'z' if exists
 		$startDate = rtrim($data['startDate'], 'zZ');
-		$sql .= ' AND p.datum >= \'' . $startDate . '\'';
+		$sql .= ' WHERE p.datum >= \'' . $startDate . '\'';
 	}
 	if( isset($data['endDate']) && (strlen($data['endDate']) > 0)  ){
 		//remove last letter 'z' if exists
@@ -48,12 +45,11 @@ if(!$result = $connect->query($sql)){
 while($row = $result->fetch_assoc()){
 	$temp = [
         "sn" => $row['sn'],
-		"city" => $row['city'],
-		"region" => $row['region'],
-		"country" => $row['country'],
         "tempAvg" => $row['tempAvg'],
         "tempMax" => $row['tempMax'],
         "tempMin" => $row['tempMin'],
+        "co2aMin" => $row['co2aMin'],
+        "co2aMax" => $row['co2aMax'],
     ];
     $details[] = $temp;
 }

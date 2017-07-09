@@ -62,7 +62,7 @@ const ShopsTable = (props) => {
 					<TableHeaderColumn tooltip="The City">City</TableHeaderColumn>
 					<TableHeaderColumn tooltip="The Region">Region</TableHeaderColumn>
 					<TableHeaderColumn tooltip="The Country">Country</TableHeaderColumn>
-					<TableHeaderColumn tooltip="Date">Datum</TableHeaderColumn>
+					<TableHeaderColumn tooltip="Last Activity Date">Date</TableHeaderColumn>
 				</TableRow>
 			</TableHeader>
 			<TableBody

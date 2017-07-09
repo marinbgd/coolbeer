@@ -43,12 +43,11 @@ const ShopsDetailsTable = (props) => {
 			>
 				<TableRow>
 					<TableHeaderColumn tooltip="Serial Number">S/N</TableHeaderColumn>
-					<TableHeaderColumn tooltip="The City">City</TableHeaderColumn>
-					<TableHeaderColumn tooltip="The Region">Region</TableHeaderColumn>
-					<TableHeaderColumn tooltip="The Country">Country</TableHeaderColumn>
 					<TableHeaderColumn tooltip="Average Temperature">Temp Avg</TableHeaderColumn>
 					<TableHeaderColumn tooltip="Maximum Temperature">Temp Max</TableHeaderColumn>
 					<TableHeaderColumn tooltip="Minimum Temperature">Temp Min</TableHeaderColumn>
+					<TableHeaderColumn tooltip="Maximum CO2a">CO2a Max</TableHeaderColumn>
+					<TableHeaderColumn tooltip="Minimum CO2a">CO2a Min</TableHeaderColumn>
 				</TableRow>
 			</TableHeader>
 			<TableBody
@@ -59,12 +58,11 @@ const ShopsDetailsTable = (props) => {
 				{props.data.map( (row, index) => (
 					<TableRow key={index}>
 						<TableRowColumn>{row.sn}</TableRowColumn>
-						<TableRowColumn>{row.city}</TableRowColumn>
-						<TableRowColumn>{row.region}</TableRowColumn>
-						<TableRowColumn>{row.country}</TableRowColumn>
 						<TableRowColumn>{row.tempAvg}</TableRowColumn>
 						<TableRowColumn>{row.tempMax}</TableRowColumn>
 						<TableRowColumn>{row.tempMin}</TableRowColumn>
+						<TableRowColumn>{row.co2aMax}</TableRowColumn>
+						<TableRowColumn>{row.co2aMin}</TableRowColumn>
 					</TableRow>
 				))}
 			</TableBody>
