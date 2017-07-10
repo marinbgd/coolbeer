@@ -13,6 +13,7 @@ import {
 	RECEIVE_SHOPS_DETAILS_ERROR,
 
 	SET_SEARCH_VALUE,
+	SET_SELECTED_FREQUENCY,
 } from './HomePage.actions';
 
 import DateHelper from '../../common/DateHelper';
@@ -102,6 +103,20 @@ const initialState = {
 	search: {
 		term: '',
 	},
+
+	frequencies: [
+		{
+			value: 'hourly',
+			label: 'Hourly',
+			_selected: true,
+		},
+		/*{
+			value: 'daily',
+			label: 'Daily',
+			_selected: false,
+		}*/
+	],
+
 };
 
 
@@ -204,6 +219,15 @@ const setSearchValue = (state, payload) => {
 	return newState;
 };
 
+const setSelectedFrequency = (state, payload) => {
+	let newState = cloneDeep(state);
+	newState.frequencies.forEach(freq => {
+		freq._selected = (freq.value === payload);
+	});
+	return newState;
+};
+
+
 export default function homePage (state = initialState, action) {
 	switch (action.type) {
 		case HOMEPAGE_SET_NEW_DATA:
@@ -232,6 +256,9 @@ export default function homePage (state = initialState, action) {
 
 		case SET_SEARCH_VALUE:
 			return setSearchValue(state, action.payload);
+
+		case SET_SELECTED_FREQUENCY:
+			return setSelectedFrequency(state, action.payload);
 		default:
 			return state;
 	}

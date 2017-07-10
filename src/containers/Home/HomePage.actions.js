@@ -98,3 +98,13 @@ export function setSearchValue(value) {
 		payload: value,
 	};
 }
+
+
+
+export const SET_SELECTED_FREQUENCY = 'SET_SELECTED_FREQUENCY';
+export function setSelectedFrequency(value) {
+	return {
+		type: SET_SELECTED_FREQUENCY,
+		payload: value,
+	};
+}

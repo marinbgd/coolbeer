@@ -17,6 +17,9 @@ import FontIcon from 'material-ui/FontIcon';
 import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
 import { cyan500 } from 'material-ui/styles/colors';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+
 
 import ShopsLineChart from '../../components/Charts/ShopsLineChart/ShopsLineChart';
 
@@ -73,6 +76,12 @@ class HomePage extends React.Component {
 		this.props.actions.setSearchValue(text);
 	}
 
+	handleFrequencyChange(event, index, value) {
+		console.log(event, index, value);
+		console.log(this.props.actions)
+		this.props.actions.setSelectedFrequency(value);
+	}
+
 	render() {
 		const progressLoader = (<aside className="homePageShopsProgressHolder">
 			<CircularProgress mode="indeterminate" size={100} thickness={10}/>
@@ -122,7 +131,6 @@ class HomePage extends React.Component {
 			selectedShopsDetailsTable = noTableData;
 		}
 
-
 		let selectedShopsDetailsChart;
 		if (this.props.shopsDetails.isFetching) {
 			selectedShopsDetailsChart = progressLoader;
@@ -131,6 +139,22 @@ class HomePage extends React.Component {
 				<section style={{overflow:'hidden', position:'relative'}}>
 					<h3 className="text-left color-blue p- pb0">Data visualization:</h3>
 					<Paper style={paperStyle} zDepth={2}>
+
+						<SelectField
+							style={{
+								textAlign: 'left',
+								float: 'right',
+								clear: 'right',
+							}}
+							floatingLabelText="Frequency"
+							value={this.props.selectedFrequency && this.props.selectedFrequency.value}
+							onChange={this.handleFrequencyChange.bind(this)}
+						>
+							{this.props.frequencies.map( freq => (
+								<MenuItem key={freq.value} value={freq.value} primaryText={freq.label} />
+							))}
+						</SelectField>
+
 						<ShopsLineChart shops={this.props.shopsDetails.items} />
 					</Paper>
 				</section>
@@ -232,6 +256,9 @@ HomePage.propTypes = {
 	fetchShopsDetails: PropTypes.func,
 	setSelectedShops: PropTypes.func,
 
+	frequencies: PropTypes.array,
+	selectedFrequency: PropTypes.object,
+
 	sideMenu: PropTypes.object,
 	selectedCountry: PropTypes.object,
 	selectedRegion: PropTypes.object,
@@ -255,6 +282,9 @@ const mapStateToProps = (state) => {
 		shopsDetails: state.homePage.shopsDetails,
 		selectedShops: _getSelectedItems(state.homePage.shops.items),
 		search: state.homePage.search,
+
+		frequencies: state.homePage.frequencies,
+		selectedFrequency: _getSelectedItem(state.homePage.frequencies),
 
 		sideMenu: state.sideMenu,
 		selectedCountry: _getSelectedItem(state.sideMenu.countries.items),
