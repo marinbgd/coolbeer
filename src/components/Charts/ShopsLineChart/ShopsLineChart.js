@@ -76,7 +76,7 @@ class ShopsLineChart extends React.Component {
 		let data = cloneDeep(chartDefault);
 		let labels = extractLabelDatesFromShops(props.shops);
 
-		data.labels = labels;
+		data.data.labels = labels;
 		this.data = _addDataSetsFromShops(data, props.shops);
 	}
 
@@ -94,32 +94,44 @@ ShopsLineChart.propTypes = {
 export default ShopsLineChart;
 
 
-const dateSortAsc = (date1, date2) => {
+/*const dateSortAsc = (date1, date2) => {
 	// This is a comparison function that will result in dates being sorted in
 	// ASCENDING order. As you can see, JavaScript's native comparison operators
 	// can be used to compare dates. This was news to me.
 	if (date1 > date2) return 1;
 	if (date1 < date2) return -1;
 	return 0;
+};*/
+
+const dateHourSortAsc = (date1, date2) => {
+	if (date1.day > date2.day) return 1;
+
+	if (date1.day === date2.day && date1.hour > date2.hour ) return 1;
+	if (date1.day === date2.day && date1.hour < date2.hour ) return -1;
+
+	if (date1.day < date2.day) return -1;
+
+	return 0;
 };
 
-const getDayMonthYearFromDate = (date) => {
+/*const getDayMonthYearFromDate = (date) => {
 	return (date.getDate()) + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
-};
+};*/
 
 const extractLabelDatesFromShops = (shops) => {
 	let labelsArr = shops.map(shop => {
 		return shop.data.map(singleData => {
-			return singleData.day;
+			return {
+				day: singleData.day,
+				hour: singleData.hour,
+			};
 		});
 	});
 	let labels = union(...labelsArr);
 
-	//convert to type date
-	let dates = labels.map(label => new Date(label));
-	//sort dates
-	dates = dates.sort(dateSortAsc);
+	let sortedLabels = labels.sort(dateHourSortAsc);
+
 	//convert back to string
-	let sortedLabels = dates.map(getDayMonthYearFromDate);
+	sortedLabels = sortedLabels.map( obj => obj.day + ' ' + obj.hour);
 	return sortedLabels;
 };

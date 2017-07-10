@@ -5,14 +5,46 @@ require_once( API_PATH . '/inc/db.php');
 require_once( API_PATH . '/inc/cors.php');
 
 
-function getSnDailyHistoryData($connection, $startDate, $endDate, $sn) {
-	$sql2 = "SELECT AVG(lin1) AS lin1, AVG(lin2) AS lin2, AVG(lin3) AS lin3, AVG(lin4) AS lin4," .
-		" CONVERT(DATE(datum), CHAR(50)) AS dayString " .
+function getSnHourlyHistoryData($connection, $startDate, $endDate, $sn) {
+	//getting the maximum value of all the lines in each day, each hour
+	$sql2 = "SELECT DATE(datum) AS day, HOUR(datum) AS hour, MAX(lin1) AS lin1, MAX(lin2) AS lin2, MAX(lin3) AS lin3, MAX(lin4) AS lin4 " .
 		" FROM " . DB_TBL_PIVOFLOW .
 		" WHERE sn = '" . $sn ."'" .
 		" AND datum >= '" . $startDate . "'" .
 		" AND datum <= '" . $endDate . "'" .
-		" GROUP BY dayString ";
+		" GROUP BY day, hour ";
+		
+	if(!$result2 = $connection->query($sql2)){
+		die('There was an error running the query [' . $db->error . ']');
+	}
+	
+	while($row2 = $result2->fetch_assoc()){	
+		$temp2 = [
+			"lin1" => (double) $row2['lin1'],
+			"lin2" => (double) $row2['lin2'],
+			"lin3" => (double) $row2['lin3'],
+			"lin4" => (double) $row2['lin4'],
+			"day" => $row2['day'],
+			"hour" => $row2['hour'],
+		];
+		$data2[] = $temp2;
+	}
+	
+	$result2->free();
+	
+	return $data2;
+}
+
+
+function getSnDailyHistoryData($connection, $startDate, $endDate, $sn) {
+	//getting the maximum value of all the lines on each day
+	$sql2 = "SELECT MAX(lin1) AS lin1, MAX(lin2) AS lin2, MAX(lin3) AS lin3, MAX(lin4) AS lin4," .
+		" CONVERT(DATE(datum), CHAR(50)) AS day " .
+		" FROM " . DB_TBL_PIVOFLOW .
+		" WHERE sn = '" . $sn ."'" .
+		" AND datum >= '" . $startDate . "'" .
+		" AND datum <= '" . $endDate . "'" .
+		" GROUP BY day ";
 
 	if(!$result2 = $connection->query($sql2)){
 		die('There was an error running the query [' . $db->error . ']');
@@ -24,7 +56,7 @@ function getSnDailyHistoryData($connection, $startDate, $endDate, $sn) {
 			"lin2" => (double) $row2['lin2'],
 			"lin3" => (double) $row2['lin3'],
 			"lin4" => (double) $row2['lin4'],
-			"day" => $row2['dayString'],
+			"day" => $row2['day'],
 		];
 		$data2[] = $temp2;
 	}
@@ -76,7 +108,8 @@ if(!$result = $connect->query($sql)){
 while($row = $result->fetch_assoc()){
 	
 	//fetch each sn details
-	$tempHistoryData = getSnDailyHistoryData($connect, $startDate, $endDate, $row['sn']);
+	//$tempHistoryData = getSnDailyHistoryData($connect, $startDate, $endDate, $row['sn']);
+	$tempHistoryData = getSnHourlyHistoryData($connect, $startDate, $endDate, $row['sn']);
 	
 	$temp = [
         "sn" => $row['sn'],

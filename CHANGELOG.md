@@ -48,7 +48,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Removed trackJs unused code from index.ejs and webpack.config.prod
 - Added google-maps-react dependency
 - Added CbMap component to show selected shops locations
-- Changed ShopsDetailsTable component to show CO2a max and min instead redundant city, region and country 
+- Changed ShopsDetailsTable component to show CO2a max and min instead redundant city, region and country
+- Added ShopsLineChart for showing selected shops data - currently only line1
+- Improved shopDetails API method to extract daily data for each device - SN
+- Fixed API shopDetails to shop proper day - hourly data
+- Fixed ShopsLineChart to show labels properly
+- Adjusted ShopsLineChart to show new data according to shopDetails API changes
 
 
 ## TODO
