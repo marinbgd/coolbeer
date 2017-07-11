@@ -59,6 +59,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Integrated frequency selector on HomePage
 - Added .htaccess compression and caching
 - Added favicon - CoolBeer icon
+- Added resetting of shopsDetails reducer data when fetching new shops - (fixed bug when old shop details are shown, but new shops are fetched)
 
 
 ## TODO

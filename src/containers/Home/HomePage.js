@@ -42,11 +42,18 @@ class HomePage extends React.Component {
 	}
 
 	componentWillUpdate(nextProps) {
-		//check if selectedFrequency is changed
-		if (nextProps.selectedFrequency.value !== this.props.selectedFrequency.value) {
-			let selectedShops = nextProps.selectedShops.map( shop => shop.sn);
+		if (this._shouldShopsDetailsUpdate(this.props, nextProps)) {
+			let selectedShops = nextProps.selectedShops.map(shop => shop.sn);
 			this._fetchShopsDetails(nextProps, selectedShops);
 		}
+	}
+
+	_shouldShopsDetailsUpdate(oldProps, newProps) {
+		let result = false;
+		if (oldProps.selectedFrequency.value !== newProps.selectedFrequency.value) {
+			result = true;
+		}
+		return result;
 	}
 
 	handleChangeStartDate (event, date) {

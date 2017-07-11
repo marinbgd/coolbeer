@@ -154,7 +154,7 @@ const setShopsFetching = (state, isFetching) => {
 	return newState;
 };
 const setShops = (state, action) => {
-	let newState = cloneDeep(state);
+	let newState = _resetShopsDetails(state);
 	newState.shops.items = action.payload || [];
 	newState.shops.lastUpdated = action.receivedAt;
 	newState.shops.isFetching = false;
@@ -181,9 +181,13 @@ const _makeRandomLatLng = (coor) => {
 	return + coorString+random;
 };
 const setSelectedShops = (state, selectedShopIds) => {
-	let newState = cloneDeep(state);
+	let newState = _resetShopsDetails(state);
 	newState.shops.items.forEach( shop => {
-		shop._selected = !!(~selectedShopIds.indexOf(shop.sn));
+		if (!selectedShopIds) {
+			shop._selected = false;
+		} else {
+			shop._selected = !!(~selectedShopIds.indexOf(shop.sn));
+		}
 		//fake marker positions
 		shop.mapMarker = {
 			name: shop.sn,
@@ -197,6 +201,13 @@ const setSelectedShops = (state, selectedShopIds) => {
 const setShopsDetailsFetching = (state, isFetching) => {
 	let newState = cloneDeep(state);
 	newState.shopsDetails.isFetching = isFetching;
+	return newState;
+};
+const _resetShopsDetails = (state) => {
+	let newState = cloneDeep(state);
+	newState.shopsDetails.items = [];
+	newState.shopsDetails.lastUpdated = Date.now();
+	newState.shopsDetails.isFetching = false;
 	return newState;
 };
 const setShopsDetails = (state, action) => {
