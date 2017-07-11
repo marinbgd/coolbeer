@@ -57,6 +57,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Improved API shops method -> added filtering by countryId and regionId
 - Refactored DateHelper
 - Integrated frequency selector on HomePage
+- Added .htaccess compression and caching
+- Added favicon - CoolBeer icon
 
 
 ## TODO
