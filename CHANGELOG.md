@@ -55,6 +55,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed ShopsLineChart to show labels properly
 - Adjusted ShopsLineChart to show new data according to shopDetails API changes
 - Improved API shops method -> added filtering by countryId and regionId
+- Refactored DateHelper
+- Integrated frequency selector on HomePage
+
 
 ## TODO
 - Figure appropriate LICENSE and change it

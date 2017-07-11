@@ -6,7 +6,6 @@ import './HomePage.scss';
 import { bindActionCreators } from 'redux';
 import * as actions from './HomePage.actions';
 
-
 import { find, filter } from 'lodash';
 
 import Paper from 'material-ui/Paper';
@@ -42,6 +41,14 @@ class HomePage extends React.Component {
 		super(props);
 	}
 
+	componentWillUpdate(nextProps) {
+		//check if selectedFrequency is changed
+		if (nextProps.selectedFrequency.value !== this.props.selectedFrequency.value) {
+			let selectedShops = nextProps.selectedShops.map( shop => shop.sn);
+			this._fetchShopsDetails(nextProps, selectedShops);
+		}
+	}
+
 	handleChangeStartDate (event, date) {
 		this.props.setStartDate(date);
 	}
@@ -52,15 +59,14 @@ class HomePage extends React.Component {
 
 	handleRowSelection (selectedRowIds) {
 		this.props.actions.setSelectedShops(selectedRowIds);
-		let params = {
-			startDate: this.props.datePickerData.startDate,
-			endDate: this.props.datePickerData.endDate,
-			shopIds: selectedRowIds,
-		};
-		this.props.actions.fetchShopsDetails(params);
+		this._fetchShopsDetails(this.props, selectedRowIds);
 	}
 
 	handleGetData () {
+		this._fetchShops();
+	}
+
+	_fetchShops() {
 		let params = {
 			startDate: this.props.datePickerData.startDate,
 			endDate: this.props.datePickerData.endDate,
@@ -72,13 +78,21 @@ class HomePage extends React.Component {
 		this.props.actions.fetchShops(params);
 	}
 
+	_fetchShopsDetails(props, selectedRowIds) {
+		let params = {
+			startDate: props.datePickerData.startDate,
+			endDate: props.datePickerData.endDate,
+			shopIds: selectedRowIds,
+			frequency: props.selectedFrequency && props.selectedFrequency.value,
+		};
+		this.props.actions.fetchShopsDetails(params);
+	}
+
 	handleSearchBoxChange(event, text) {
 		this.props.actions.setSearchValue(text);
 	}
 
 	handleFrequencyChange(event, index, value) {
-		console.log(event, index, value);
-		console.log(this.props.actions)
 		this.props.actions.setSelectedFrequency(value);
 	}
 
@@ -155,7 +169,7 @@ class HomePage extends React.Component {
 							))}
 						</SelectField>
 
-						<ShopsLineChart shops={this.props.shopsDetails.items} />
+						<ShopsLineChart shops={this.props.shopsDetails.items} type={this.props.shopsDetails} />
 					</Paper>
 				</section>
 			);

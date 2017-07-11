@@ -16,7 +16,7 @@ import {
 	SET_SELECTED_FREQUENCY,
 } from './HomePage.actions';
 
-import DateHelper from '../../common/DateHelper';
+import { getStartOfDay, getEndOfDay, getNextMonth } from '../../common/DateHelper';
 
 import { cloneDeep } from 'lodash';
 
@@ -84,8 +84,8 @@ const initialState = {
 	},
 
 	datePicker: {
-		startDate: DateHelper.getStartOfDay( date6MonthBeforeNow ),
-		endDate: DateHelper.getNextMonth( DateHelper.getEndOfDay( new Date() ) ),
+		startDate: getStartOfDay( date6MonthBeforeNow ),
+		endDate: getNextMonth( getEndOfDay( new Date() ) ),
 	},
 
 	shops: {
@@ -98,6 +98,7 @@ const initialState = {
 		isFetching: false,
 		lastUpdated: null,
 		items: [],
+		dataFrequency: null,
 	},
 
 	search: {
@@ -110,11 +111,11 @@ const initialState = {
 			label: 'Hourly',
 			_selected: true,
 		},
-		/*{
+		{
 			value: 'daily',
 			label: 'Daily',
 			_selected: false,
-		}*/
+		}
 	],
 
 };
@@ -137,13 +138,13 @@ const randomDataChange = (state) => {
 
 const setStartDate = (state, date) => {
 	let newState = cloneDeep(state);
-	newState.datePicker.startDate = DateHelper.getStartOfDay(date);
+	newState.datePicker.startDate = getStartOfDay(date);
 	return newState;
 };
 
 const setEndDate = (state, date) => {
 	let newState = cloneDeep(state);
-	newState.datePicker.endDate = DateHelper.getEndOfDay(date);
+	newState.datePicker.endDate = getEndOfDay(date);
 	return newState;
 };
 

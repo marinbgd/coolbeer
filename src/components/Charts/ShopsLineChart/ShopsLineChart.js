@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LineChart from '../LineChart/LineChart';
-import { union, cloneDeep } from 'lodash';
-
+import colors from '../chartColors';
+import { union, cloneDeep, uniqWith, isEqual } from 'lodash';
+import { dateHourSortAsc } from '../../../common/DateHelper';
 const chartDefault = {
 	data: {
 		labels: [],
@@ -22,19 +23,6 @@ const datasetDefault = {
 	borderWidth: 1,
 	pointStyle: 'rect',
 };
-
-
-const colors = [
-	'rgba(0, 188, 212, 0.3)',
-	'rgba(158, 110, 74, 0.3)',
-	'rgba(79, 247, 182, 0.3)',
-	'rgba(247, 140, 9, 0.3)',
-	'rgba(160, 9, 247, 0.3)',
-	'rgba(249, 9, 81, 0.3)',
-	'rgba(9, 247, 49, 0.3)',
-];
-
-
 
 const _getBgColorByIndex = (colors, index) => {
 	let colorLength = colors.length;
@@ -74,7 +62,7 @@ class ShopsLineChart extends React.Component {
 		super(props);
 
 		let data = cloneDeep(chartDefault);
-		let labels = extractLabelDatesFromShops(props.shops);
+		let labels = _extractLabelDatesFromShops(props.shops);
 
 		data.data.labels = labels;
 		this.data = _addDataSetsFromShops(data, props.shops);
@@ -94,32 +82,35 @@ ShopsLineChart.propTypes = {
 export default ShopsLineChart;
 
 
-/*const dateSortAsc = (date1, date2) => {
-	// This is a comparison function that will result in dates being sorted in
-	// ASCENDING order. As you can see, JavaScript's native comparison operators
-	// can be used to compare dates. This was news to me.
-	if (date1 > date2) return 1;
-	if (date1 < date2) return -1;
-	return 0;
-};*/
+const _extractLabelDatesFromShops = (shops) => {
+	let frequency = _getFrequencyFromShops(shops);
+	let labels;
+	switch (frequency) {
+		case 'daily':
+			labels = _getLabelsFromShopsDaily(shops);
+			break;
+		case 'hourly':
+			labels = _getLabelsFromShopsHourly(shops);
+			break;
+	}
 
-const dateHourSortAsc = (date1, date2) => {
-	if (date1.day > date2.day) return 1;
-
-	if (date1.day === date2.day && date1.hour > date2.hour ) return 1;
-	if (date1.day === date2.day && date1.hour < date2.hour ) return -1;
-
-	if (date1.day < date2.day) return -1;
-
-	return 0;
+	return labels;
 };
 
-/*const getDayMonthYearFromDate = (date) => {
-	return (date.getDate()) + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
-};*/
+const _getFrequencyFromShops = (shops) => {
+	if (shops && shops.length) {
+		return shops[0].dataFrequency;
+	}
+};
 
-const extractLabelDatesFromShops = (shops) => {
-	let labelsArr = shops.map(shop => {
+const _getLabelsFromShopsDaily = (shops) => {
+	let labelsArr = shops.map(shop => shop.data.map(singleData => singleData.day));
+	let labels = union(...labelsArr);
+	let sortedLabels = labels.sort();
+	return sortedLabels;
+};
+const _getLabelsFromShopsHourly = (shops) => {
+	let labelsArr =  shops.map(shop => {
 		return shop.data.map(singleData => {
 			return {
 				day: singleData.day,
@@ -128,10 +119,9 @@ const extractLabelDatesFromShops = (shops) => {
 		});
 	});
 	let labels = union(...labelsArr);
-
-	let sortedLabels = labels.sort(dateHourSortAsc);
-
-	//convert back to string
-	sortedLabels = sortedLabels.map( obj => obj.day + ' ' + obj.hour);
-	return sortedLabels;
+	let labelsUniq = uniqWith(labels, isEqual);
+	let sortedLabels = labelsUniq.sort(dateHourSortAsc);
+	let sortedLabelsString = sortedLabels.map( obj => obj.day + ' ' + obj.hour + 'h');
+	return sortedLabelsString;
 };
+

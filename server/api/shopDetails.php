@@ -4,6 +4,7 @@ require_once( 'inc/configConstants.php');
 require_once( API_PATH . '/inc/db.php');
 require_once( API_PATH . '/inc/cors.php');
 
+$frequency = 'hourly';	//default value
 
 function getSnHourlyHistoryData($connection, $startDate, $endDate, $sn) {
 	//getting the maximum value of all the lines in each day, each hour
@@ -12,7 +13,8 @@ function getSnHourlyHistoryData($connection, $startDate, $endDate, $sn) {
 		" WHERE sn = '" . $sn ."'" .
 		" AND datum >= '" . $startDate . "'" .
 		" AND datum <= '" . $endDate . "'" .
-		" GROUP BY day, hour ";
+		" GROUP BY day, hour " .
+		" ORDER BY day, hour ";
 		
 	if(!$result2 = $connection->query($sql2)){
 		die('There was an error running the query [' . $db->error . ']');
@@ -25,7 +27,7 @@ function getSnHourlyHistoryData($connection, $startDate, $endDate, $sn) {
 			"lin3" => (double) $row2['lin3'],
 			"lin4" => (double) $row2['lin4'],
 			"day" => $row2['day'],
-			"hour" => $row2['hour'],
+			"hour" => (int) $row2['hour'],
 		];
 		$data2[] = $temp2;
 	}
@@ -44,7 +46,8 @@ function getSnDailyHistoryData($connection, $startDate, $endDate, $sn) {
 		" WHERE sn = '" . $sn ."'" .
 		" AND datum >= '" . $startDate . "'" .
 		" AND datum <= '" . $endDate . "'" .
-		" GROUP BY day ";
+		" GROUP BY day " .
+		" ORDER BY day ";
 
 	if(!$result2 = $connection->query($sql2)){
 		die('There was an error running the query [' . $db->error . ']');
@@ -75,6 +78,7 @@ $sql = "SELECT p.sn, AVG(p.temp) as tempAvg, MAX(p.temp) as tempMax, MIN(p.temp)
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//get data from JSON POST
     $data = json_decode(file_get_contents('php://input'), true);
+	
 	if( isset($data['startDate']) && (strlen($data['startDate']) > 0)  ){
 		//remove last letter 'z' if exists
 		$startDate = rtrim($data['startDate'], 'zZ');
@@ -86,13 +90,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$sql .= ' AND p.datum <= \'' . $endDate . '\'';
 	}
 	
-	
 	if( isset($data['shopIds']) && is_array($data['shopIds']) && !empty($data['shopIds']) ){
 		$sql .= ' AND p.sn IN ("' . implode('","', $data['shopIds']) . '")';
 	} else {
 		//must have narrowed search with shopIds or die with status 400 - bad request
 		http_response_code(400);
 		die();
+	}
+	
+	if( isset($data['frequency']) && (strlen($data['frequency']) > 0)  ){
+		$frequency = $data['frequency'];
 	}
 }
 
@@ -105,11 +112,16 @@ if(!$result = $connect->query($sql)){
 	die('There was an error running the query [' . $db->error . ']');
 }
 
+
 while($row = $result->fetch_assoc()){
 	
 	//fetch each sn details
-	//$tempHistoryData = getSnDailyHistoryData($connect, $startDate, $endDate, $row['sn']);
-	$tempHistoryData = getSnHourlyHistoryData($connect, $startDate, $endDate, $row['sn']);
+	if ($frequency === 'daily') {
+		$tempHistoryData = getSnDailyHistoryData($connect, $startDate, $endDate, $row['sn']);
+	} else if ($frequency === 'hourly') {
+		$tempHistoryData = getSnHourlyHistoryData($connect, $startDate, $endDate, $row['sn']);
+	}
+	
 	
 	$temp = [
         "sn" => $row['sn'],
@@ -119,6 +131,7 @@ while($row = $result->fetch_assoc()){
         "co2aMin" => $row['co2aMin'],
         "co2aMax" => $row['co2aMax'],
 		"data" => $tempHistoryData,
+		"dataFrequency" => $frequency,
     ];
     $details[] = $temp;
 }

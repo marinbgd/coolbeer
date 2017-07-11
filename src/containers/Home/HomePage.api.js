@@ -38,12 +38,14 @@ const HomePageApi = {
         startDate=null,
         endDate=null,
         shopIds = [],
+        frequency=null,
     }) => {
 
 		let payload = {
 			startDate,
 			endDate,
 			shopIds,
+			frequency,
 		};
 
 		let config = {
