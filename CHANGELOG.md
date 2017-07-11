@@ -54,7 +54,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed API shopDetails to shop proper day - hourly data
 - Fixed ShopsLineChart to show labels properly
 - Adjusted ShopsLineChart to show new data according to shopDetails API changes
-
+- Improved API shops method -> added filtering by countryId and regionId
 
 ## TODO
 - Figure appropriate LICENSE and change it

@@ -39,8 +39,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$sql .= ' AND p.cityId = ' . $data['cityId'];
 	} else if ( isset($data['regionId']) && (strlen($data['regionId']) > 0) ) {
 		//handle when cityId is not set, but regionId is set
+		$sql .= ' AND r.id=' . $data['regionId'];
+		
 	} else if ( isset($data['countryId']) && (strlen($data['countryId']) > 0) ) {
 		//handle when cityId and regionId are not set, but countryId is set
+		$sql .= ' AND cn.id=' . $data['countryId'];
 	}
 }
 //sort from newest to oldest by last activity
