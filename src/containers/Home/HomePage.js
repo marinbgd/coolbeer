@@ -1,31 +1,33 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import './HomePage.scss';
 
-import { bindActionCreators } from 'redux';
+import {bindActionCreators} from 'redux';
 import * as actions from './HomePage.actions';
 
-import { find, filter } from 'lodash';
+import {filter, find} from 'lodash';
 
-import Paper from 'material-ui/Paper';
-import DatePicker from 'material-ui/DatePicker';
-import RaisedButton from 'material-ui/RaisedButton';
-import CircularProgress from 'material-ui/CircularProgress';
-import FontIcon from 'material-ui/FontIcon';
-import Chip from 'material-ui/Chip';
-import Avatar from 'material-ui/Avatar';
-import { cyan500 } from 'material-ui/styles/colors';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-
+import {cyan500} from 'material-ui/styles/colors';
+import {
+	Paper,
+	RaisedButton,
+	DatePicker,
+	CircularProgress,
+	SelectField,
+	FontIcon,
+	MenuItem,
+	Avatar,
+	Chip,
+} from 'material-ui';
 
 import ShopsLineChart from '../../components/Charts/ShopsLineChart/ShopsLineChart';
-
 import ShopsTable from '../../components/ShopsTable/ShopsTable';
 import ShopsDetailsTable from '../../components/ShopsDetailsTable/ShopsDetailsTable';
 import SearchBox from '../../components/SearchBox/SearchBox';
 import CbMap from '../../components/CbMap/CbMap';
+import CircleWidget from '../../components/CircleWidget/CircleWidget';
+import {getBgColorByIndex} from '../../common/colors/ColorHelper';
 
 const paperStyle = {
 	height: '100%',
@@ -56,20 +58,20 @@ class HomePage extends React.Component {
 		return result;
 	}
 
-	handleChangeStartDate (event, date) {
+	handleChangeStartDate(event, date) {
 		this.props.setStartDate(date);
 	}
 
-	handleChangeEndDate (event, date) {
+	handleChangeEndDate(event, date) {
 		this.props.setEndDate(date);
 	}
 
-	handleRowSelection (selectedRowIds) {
+	handleRowSelection(selectedRowIds) {
 		this.props.actions.setSelectedShops(selectedRowIds);
 		this._fetchShopsDetails(this.props, selectedRowIds);
 	}
 
-	handleGetData () {
+	handleGetData() {
 		this._fetchShops();
 	}
 
@@ -112,7 +114,7 @@ class HomePage extends React.Component {
 			<aside className="homePageShopsEmptyWrapper">
 				<span className="homePageShopsEmptyHolder">
 					<Chip>
-						<Avatar icon={<FontIcon color={cyan500} className="material-icons">warning</FontIcon>} />
+						<Avatar icon={<FontIcon color={cyan500} className="material-icons">warning</FontIcon>}/>
 						No shops for selected filters
 					</Chip>
 				</span>
@@ -144,7 +146,7 @@ class HomePage extends React.Component {
 				<section className="p-">
 					<h3 className="text-left color-blue pb-">Selected shops details:</h3>
 					<Paper style={paperStyle} zDepth={2}>
-						<ShopsDetailsTable data={this.props.shopsDetails.items} />
+						<ShopsDetailsTable data={this.props.shopsDetails.items}/>
 					</Paper>
 				</section>
 			);
@@ -157,7 +159,7 @@ class HomePage extends React.Component {
 			selectedShopsDetailsChart = progressLoader;
 		} else if (this.props.shopsDetails.items.length) {
 			selectedShopsDetailsChart = (
-				<section style={{overflow:'hidden', position:'relative'}}>
+				<section style={{overflow: 'hidden', position: 'relative'}}>
 					<h3 className="text-left color-blue p- pb0">Data visualization:</h3>
 					<Paper style={paperStyle} zDepth={2}>
 
@@ -171,28 +173,41 @@ class HomePage extends React.Component {
 							value={this.props.selectedFrequency && this.props.selectedFrequency.value}
 							onChange={this.handleFrequencyChange.bind(this)}
 						>
-							{this.props.frequencies.map( freq => (
-								<MenuItem key={freq.value} value={freq.value} primaryText={freq.label} />
+							{this.props.frequencies.map(freq => (
+								<MenuItem key={freq.value} value={freq.value} primaryText={freq.label}/>
 							))}
 						</SelectField>
 
-						<ShopsLineChart shops={this.props.shopsDetails.items} type={this.props.shopsDetails} />
+						<ShopsLineChart shops={this.props.shopsDetails.items} type={this.props.shopsDetails}/>
 					</Paper>
 				</section>
 			);
 		}
 
 
+		let selectedShopsSums;
+		if (this.props.shopsDetails.items.length) {
+			let title = 'Total Consumption';
+			selectedShopsSums = (
+				<section className="p-">
+					{this.props.shopsDetails.items.map((shop, index) =>
+						(<CircleWidget key={shop.sn} color={getBgColorByIndex(index)} text={shop.dataSums.totalConsumption} tooltip={shop.sn} title={title}/>)
+					)}
+
+				</section>
+			);
+		}
+
 
 		let selectedShopsMap;
 		if (this.props.selectedShops && this.props.selectedShops.length) {
-			let markers = this.props.selectedShops.map( shop => ( shop.mapMarker ));
+			let markers = this.props.selectedShops.map(shop => ( shop.mapMarker ));
 			selectedShopsMap = (
 				<section className="p-">
 					<h3 className="text-left color-blue pb-">Selected shops on maps:</h3>
 					<Paper style={paperStyle} zDepth={2}>
 						<div className="pure-u-1-1 position-relative" style={{height: '400px', width: '100%'}}>
-							<CbMap markers={markers} />
+							<CbMap markers={markers}/>
 						</div>
 					</Paper>
 				</section>
@@ -207,7 +222,7 @@ class HomePage extends React.Component {
 				</ol>
 
 				<aside className="searchShops">
-					<SearchBox value={this.props.search.term} onChangeCb={this.handleSearchBoxChange.bind(this)} />
+					<SearchBox value={this.props.search.term} onChangeCb={this.handleSearchBoxChange.bind(this)}/>
 				</aside>
 
 				<section className="p-">
@@ -247,6 +262,8 @@ class HomePage extends React.Component {
 
 				{selectedShopsDetailsTable}
 
+				{selectedShopsSums}
+
 				{selectedShopsDetailsChart}
 
 				{selectedShopsMap}
@@ -256,7 +273,6 @@ class HomePage extends React.Component {
 
 	}
 }
-
 
 
 HomePage.propTypes = {

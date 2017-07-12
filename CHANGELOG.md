@@ -62,5 +62,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added resetting of shopsDetails reducer data when fetching new shops - (fixed bug when old shop details are shown, but new shops are fetched)
 
 
+## 2017-07-13 -- version 0.3.0
+- Added react-tooltip library
+- Added ColorHelper common util
+- Added dataSums for each sn-device to the shopDetails API method
+- Added CircleWidget component
+- Added TotalConsumptions for each shop on HomePage
+
+
 ## TODO
 - Figure appropriate LICENSE and change it

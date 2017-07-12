@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LineChart from '../LineChart/LineChart';
-import colors from '../chartColors';
+import { getBgColorByIndex } from '../../../common/colors/ColorHelper';
 import { union, cloneDeep, uniqWith, isEqual } from 'lodash';
 import { dateHourSortAsc } from '../../../common/DateHelper';
 const chartDefault = {
@@ -24,18 +24,12 @@ const datasetDefault = {
 	pointStyle: 'rect',
 };
 
-const _getBgColorByIndex = (colors, index) => {
-	let colorLength = colors.length;
-	let colorIndex = index % colorLength;
-	return colors[colorIndex];
-};
-
 const _extractDataSetFromShop = (shop, index) => {
 	let dataset = cloneDeep(datasetDefault);
 	dataset.label = shop.sn;
 
 	//get backgroundColor by index
-	dataset.backgroundColor = _getBgColorByIndex(colors, index);
+	dataset.backgroundColor = getBgColorByIndex(index);
 
 	shop.data.forEach(singleData => {
 		dataset.data.push(singleData.lin1);

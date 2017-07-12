@@ -69,6 +69,29 @@ function getSnDailyHistoryData($connection, $startDate, $endDate, $sn) {
 	return $data2;
 }
 
+function getSnSumsData($connection, $startDate, $endDate, $sn) {
+	//getting the Total SUM of all the lines accross period of time
+	$sql2 = "SELECT SUM(lin1 + lin2 + lin3+ lin4) AS totalConsumption " .
+		" FROM " . DB_TBL_PIVOFLOW .
+		" WHERE sn = '" . $sn ."'" .
+		" AND datum >= '" . $startDate . "'" .
+		" AND datum <= '" . $endDate . "'" ;
+
+	if(!$result2 = $connection->query($sql2)){
+		die('There was an error running the query [' . $db->error . ']');
+	}
+	
+	while($row2 = $result2->fetch_assoc()){	
+		$data2 = [
+			"totalConsumption" => (double) $row2['totalConsumption'],
+		];
+	}
+	
+	$result2->free();
+	
+	return $data2;
+}
+
 
 $connect = connect();
 
@@ -122,6 +145,7 @@ while($row = $result->fetch_assoc()){
 		$tempHistoryData = getSnHourlyHistoryData($connect, $startDate, $endDate, $row['sn']);
 	}
 	
+	$snSums = getSnSumsData($connect, $startDate, $endDate, $row['sn']);
 	
 	$temp = [
         "sn" => $row['sn'],
@@ -131,6 +155,7 @@ while($row = $result->fetch_assoc()){
         "co2aMin" => $row['co2aMin'],
         "co2aMax" => $row['co2aMax'],
 		"data" => $tempHistoryData,
+		"dataSums" => $snSums,
 		"dataFrequency" => $frequency,
     ];
     $details[] = $temp;

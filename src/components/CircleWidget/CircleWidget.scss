@@ -1,0 +1,26 @@
+@import '../../styles/settings/colorVariables';
+
+.circle-widget {
+	display: table;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+.circle-widget__title {
+	position: absolute;
+	top: 1em;
+	padding: 0 2em;
+	font-size: .875em;
+	color: $indigo400;
+	text-shadow: 0 1px 0 #fff;
+}
+.circle-widget__text {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+
+	padding-top: 1em;
+	font-size: 1.25em;
+	font-weight: bold;
+	color: $indigo700;
+}
