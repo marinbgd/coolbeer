@@ -42,6 +42,7 @@ const ShopsDetailsTable = (props) => {
 				enableSelectAll={tableConfig.enableSelectAll}
 			>
 				<TableRow>
+					<TableHeaderColumn tooltip="Shop Name">Shop Name</TableHeaderColumn>
 					<TableHeaderColumn tooltip="Serial Number">S/N</TableHeaderColumn>
 					<TableHeaderColumn tooltip="Average Temperature">Temp Avg</TableHeaderColumn>
 					<TableHeaderColumn tooltip="Maximum Temperature">Temp Max</TableHeaderColumn>
@@ -57,6 +58,7 @@ const ShopsDetailsTable = (props) => {
 			>
 				{props.data.map( (row, index) => (
 					<TableRow key={index}>
+						<TableRowColumn>{row.shopName}</TableRowColumn>
 						<TableRowColumn>{row.sn}</TableRowColumn>
 						<TableRowColumn>{row.tempAvg}</TableRowColumn>
 						<TableRowColumn>{row.tempMax}</TableRowColumn>

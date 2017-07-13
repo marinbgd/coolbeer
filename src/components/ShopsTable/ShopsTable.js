@@ -58,7 +58,7 @@ const ShopsTable = (props) => {
 				adjustForCheckbox={tableConfig.showCheckboxes}
 			>
 				<TableRow>
-					<TableHeaderColumn tooltip="Serial Number">S/N</TableHeaderColumn>
+					<TableHeaderColumn tooltip="Shop Name">Shop Name</TableHeaderColumn>
 					<TableHeaderColumn tooltip="The City">City</TableHeaderColumn>
 					<TableHeaderColumn tooltip="The Region">Region</TableHeaderColumn>
 					<TableHeaderColumn tooltip="The Country">Country</TableHeaderColumn>
@@ -74,7 +74,7 @@ const ShopsTable = (props) => {
 			>
 				{props.data.map( (row, index) => (
 					<TableRow key={index} selected={row._selected}>
-						<TableRowColumn>{row.sn}</TableRowColumn>
+						<TableRowColumn>{row.shopName}</TableRowColumn>
 						<TableRowColumn>{row.city}</TableRowColumn>
 						<TableRowColumn>{row.region}</TableRowColumn>
 						<TableRowColumn>{row.country}</TableRowColumn>

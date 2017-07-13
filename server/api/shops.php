@@ -6,7 +6,7 @@ require_once( API_PATH . '/inc/cors.php');
 
 $connect = connect();
 
-$sql = "SELECT p.id, p.sn, p.datum,
+$sql = "SELECT p.id, p.sn, p.shopName, p.datum,
 c.name as city, r.name as region, cn.name as country FROM " . DB_TBL_PIVOFLOW .
 " p INNER JOIN " . DB_TBL_CITIES . " c ON p.cityId=c.id" .
 " INNER JOIN " . DB_TBL_REGIONS . " r ON c.regionId = r.id" .
@@ -59,6 +59,7 @@ while($row = $result->fetch_assoc()){
 	$temp = [
         "id" => (int) $row['id'],
         "sn" => $row['sn'],
+		"shopName" => $row['shopName'],
 		"city" => $row['city'],
 		"region" => $row['region'],
 		"country" => $row['country'],

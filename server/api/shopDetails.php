@@ -26,6 +26,7 @@ function getSnHourlyHistoryData($connection, $startDate, $endDate, $sn) {
 			"lin2" => (double) $row2['lin2'],
 			"lin3" => (double) $row2['lin3'],
 			"lin4" => (double) $row2['lin4'],
+			"sumLines" => (double) $row2['lin1'] + $row2['lin2'] + $row2['lin3'] + $row2['lin4'],
 			"day" => $row2['day'],
 			"hour" => (int) $row2['hour'],
 		];
@@ -59,6 +60,7 @@ function getSnDailyHistoryData($connection, $startDate, $endDate, $sn) {
 			"lin2" => (double) $row2['lin2'],
 			"lin3" => (double) $row2['lin3'],
 			"lin4" => (double) $row2['lin4'],
+			"sumLines" => (double) $row2['lin1'] + $row2['lin2'] + $row2['lin3'] + $row2['lin4'],
 			"day" => $row2['day'],
 		];
 		$data2[] = $temp2;
@@ -95,7 +97,7 @@ function getSnSumsData($connection, $startDate, $endDate, $sn) {
 
 $connect = connect();
 
-$sql = "SELECT p.sn, AVG(p.temp) as tempAvg, MAX(p.temp) as tempMax, MIN(p.temp) as tempMin, " .
+$sql = "SELECT p.sn, p.shopName, AVG(p.temp) as tempAvg, MAX(p.temp) as tempMax, MIN(p.temp) as tempMin, " .
 " MAX(p.co2a) as co2aMax, MIN(p.co2a) as co2aMin FROM " . DB_TBL_PIVOFLOW . " as p";
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -149,6 +151,7 @@ while($row = $result->fetch_assoc()){
 	
 	$temp = [
         "sn" => $row['sn'],
+        "shopName" => $row['shopName'],
         "tempAvg" => $row['tempAvg'],
         "tempMax" => $row['tempMax'],
         "tempMin" => $row['tempMin'],

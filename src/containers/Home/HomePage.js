@@ -191,7 +191,7 @@ class HomePage extends React.Component {
 			selectedShopsSums = (
 				<section className="p-">
 					{this.props.shopsDetails.items.map((shop, index) =>
-						(<CircleWidget key={shop.sn} color={getBgColorByIndex(index)} text={shop.dataSums.totalConsumption} tooltip={shop.sn} title={title}/>)
+						(<CircleWidget key={shop.sn} color={getBgColorByIndex(index)} text={shop.dataSums.totalConsumption} tooltip={shop.shopName + ' / ' + shop.sn} title={title}/>)
 					)}
 
 				</section>

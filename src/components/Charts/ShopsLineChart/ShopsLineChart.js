@@ -26,13 +26,13 @@ const datasetDefault = {
 
 const _extractDataSetFromShop = (shop, index) => {
 	let dataset = cloneDeep(datasetDefault);
-	dataset.label = shop.sn;
+	dataset.label = shop.shopName || shop.sn;
 
 	//get backgroundColor by index
 	dataset.backgroundColor = getBgColorByIndex(index);
 
 	shop.data.forEach(singleData => {
-		dataset.data.push(singleData.lin1);
+		dataset.data.push(singleData.sumLines);
 	});
 
 	return dataset;
