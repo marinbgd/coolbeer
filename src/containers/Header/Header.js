@@ -14,11 +14,13 @@ class Header extends React.Component {
 			color: 'white'
 		};
 		const homeLink = <Link to="/" activeClassName={'active'} />;
+		const compareLink = <Link to="/compare" activeClassName={'active'} />;
 		const aboutLink = <Link to="/about" activeClassName={'active'} />;
 		const demoLink = <Link to="/demo" activeClassName={'active'} />;
 		const rightButtons = (
 			<nav>
 				<FlatButton style={buttonStyle} containerElement={homeLink} label="Home" />
+				<FlatButton style={buttonStyle} containerElement={compareLink} label="Compare" />
 				<FlatButton style={buttonStyle} containerElement={aboutLink} label="About" />
 				<FlatButton style={buttonStyle} containerElement={demoLink} label="Demo" />
 			</nav>

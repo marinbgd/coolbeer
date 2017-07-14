@@ -178,7 +178,7 @@ class HomePage extends React.Component {
 							))}
 						</SelectField>
 
-						<ShopsLineChart shops={this.props.shopsDetails.items} type={this.props.shopsDetails}/>
+						<ShopsLineChart shops={this.props.shopsDetails.items} />
 					</Paper>
 				</section>
 			);
@@ -276,8 +276,6 @@ class HomePage extends React.Component {
 
 
 HomePage.propTypes = {
-	barChartData: PropTypes.object,
-	pieChartData: PropTypes.object,
 	datePickerData: PropTypes.object.isRequired,
 
 	shops: PropTypes.object.isRequired,
@@ -311,9 +309,6 @@ const _getSelectedItems = (items) => {
 };
 const mapStateToProps = (state) => {
 	return {
-		barChartData: state.homePage.barChartData,
-		pieChartData: state.homePage.pieChartData,
-
 		datePickerData: state.homePage.datePicker,
 		shops: state.homePage.shops,
 		shopsDetails: state.homePage.shopsDetails,

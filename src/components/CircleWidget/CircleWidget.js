@@ -24,7 +24,10 @@ const CircleWidget = (props) => (
 );
 
 CircleWidget.propTypes = {
-	text: PropTypes.string.isRequired,
+	text: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number
+	]),
 	title: PropTypes.string,
 	tooltip: PropTypes.string,
 	color: PropTypes.string,

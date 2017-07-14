@@ -68,6 +68,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added dataSums for each sn-device to the shopDetails API method
 - Added CircleWidget component
 - Added TotalConsumptions for each shop on HomePage
+- Added ComparePage
+- Added SingleShopDetailedLineChart component
 
 
 ## TODO
