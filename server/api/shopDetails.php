@@ -7,11 +7,15 @@ require_once( API_PATH . '/inc/cors.php');
 $frequency = 'hourly';	//default value
 
 function getSnHourlyHistoryData($connection, $startDate, $endDate, $sn) {
+	
+	//should go one day before requested startDate, to get previous data
+	$startOneHourBehind = date('Y-m-d\TH:i:s,', strtotime($startDate . " -1 hours"));
+	
 	//getting the maximum value of all the lines in each day, each hour
 	$sql2 = "SELECT DATE(datum) AS day, HOUR(datum) AS hour, MAX(lin1) AS lin1, MAX(lin2) AS lin2, MAX(lin3) AS lin3, MAX(lin4) AS lin4 " .
 		" FROM " . DB_TBL_PIVOFLOW .
 		" WHERE sn = '" . $sn ."'" .
-		" AND datum >= '" . $startDate . "'" .
+		" AND datum >= '" . $startOneHourBehind . "'" .
 		" AND datum <= '" . $endDate . "'" .
 		" GROUP BY day, hour " .
 		" ORDER BY day, hour ";
@@ -21,16 +25,21 @@ function getSnHourlyHistoryData($connection, $startDate, $endDate, $sn) {
 	}
 	
 	while($row2 = $result2->fetch_assoc()){	
-		$temp2 = [
-			"lin1" => (double) $row2['lin1'],
-			"lin2" => (double) $row2['lin2'],
-			"lin3" => (double) $row2['lin3'],
-			"lin4" => (double) $row2['lin4'],
-			"sumLines" => (double) $row2['lin1'] + $row2['lin2'] + $row2['lin3'] + $row2['lin4'],
-			"day" => $row2['day'],
-			"hour" => (int) $row2['hour'],
-		];
-		$data2[] = $temp2;
+		//removing line values from previous dates
+		if ($prevRow) {
+			$temp2 = [
+				"lin1" => (double) $row2['lin1'] - $prevRow['lin1'],
+				"lin2" => (double) $row2['lin2'] - $prevRow['lin2'],
+				"lin3" => (double) $row2['lin3'] - $prevRow['lin3'],
+				"lin4" => (double) $row2['lin4'] - $prevRow['lin4'],
+				"sumLines" => (double) ($row2['lin1'] - $prevRow['lin1']) + ($row2['lin2'] - $prevRow['lin2']) + ($row2['lin3'] - $prevRow['lin3']) + ($row2['lin4'] - $prevRow['lin4']),
+				"day" => $row2['day'],
+				"hour" => (int) $row2['hour'],
+			];
+			$data2[] = $temp2;
+		}
+		
+		$prevRow = $row2;
 	}
 	
 	$result2->free();
@@ -40,12 +49,16 @@ function getSnHourlyHistoryData($connection, $startDate, $endDate, $sn) {
 
 
 function getSnDailyHistoryData($connection, $startDate, $endDate, $sn) {
+	
+	//should go one day before requested startDate, to get previous data
+	$yesterday = date('Y-m-d\TH:i:s,', strtotime($startDate . " -1 days"));
+	
 	//getting the maximum value of all the lines on each day
 	$sql2 = "SELECT MAX(lin1) AS lin1, MAX(lin2) AS lin2, MAX(lin3) AS lin3, MAX(lin4) AS lin4," .
 		" CONVERT(DATE(datum), CHAR(50)) AS day " .
 		" FROM " . DB_TBL_PIVOFLOW .
 		" WHERE sn = '" . $sn ."'" .
-		" AND datum >= '" . $startDate . "'" .
+		" AND datum >= '" . $yesterday . "'" .
 		" AND datum <= '" . $endDate . "'" .
 		" GROUP BY day " .
 		" ORDER BY day ";
@@ -54,16 +67,21 @@ function getSnDailyHistoryData($connection, $startDate, $endDate, $sn) {
 		die('There was an error running the query [' . $db->error . ']');
 	}
 	
-	while($row2 = $result2->fetch_assoc()){	
-		$temp2 = [
-			"lin1" => (double) $row2['lin1'],
-			"lin2" => (double) $row2['lin2'],
-			"lin3" => (double) $row2['lin3'],
-			"lin4" => (double) $row2['lin4'],
-			"sumLines" => (double) $row2['lin1'] + $row2['lin2'] + $row2['lin3'] + $row2['lin4'],
-			"day" => $row2['day'],
-		];
-		$data2[] = $temp2;
+	while($row2 = $result2->fetch_assoc()) {
+		//removing line values from previous dates
+		if ($prevRow) {
+			$temp2 = [
+				"lin1" => (double) $row2['lin1'] - $prevRow['lin1'],
+				"lin2" => (double) $row2['lin2'] - $prevRow['lin2'],
+				"lin3" => (double) $row2['lin3'] - $prevRow['lin3'],
+				"lin4" => (double) $row2['lin4'] - $prevRow['lin4'],
+				"sumLines" => (double) ($row2['lin1'] - $prevRow['lin1']) + ($row2['lin2'] - $prevRow['lin2']) + ($row2['lin3'] - $prevRow['lin3']) + ($row2['lin4'] - $prevRow['lin4']),
+				"day" => $row2['day'],
+			];
+			$data2[] = $temp2;
+		}
+		
+		$prevRow = $row2;
 	}
 	
 	$result2->free();
