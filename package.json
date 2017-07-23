@@ -1,6 +1,6 @@
 {
   "name": "coolbeer",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "coolbeer dashboard application",
   "engines": {
     "npm": ">=3"

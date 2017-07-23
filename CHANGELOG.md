@@ -70,7 +70,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added TotalConsumptions for each shop on HomePage
 - Added ComparePage
 - Added SingleShopDetailedLineChart component
+
+
+## 2017-07-13 -- version 0.4.0
 - Added total consumption compare chart on compare page
+- Added new API method - consumptionByShops
+- Added header drop down menu (Compare 2 shops, Compare Consumption by Shops )
+- Added byShops, ConsumptionByShopsTable and ConsumptionByShopsChart
 
 
 ## TODO

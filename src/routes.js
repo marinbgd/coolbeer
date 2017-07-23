@@ -5,6 +5,7 @@ import App from './containers/App';
 import HomePage from './containers/Home/HomePage';
 import DemoPage from './components/Demo/Demo'; // eslint-disable-line import/no-named-as-default
 import ComparePage from './containers/ComparePage/ComparePage';
+import CompareByShopsPage from './containers/ByShops/ByShops';
 
 import AboutPage from './components/About/AboutPage';
 import NotFoundPage from './components/NotFound/NotFoundPage';
@@ -13,6 +14,7 @@ export default (
 	<Route path="/" component={App}>
 		<IndexRoute component={HomePage}/>
 		<Route path="compare" component={ComparePage}/>
+		<Route path="compareByShops" component={CompareByShopsPage}/>
 		<Route path="demo" component={DemoPage}/>
 		<Route path="about" component={AboutPage}/>
 		<Route path="*" component={NotFoundPage}/>

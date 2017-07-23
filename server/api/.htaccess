@@ -19,3 +19,4 @@ RewriteRule ^cities?$ cities.php [NC,L]
 RewriteRule ^shops?$ shops.php [NC,L]
 
 RewriteRule ^shopDetails?$ shopDetails.php [NC,L]
+RewriteRule ^consumptionByShops?$ consumptionByShops.php [NC,L]
