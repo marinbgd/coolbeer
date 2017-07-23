@@ -20,6 +20,7 @@ import {
 } from 'material-ui';
 
 import ShopsTable from '../../components/ShopsTable/ShopsTable';
+import ShopsLineChart from '../../components/Charts/ShopsLineChart/ShopsLineChart';
 import SingleShopDetailedLineChart from '../../components/Charts/SingleShopDetailedLineChart/SingleShopDetailedLineChart';
 
 import './ComparePage.scss';
@@ -171,6 +172,40 @@ class ComparePage extends React.Component {
 			);
 		}
 
+
+
+		let selectedShopsDetailsChart;
+		if (this.props.shopsDetails.isFetching) {
+			selectedShopsDetailsChart = progressLoader;
+		} else if (this.props.shopsDetails.items.length) {
+			selectedShopsDetailsChart = (
+				<section style={{overflow: 'hidden', position: 'relative'}}>
+					<h3 className="text-left color-blue p- pb0">Data visualization:</h3>
+					<Paper style={paperStyle} zDepth={2}>
+
+						<SelectField
+							style={{
+								textAlign: 'left',
+								float: 'right',
+								clear: 'right',
+							}}
+							floatingLabelText="Frequency"
+							value={this.props.selectedFrequency && this.props.selectedFrequency.value}
+							onChange={this.handleFrequencyChange.bind(this)}
+						>
+							{this.props.frequencies.map(freq => (
+								<MenuItem key={freq.value} value={freq.value} primaryText={freq.label}/>
+							))}
+						</SelectField>
+
+						<ShopsLineChart shops={this.props.shopsDetails.items} />
+					</Paper>
+				</section>
+			);
+		}
+
+
+
 		return (
 			<section className="relative">
 				<h2>Compare</h2>
@@ -196,6 +231,8 @@ class ComparePage extends React.Component {
 				{getShopsButton}
 
 				{dataTable}
+
+				{selectedShopsDetailsChart}
 
 				{dataCharts}
 

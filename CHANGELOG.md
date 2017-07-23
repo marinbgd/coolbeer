@@ -70,6 +70,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added TotalConsumptions for each shop on HomePage
 - Added ComparePage
 - Added SingleShopDetailedLineChart component
+- Added total consumption compare chart on compare page
 
 
 ## TODO
